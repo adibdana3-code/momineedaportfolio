@@ -144,7 +144,13 @@ export const projects = [
     cover: asset('hamra-1.webp'),
     hover: asset('hamra-2.webp'),
     hasModel: false,
-    gallery: [g('hamra-1.webp', 'Entrée'), g('hamra-2.webp', 'Hall'), g('hamra-6eme.webp', 'Vue')],
+    gallery: [
+      g('hamra-1.webp', 'Entrée'),
+      g('hamra-2.webp', 'Hall'),
+      g('hamra-6eme.webp', 'Vue'),
+      g('hamra-3.webp', 'Détail — mur végétal'),
+      g('hamra-4.webp', 'Détail'),
+    ],
   },
   {
     slug: 'cuisine',

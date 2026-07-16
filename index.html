@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Dana Adib — portfolio d'architecture. Espaces, matière et récit." />
+
+    <!-- SPA fallback GitHub Pages : restaure l'URL encodée par 404.html -->
+    <script type="text/javascript">
+      (function (l) {
+        if (l.search[1] === '/') {
+          var decoded = l.search
+            .slice(1)
+            .split('&')
+            .map(function (s) {
+              return s.replace(/~and~/g, '&');
+            })
+            .join('?');
+          window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash);
+        }
+      })(window.location);
+    </script>
+
+    <!-- Typographie : Instrument Serif (titres, italique) + Space Grotesk (UI) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>Dana Adib — Architecture</title>
+    <script type="module" crossorigin src="/momineedaportfolio/assets/index-DNzAhHmw.js"></script>
+    <link rel="stylesheet" crossorigin href="/momineedaportfolio/assets/index-C0vv0Wf1.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

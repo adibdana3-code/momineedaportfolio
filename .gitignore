@@ -1,0 +1,41 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Build output
+dist
+dist-ssr
+*.local
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor / OS
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+Thumbs.db
+
+# Fichiers sources lourds (non versionnés — assets bruts de travail)
+img-src
+*.af
+*.fbx
+# EXCEPTION : les modèles 3D du site sont nécessaires au build/déploiement
+!public/models/
+!public/models/*.fbx
+
+# Dossiers d'assets sources bruts (renders / PDF / CAO) — hors dépôt
+/PORTFOLIO/
+/s6/
+/public/3d/
+
+# Fichiers de travail lourds à la racine (XML gbXML, PDF source du CV…)
+/*.xml
+/*.pdf

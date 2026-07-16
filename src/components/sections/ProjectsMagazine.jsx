@@ -9,8 +9,9 @@ const ASPECTS = [
   'aspect-[3/2]', // P2 — villa (paysage)
   'aspect-[4/3]', // P3 — maison
   'aspect-[4/3]', // P4 — détails
-  'aspect-[4/3]', // P5 — hamra
-  'aspect-[3/2]', // P6 — cuisine (placeholder)
+  'aspect-[4/3]', // P5 — entrée de bureaux
+  'aspect-[3/2]', // P6 — cuisine
+  'aspect-[16/9]', // P7 — D.A.T. (hall large)
 ];
 
 /** Section projets « magazine » : features en alternance gauche/droite. */

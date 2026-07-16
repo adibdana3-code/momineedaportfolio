@@ -116,16 +116,16 @@ export const projects = [
       'Ausführungsdetails · Tischlerei'
     ),
     summary: tri(
-      "Détails d'enveloppe et de menuiserie — agence Pysall, Berlin.",
-      'Envelope and joinery details — Pysall office, Berlin.',
-      'Fassaden- und Tischlerdetails — Büro Pysall, Berlin.'
+      "Détails d'enveloppe et de menuiserie — stage en agence d'architecture, Berlin.",
+      'Envelope and joinery details — architecture office internship, Berlin.',
+      'Fassaden- und Tischlerdetails — Praktikum in einem Architekturbüro, Berlin.'
     ),
     color: 'butter',
-    cover: asset('pysall-detail.webp'),
-    hover: asset('pysall-detail.webp'), // dp-* déplacées vers la section Art
+    cover: asset('berlin-detail.webp'),
+    hover: asset('berlin-detail.webp'), // dp-* déplacées vers la section Art
     hasModel: false,
     // dp-1/2/3 retirées : elles inaugurent désormais la section « Art »
-    gallery: [g('pysall-detail.webp', 'Détail')],
+    gallery: [g('berlin-detail.webp', 'Détail')],
   },
   {
     slug: 'entree-de-bureaux',
@@ -170,6 +170,26 @@ export const projects = [
       g('cuisine-3.webp', 'Rendu'),
       g('cuisine-2.webp', 'Rendu'),
     ],
+  },
+  {
+    slug: 'dat',
+    num: '07',
+    category: 'architecture',
+    title: tri('D.A.T.'),
+    place: tri('Arabie Saoudite', 'Saudi Arabia', 'Saudi-Arabien'),
+    year: '2026',
+    typology: tri('Tertiaire · Immeuble mixte', 'Mixed-use · Office building', 'Mischnutzung · Bürogebäude'),
+    summary: tri(
+      "Immeuble tertiaire en Arabie Saoudite — halls d'accueil, commerces et espaces de bureaux, autour d'un vocabulaire de moucharabiehs.",
+      'A mixed-use office building in Saudi Arabia — reception lobbies, retail and workspaces built around a mashrabiya language.',
+      'Ein Bürogebäude in Saudi-Arabien — Empfangshallen, Handel und Büroflächen rund um eine Maschrabiyya-Sprache.'
+    ),
+    color: 'orange',
+    cover: asset('dat-1.webp'),
+    hover: asset('dat-2.webp'),
+    hasModel: false,
+    // Toutes les images « dat-* » du dossier images sont intégrées ici.
+    gallery: [g('dat-1.webp', 'Hall'), g('dat-2.webp', 'Vue'), g('dat-3.webp', 'Vue')],
   },
 
   // ──────────────────────── ART & EXPÉRIMENTATION ──────────────────────

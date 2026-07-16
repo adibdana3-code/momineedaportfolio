@@ -22,7 +22,7 @@ const JOBS = [
   ['PORTFOLIO/DAT/AA_FINAL MEME DA/1. Lobby entrée.jpg', 'dat-lobby'],
   ['PORTFOLIO/DAT/AA_FINAL MEME DA/3. Retail - shop fronts.jpg', 'dat-retail'],
   ['PORTFOLIO/DAT/AA_FINAL MEME DA/4. Office lobby.jpg', 'dat-office-lobby'],
-  ['PORTFOLIO/pysall détails porte/PF_000_A_05_DT_0_91_920_AA.jpg', 'pysall-detail'],
+  ['PORTFOLIO/details-berlin porte/PF_000_A_05_DT_0_91_920_AA.jpg', 'berlin-detail'],
 ];
 
 async function run() {

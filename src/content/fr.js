@@ -85,11 +85,11 @@ export const fr = {
       {
         id: 'proj-3',
         num: '03',
-        title: 'Pysall', // à confirmer
-        place: 'Berlin — Stage', // à confirmer
+        title: 'Détails',
+        place: 'Berlin — Stage',
         meta: "Détails d'enveloppe · Menuiserie",
         sketch: 'Détail · Élévation',
-        img: asset('img/projects/pysall-detail.webp'),
+        img: asset('img/projects/berlin-detail.webp'),
         layout: 'col-start-8 col-span-5',
         aspect: 'aspect-[4/3]',
         bg: 'bg-olive',

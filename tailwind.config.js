@@ -11,6 +11,8 @@ export default {
         acid: '#79C15A', // Vert acide
         orange: '#FF6B35', // Orange électrique
         butter: '#FDF395', // Jaune pâle
+        amaranth: '#933B5B', // Framboise sombre (section Contact)
+        chalk: '#E3D6BF', // Beige crème clair (texte sur fonds sombres)
       },
       fontFamily: {
         // Titres colossaux, serif italique expressif

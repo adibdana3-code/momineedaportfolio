@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   Design System — « Indie Art Zine & Pop Neo-Brutalism »
+   ============================================================ */
+:root {
+  --paper: #ffffff;
+  --ink: #0a0a0a;
+  --bubblegum: #e881b3;
+  --acid: #79c15a;
+  --orange: #ff6b35;
+  --butter: #fdf395;
+  --ease-cine: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  overflow-x: hidden;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Curseur système masqué (remplacé par le curseur personnalisé) sur pointeur fin */
+@media (pointer: fine) {
+  body,
+  body * {
+    cursor: none;
+  }
+}
+
+::selection {
+  background: var(--ink);
+  color: var(--butter);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Lenis smooth scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Défilement horizontal « propre » (utilisé par la section Art) :
+   axe Y verrouillé, seul X défile, sans barre visible. */
+.h-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+}
+.h-scroll::-webkit-scrollbar {
+  display: none; /* WebKit */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

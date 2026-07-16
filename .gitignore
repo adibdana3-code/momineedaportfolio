@@ -26,16 +26,19 @@ Thumbs.db
 # Fichiers sources lourds (non versionnés — assets bruts de travail)
 img-src
 *.af
-*.fbx
-# EXCEPTION : les modèles 3D du site sont nécessaires au build/déploiement
-!public/models/
-!public/models/*.fbx
+
+# FBX BRUTS à la racine uniquement. Les modèles 3D du site vivent dans
+# public/models/ et DOIVENT être versionnés ET déployés → on n'ignore QUE la
+# racine. (Un `*.fbx` global excluait public/models/*.fbx du déploiement gh-pages,
+# car gh-pages applique ce .gitignore lors du `git add`.)
+/*.fbx
 
 # Dossiers d'assets sources bruts (renders / PDF / CAO) — hors dépôt
 /PORTFOLIO/
 /s6/
 /public/3d/
 
-# Fichiers de travail lourds à la racine (XML gbXML, PDF source du CV…)
+# Fichiers de travail lourds à la racine : gbXML + PDF SOURCE du CV.
+# NB : ne PAS ignorer *.pdf globalement → public/cv-dana-adib.pdf doit se déployer.
 /*.xml
-/*.pdf
+/CV*.pdf

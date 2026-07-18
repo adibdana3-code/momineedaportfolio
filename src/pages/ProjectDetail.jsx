@@ -78,6 +78,38 @@ export default function ProjectDetail() {
         </p>
       </section>
 
+      {/* Article éditorial « magazine » : chapô + corps en colonnes + citation.
+          AR retombe sur FR (textes d'attente fournis en FR/EN/DE). */}
+      {project.article &&
+        (() => {
+          const a = project.article[lang] || project.article.FR;
+          if (!a) return null;
+          return (
+            <section className="mt-14 md:mt-20">
+              <p className="max-w-3xl font-serif text-[clamp(20px,2.6vw,34px)] italic leading-snug text-ink">
+                {a.lead}
+              </p>
+              <div className="mt-10 grid grid-cols-12 gap-8 md:gap-12">
+                <div className="col-span-12 font-sans text-[15px] leading-relaxed text-ink/80 md:col-span-7 md:columns-2 md:gap-10">
+                  {a.body.map((para, i) => (
+                    <p key={i} className="mb-4 break-inside-avoid">
+                      {para}
+                    </p>
+                  ))}
+                </div>
+                <aside className="col-span-12 md:col-span-5">
+                  <blockquote
+                    className="m-0 border-t-2 border-ink pt-6 font-serif text-[clamp(22px,3vw,40px)] italic leading-tight"
+                    style={{ color: COLOR_HEX[project.color] }}
+                  >
+                    « {a.quote} »
+                  </blockquote>
+                </aside>
+              </div>
+            </section>
+          );
+        })()}
+
       {/* Bloc 3D — viewer réel si un modèle existe, sinon placeholder doux */}
       {project.model3d ? (
         <section className="mt-10">

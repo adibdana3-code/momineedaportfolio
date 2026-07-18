@@ -6,12 +6,17 @@
    Design System — « Indie Art Zine & Pop Neo-Brutalism »
    ============================================================ */
 :root {
-  --paper: #ffffff;
-  --ink: #0a0a0a;
-  --bubblegum: #e881b3;
-  --acid: #79c15a;
-  --orange: #ff6b35;
-  --butter: #fdf395;
+  --paper: #e3d6bf; /* Chalk — fond principal */
+  --ink: #2c3a2e; /* Deep Forest — texte & lignes */
+  --amaranth: #933b5b; /* Accent & Contact */
+  --brookgreen: #aabaae;
+  --thulian: #b5728a;
+  --pomelo: #9f9679;
+  /* Anciens tokens remappés (voir tailwind.config.js) */
+  --bubblegum: #b5728a;
+  --acid: #aabaae;
+  --orange: #933b5b;
+  --butter: #9f9679;
   --ease-cine: cubic-bezier(0.76, 0, 0.24, 1);
 }
 
@@ -22,9 +27,25 @@ body {
   background: var(--paper);
   color: var(--ink);
   overflow-x: hidden;
-  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-family: 'Space Grotesk', 'IBM Plex Sans Arabic', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+/* ============================================================
+   Support RTL / Arabe
+   Le layout s'inverse automatiquement via dir="rtl" (posé sur <html>).
+   L'arabe étant cursif et sans casse, on neutralise trois traits
+   typographiques latins qui le rendraient illisible :
+   ============================================================ */
+html[lang='ar'] .uppercase {
+  text-transform: none; /* l'arabe n'a pas de majuscules */
+}
+html[lang='ar'] [class*='tracking-'] {
+  letter-spacing: normal; /* l'interlettrage casse les liaisons calligraphiques */
+}
+html[lang='ar'] .italic {
+  font-style: normal; /* pas d'italique en arabe (l'oblique synthétique est laide) */
 }
 
 /* Curseur système masqué (remplacé par le curseur personnalisé) sur pointeur fin */

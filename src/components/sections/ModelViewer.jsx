@@ -23,34 +23,49 @@ function useScrollRotation(ref, progress, enabled = true) {
   });
 }
 
-/** Maillage FBX (Villa, Cuisine…) — centré, mis à l'échelle, matériau natif. */
-function FBXModel({ url, progress, spin, dropGround }) {
+/**
+ * Maillage FBX (Villa, Cuisine…) — centré, mis à l'échelle.
+ * DA « maquette conceptuelle » : les matériaux natifs sont remplacés par une
+ * teinte UNIQUE (la couleur d'accent du projet). Le relief reste lisible grâce
+ * à l'éclairage (lumière-clé + ombres). `hideMeshes` retire du rendu les
+ * éléments de site parasites (cercle/terrain, barrière…) par nom.
+ */
+function FBXModel({ url, progress, spin, dropGround, hideMeshes, color = STONE }) {
   const fbx = useFBX(url);
   const ref = useRef();
   const scale = useMemo(() => {
     fbx.rotation.x = -Math.PI / 2; // FBX Revit en Z-up → redresse en Y-up (toit vers le haut)
     fbx.updateMatrixWorld(true); // world matrices à jour avant toute mesure de bbox
 
-    // On GARDE les matériaux/couleurs natifs du FBX. On force le double-face
-    // (faces d'export Revit souvent inversées) et on active la projection
-    // d'ombres portées mesh↔mesh (relief entre les volumes).
-    const meshes = [];
-    fbx.traverse((o) => {
-      if (o.isMesh) {
-        o.castShadow = true;
-        o.receiveShadow = true;
-        const mats = Array.isArray(o.material) ? o.material : [o.material];
-        mats.forEach((m) => {
-          if (m) m.side = THREE.DoubleSide;
-        });
-        meshes.push(o);
-      }
+    // Matériau « maquette » : couleur unie du projet, mate, double-face (les faces
+    // d'export Revit sont souvent inversées). Une seule instance partagée (perf).
+    const mat = new THREE.MeshStandardMaterial({
+      color: new THREE.Color(color),
+      roughness: 0.78,
+      metalness: 0,
+      side: THREE.DoubleSide,
     });
 
-    // Masquage du sol / plan de masse (ex. Maison résidentielle) : on repère le
-    // mesh dont l'empreinte au sol (X×Z) est la plus grande ET très plat (faible
-    // hauteur) → dalle/terrain qui force la caméra à dézoomer. Rendu invisible
-    // et exclu du cadrage pour recentrer sur l'architecture.
+    // Noms (sous-chaînes, insensibles à la casse) des meshes à retirer du rendu.
+    const hide = (hideMeshes || []).map((s) => s.toLowerCase());
+
+    const meshes = [];
+    fbx.traverse((o) => {
+      if (!o.isMesh) return;
+      const name = (o.name || '').toLowerCase();
+      if (hide.some((h) => name.includes(h))) {
+        o.visible = false; // ex. Maison : « Toposolid » (sol/cercle) + « Railing » (barrière)
+        return;
+      }
+      o.castShadow = true;
+      o.receiveShadow = true;
+      o.material = mat; // teinte unie du projet → lecture épurée du volume
+      meshes.push(o);
+    });
+
+    // Masquage automatique optionnel : mesh le plus plat à la plus grande
+    // empreinte X×Z → dalle/plan de masse. Complète `hideMeshes` quand on ne
+    // connaît pas les noms du modèle.
     if (dropGround && meshes.length > 1) {
       let ground = null;
       let groundArea = 0;
@@ -64,14 +79,10 @@ function FBXModel({ url, progress, spin, dropGround }) {
           ground = m;
         }
       }
-      if (ground) {
-        ground.visible = false;
-        // eslint-disable-next-line no-console
-        console.info('[ModelViewer] sol masqué :', ground.name || '(sans nom)');
-      }
+      if (ground) ground.visible = false;
     }
 
-    // Cadrage sur les meshes VISIBLES uniquement (sol exclu si masqué).
+    // Cadrage sur les meshes VISIBLES uniquement (site/sol exclus).
     const box = new THREE.Box3();
     let framed = false;
     for (const m of meshes) {
@@ -87,7 +98,7 @@ function FBXModel({ url, progress, spin, dropGround }) {
     fbx.position.sub(center);
     const maxDim = Math.max(size.x, size.y, size.z) || 1;
     return TARGET / maxDim;
-  }, [fbx, dropGround]);
+  }, [fbx, dropGround, hideMeshes, color]);
   // Le modèle vient de se monter (FBX chargé) → force R3F à (re)mesurer le canvas.
   useEffect(() => {
     window.dispatchEvent(new Event('resize'));
@@ -279,7 +290,14 @@ export default function ModelViewer({
           <directionalLight position={[-6, 4, -5]} intensity={0.5} color="#ffffff" />
           <Suspense fallback={null}>
             {type === 'fbx' ? (
-              <FBXModel url={url} progress={progress} spin={!interior} dropGround={dropGround} />
+              <FBXModel
+                url={url}
+                progress={progress}
+                spin={!interior}
+                dropGround={dropGround}
+                hideMeshes={scene?.hideMeshes}
+                color={color}
+              />
             ) : (
               <MassingModel url={url} color={color} progress={progress} spin={!interior} />
             )}

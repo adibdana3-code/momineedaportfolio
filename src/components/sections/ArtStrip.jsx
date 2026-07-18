@@ -21,6 +21,7 @@ const t = {
   FR: { title: 'Art & Expérimentation', hint: 'Glisser →', cartel: 'Travaux personnels — photographie & expérimentations' },
   EN: { title: 'Art & Experiments', hint: 'Drag →', cartel: 'Personal works — photography & experiments' },
   DE: { title: 'Kunst & Experimente', hint: 'Ziehen →', cartel: 'Eigene Arbeiten — Fotografie & Experimente' },
+  AR: { title: 'فنّ وتجريب', hint: '← اسحب', cartel: 'أعمال شخصية — تصوير وتجارب' },
 };
 
 export default function ArtStrip() {

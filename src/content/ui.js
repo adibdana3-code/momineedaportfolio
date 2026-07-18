@@ -19,7 +19,7 @@ export const ui = {
       architecture: 'Architecture',
       catArt: 'Art & Expérimentation',
     },
-    projects: { tag: '(Projets sélectionnés)', index: 'Index — 05' },
+    projects: { tag: '(Projets sélectionnés)', index: 'Index — 05', sommaire: 'Sommaire' },
     feature: { cta: 'Voir le projet →' },
     project: {
       back: '← Index',
@@ -48,7 +48,7 @@ export const ui = {
       architecture: 'Architecture',
       catArt: 'Art & Experiments',
     },
-    projects: { tag: '(Selected projects)', index: 'Index — 05' },
+    projects: { tag: '(Selected projects)', index: 'Index — 05', sommaire: 'Contents' },
     feature: { cta: 'View project →' },
     project: {
       back: '← Index',
@@ -77,7 +77,7 @@ export const ui = {
       architecture: 'Architektur',
       catArt: 'Kunst & Experimente',
     },
-    projects: { tag: '(Ausgewählte Projekte)', index: 'Index — 05' },
+    projects: { tag: '(Ausgewählte Projekte)', index: 'Index — 05', sommaire: 'Inhalt' },
     feature: { cta: 'Projekt ansehen →' },
     project: {
       back: '← Index',
@@ -91,6 +91,35 @@ export const ui = {
     },
     skills: 'Software',
     notFound: { text: 'Diese Seite existiert nicht', home: 'Zurück zur Startseite' },
+  },
+  AR: {
+    nav: { index: 'الفهرس', projets: 'المشاريع', studio: 'استوديو', contact: 'تواصل' },
+    menu: {
+      open: 'القائمة',
+      close: 'إغلاق',
+      sections: 'الأقسام',
+      home: 'الرئيسية',
+      projets: 'المشاريع',
+      art: 'فنّ وتجريب',
+      skills: 'البرامج',
+      contact: 'تواصل',
+      architecture: 'عمارة',
+      catArt: 'فنّ وتجريب',
+    },
+    projects: { tag: '(مشاريع مختارة)', index: 'الفهرس — 05', sommaire: 'الفهرس' },
+    feature: { cta: '← عرض المشروع' },
+    project: {
+      back: 'الفهرس →',
+      label: 'مشروع',
+      model: 'مجسّم ثلاثي الأبعاد',
+      modelSoon: 'تفاعلي قريبًا',
+      modelWait: 'بانتظار نموذج Revit / GLB',
+      scene: 'مشهد ثلاثي الأبعاد',
+      docs: 'مستندات وصور',
+      next: 'المشروع التالي',
+    },
+    skills: 'البرامج',
+    notFound: { text: 'هذه الصفحة غير موجودة', home: 'العودة إلى الرئيسية' },
   },
 };
 

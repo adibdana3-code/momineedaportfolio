@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { useLanguage } from '../../context/LanguageContext.jsx';
 import Magnetic from '../ui/Magnetic.jsx';
 
-const EMAIL = 'adibdana3@gmail.com';
+const EMAIL = 'dana.adib@cesmo.org';
 const INSTAGRAM = 'https://www.instagram.com/momineedaportfolio/';
 const CV_URL = `${import.meta.env.BASE_URL}cv-dana-adib.pdf`;
 
@@ -10,6 +10,7 @@ const t = {
   FR: { tag: '(Prenons contact)', title: 'Travaillons\nensemble', cv: 'CV (pdf)', cities: 'Paris · Berlin · Beyrouth' },
   EN: { tag: "(Let's talk)", title: "Let's work\ntogether", cv: 'CV (pdf)', cities: 'Paris · Berlin · Beirut' },
   DE: { tag: '(Kontakt)', title: 'Arbeiten wir\nzusammen', cv: 'CV (pdf)', cities: 'Paris · Berlin · Beirut' },
+  AR: { tag: '(لنتواصل)', title: 'لنعمل\nمعًا', cv: 'السيرة الذاتية (PDF)', cities: 'باريس · برلين · بيروت' },
 };
 
 /** Contact — bloc plein Amaranth (#933B5B), texte Chalk pour le contraste. */
@@ -45,25 +46,25 @@ export default function Contact() {
             {EMAIL}
           </a>
         </Magnetic>
-        <div className="flex gap-8">
-          <Magnetic strength={0.45}>
+        <div className="flex flex-wrap items-baseline gap-x-8 gap-y-2">
+          <Magnetic strength={0.4}>
             <a
               href={INSTAGRAM}
               target="_blank"
               rel="noreferrer"
               data-link
-              className="font-sans text-[11px] uppercase tracking-editorial text-chalk transition-opacity hover:opacity-60"
+              className="font-serif text-[clamp(22px,3vw,44px)] italic lowercase text-chalk underline decoration-2 underline-offset-4 transition-opacity hover:opacity-70"
             >
               Instagram
             </a>
           </Magnetic>
-          <Magnetic strength={0.45}>
+          <Magnetic strength={0.4}>
             <a
               href={CV_URL}
               target="_blank"
               rel="noreferrer"
               data-cursor="Ouvrir"
-              className="font-sans text-[11px] uppercase tracking-editorial text-chalk transition-opacity hover:opacity-60"
+              className="font-serif text-[clamp(22px,3vw,44px)] italic lowercase text-chalk underline decoration-2 underline-offset-4 transition-opacity hover:opacity-70"
             >
               {c.cv}
             </a>

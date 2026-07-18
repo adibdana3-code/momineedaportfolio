@@ -1,19 +1,19 @@
-import HeroZine from '../components/sections/HeroZine.jsx';
-import ProjectsMagazine from '../components/sections/ProjectsMagazine.jsx';
+import CoverHome from '../components/sections/CoverHome.jsx';
 import ArtStrip from '../components/sections/ArtStrip.jsx';
 import Skills from '../components/sections/Skills.jsx';
 import Contact from '../components/sections/Contact.jsx';
 
 /**
- * Accueil « zine ».
- * Ordre : Hero → Projets → Art (horizontal) → Logiciels → Contact.
- * Chaque projet mène à sa page dédiée (/projet/:slug).
+ * Accueil « Magazine Éditorial ».
+ * La page d'accueil est une COUVERTURE (CoverHome) : image de fond, masthead
+ * central bilingue, menu des projets à gauche. Plus de long défilement détaillant
+ * les projets (redondant avec les pages projet dédiées).
+ * Suivent : Art (horizontal), Logiciels, Contact.
  */
 export default function Home() {
   return (
     <>
-      <HeroZine />
-      <ProjectsMagazine />
+      <CoverHome />
       <ArtStrip />
       <Skills />
       <Contact />

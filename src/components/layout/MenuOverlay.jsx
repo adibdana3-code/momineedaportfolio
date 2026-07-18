@@ -117,9 +117,11 @@ export default function MenuOverlay({ open, onClose }) {
     }
   };
 
+  // « Projets » n'est plus une section de l'accueil (couverture) : les projets
+  // sont listés sur la couverture + dans les sous-menus ci-contre. On garde donc
+  // les ancres réellement présentes sur la page d'accueil.
   const sections = [
     { id: 'top', label: M.home },
-    { id: 'projets', label: M.projets },
     { id: 'art', label: M.art },
     { id: 'skills', label: M.skills },
     { id: 'contact', label: M.contact },

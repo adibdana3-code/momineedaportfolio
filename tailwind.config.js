@@ -4,21 +4,32 @@ export default {
   theme: {
     extend: {
       colors: {
-        // ——— DA « Indie Art Zine & Pop Neo-Brutalism » ———
-        paper: '#FFFFFF', // Blanc pur (respiration)
-        ink: '#0A0A0A', // Noir profond (texte, bordures)
-        bubblegum: '#E881B3', // Rose
-        acid: '#79C15A', // Vert acide
-        orange: '#FF6B35', // Orange électrique
-        butter: '#FDF395', // Jaune pâle
-        amaranth: '#933B5B', // Framboise sombre (section Contact)
-        chalk: '#E3D6BF', // Beige crème clair (texte sur fonds sombres)
+        // ——— DA « Magazine Éditorial / Pop Neo-Brutalism » ———
+        paper: '#E3D6BF', // Chalk — fond principal (crème minéral)
+        ink: '#2C3A2E', // Deep Forest — texte & lignes (vert anthracite)
+        amaranth: '#933B5B', // Amaranth — accent & Contact (framboise sombre)
+        brookgreen: '#AABAAE', // Brook Green — vert sauge clair
+        thulian: '#B5728A', // Thulian Pink — vieux rose
+        pomelo: '#9F9679', // Pomelo Olive — kaki clair
+        chalk: '#E3D6BF', // = paper (texte clair sur fonds sombres)
+        forest: '#2C3A2E', // = ink (alias sémantique)
+        // Anciens tokens « pop » REMAPPÉS vers la palette éditoriale : conserve la
+        // compatibilité de toutes les classes existantes (bg-orange, text-acid…)
+        // tout en adoptant les nouvelles couleurs. Nom conservé = zéro churn.
+        bubblegum: '#B5728A', // → Thulian
+        acid: '#AABAAE', // → Brook Green
+        orange: '#933B5B', // → Amaranth (accent UI : soulignés, survols)
+        butter: '#9F9679', // → Pomelo
       },
       fontFamily: {
-        // Titres colossaux, serif italique expressif
-        serif: ['"Instrument Serif"', 'Georgia', 'serif'],
-        // UI, micro-copie dense, grotesque géométrique
-        sans: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
+        // Titres display « magazine » (Playfair Display, regular + italic mêlés).
+        // Reem Kufi = pendant arabe (glyphes arabes en fallback → toujours Reem Kufi).
+        serif: ['"Playfair Display"', '"Reem Kufi"', 'Georgia', 'serif'],
+        // UI, micro-copie dense, grotesque géométrique.
+        // IBM Plex Sans Arabic = pendant arabe (fallback pour les glyphes arabes).
+        sans: ['"Space Grotesk"', '"IBM Plex Sans Arabic"', 'system-ui', 'sans-serif'],
+        // Arabe explicite (nom & titres) — Reem Kufi imposé par la DA.
+        kufi: ['"Reem Kufi"', 'sans-serif'],
       },
       letterSpacing: {
         editorial: '0.24em',

@@ -1,6 +1,6 @@
 import { Suspense, useEffect, useMemo, useRef, useState, Component } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { useFBX, OrbitControls } from '@react-three/drei';
+import { useFBX, useGLTF, OrbitControls } from '@react-three/drei';
 import { useScroll, useTransform } from 'framer-motion';
 import * as THREE from 'three';
 
@@ -107,6 +107,42 @@ function FBXModel({ url, progress, spin, dropGround, hideMeshes, color = STONE }
   return (
     <group ref={ref} scale={scale}>
       <primitive object={fbx} />
+    </group>
+  );
+}
+
+/**
+ * Modèle glTF/GLB (ex. bague Blender) — centré, mis à l'échelle.
+ * On CONSERVE les matériaux natifs (c'est le design de l'objet lui-même, pas une
+ * maquette d'architecture). Draco est décodé automatiquement par drei/useGLTF.
+ */
+function GLBModel({ url, progress, spin }) {
+  const gltf = useGLTF(url);
+  const ref = useRef();
+  const { obj, scale } = useMemo(() => {
+    const obj = gltf.scene.clone(true); // clone → pas de mutation du cache useGLTF
+    obj.traverse((o) => {
+      if (o.isMesh) {
+        o.castShadow = true;
+        o.receiveShadow = true;
+      }
+    });
+    const box = new THREE.Box3().setFromObject(obj);
+    const size = new THREE.Vector3();
+    const center = new THREE.Vector3();
+    box.getSize(size);
+    box.getCenter(center);
+    obj.position.sub(center); // recentre l'objet (glTF déjà Y-up, pas de rotation)
+    const maxDim = Math.max(size.x, size.y, size.z) || 1;
+    return { obj, scale: TARGET / maxDim };
+  }, [gltf]);
+  useScrollRotation(ref, progress, spin);
+  useEffect(() => {
+    window.dispatchEvent(new Event('resize'));
+  }, [obj]);
+  return (
+    <group ref={ref} scale={scale}>
+      <primitive object={obj} />
     </group>
   );
 }
@@ -298,6 +334,8 @@ export default function ModelViewer({
                 hideMeshes={scene?.hideMeshes}
                 color={color}
               />
+            ) : type === 'glb' ? (
+              <GLBModel url={url} progress={progress} spin={!interior} />
             ) : (
               <MassingModel url={url} color={color} progress={progress} spin={!interior} />
             )}

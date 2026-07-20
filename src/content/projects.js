@@ -258,6 +258,32 @@ export const projects = [
       g('photo-manuel-4.webp', 'Mode manuel'),
     ],
   },
+  {
+    slug: 'bague-blender',
+    num: '03',
+    category: 'art',
+    title: tri('Bague — design 3D', 'Ring — 3D design', 'Ring — 3D-Design', 'خاتم — تصميم ثلاثي الأبعاد'),
+    place: tri('Modélisation Blender', 'Blender modelling', 'Blender-Modellierung', 'نمذجة بـ Blender'),
+    year: '2026',
+    typology: tri(
+      "Design d'objet · Bijou 3D",
+      'Object design · 3D jewellery',
+      'Objektdesign · 3D-Schmuck',
+      'تصميم منتج · مجوهرات ثلاثية الأبعاد'
+    ),
+    summary: tri(
+      "Une bague modélisée sous Blender — passage de l'échelle du bâtiment à celle du bijou, explorée en 3D interactive.",
+      'A ring modelled in Blender — a shift from the scale of the building to that of jewellery, explored in interactive 3D.',
+      'Ein in Blender modellierter Ring — vom Maßstab des Gebäudes zu dem des Schmucks, interaktiv in 3D erkundet.',
+      'خاتم مُنمذج بـ Blender — انتقال من مقياس المبنى إلى مقياس المجوهرات، بتجربة ثلاثية الأبعاد تفاعلية.'
+    ),
+    color: 'bubblegum',
+    cover: null, // pas d'image : carte colorée dans la strip ; la 3D est le contenu de la page
+    hover: null,
+    hasModel: true,
+    model3d: { type: 'glb', url: model('bague.glb') },
+    gallery: [],
+  },
 ];
 
 /**
@@ -476,6 +502,32 @@ const ARTICLES = {
         "Weder ganz Fotografie noch ganz Zeichnung, nutzen diese Variationen die Küste als Feld grafischer Experimente.",
       ],
       quote: "Sehen heißt schon verwandeln.",
+    },
+  },
+  'bague-blender': {
+    FR: {
+      lead: "Changer d'échelle : après le bâtiment, la bague. L'objet explore la même attention à la matière et au volume, mais tient dans le creux de la main.",
+      body: [
+        "Modélisée sous Blender, la pièce joue des courbures continues et d'un rapport de pleins et de vides qui accroche la lumière comme le ferait une façade.",
+        "Le passage vers l'impression ou la fonte impose la précision du dessin 3D : chaque congé, chaque épaisseur y est déjà une décision de fabrication.",
+      ],
+      quote: "Un bijou, c'est de l'architecture portée sur soi.",
+    },
+    EN: {
+      lead: "A change of scale: after the building, the ring. The object explores the same attention to material and volume, yet fits in the palm of a hand.",
+      body: [
+        "Modelled in Blender, the piece plays on continuous curvatures and on a balance of solids and voids that catches the light as a façade would.",
+        "Moving towards printing or casting demands the precision of the 3D drawing: every fillet, every thickness is already a manufacturing decision.",
+      ],
+      quote: "A jewel is architecture worn on the body.",
+    },
+    DE: {
+      lead: "Ein Maßstabswechsel: nach dem Gebäude der Ring. Das Objekt erkundet dieselbe Aufmerksamkeit für Material und Volumen — und passt doch in eine Handfläche.",
+      body: [
+        "In Blender modelliert, spielt das Stück mit fließenden Krümmungen und einem Verhältnis von Massen und Leerräumen, das das Licht fängt wie eine Fassade.",
+        "Der Weg zum Druck oder Guss verlangt die Präzision der 3D-Zeichnung: jede Rundung, jede Stärke ist bereits eine Fertigungsentscheidung.",
+      ],
+      quote: "Ein Schmuckstück ist am Körper getragene Architektur.",
     },
   },
   'photographie-mode-manuel': {

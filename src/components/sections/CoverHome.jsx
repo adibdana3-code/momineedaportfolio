@@ -114,23 +114,6 @@ export default function CoverHome() {
                     </span>
                   </Link>
 
-                  {/* Vignette flottante (apparaît au survol, à droite du titre).
-                      La rotation vit sur le conteneur, le zoom de recadrage sur
-                      l'image → les deux transforms ne se marchent pas dessus. */}
-                  <span className="pointer-events-none absolute left-full top-1/2 z-20 ml-8 hidden -translate-y-1/2 lg:block">
-                    <span className="block h-20 w-28 -rotate-2 overflow-hidden border-2 border-paper opacity-0 shadow-brutalSm transition-all duration-500 ease-cine group-hover:rotate-0 group-hover:opacity-100">
-                      <img
-                        src={p.cover}
-                        alt=""
-                        aria-hidden
-                        className="h-full w-full object-cover"
-                        style={{
-                          transform: p.coverZoom ? `scale(${p.coverZoom})` : undefined,
-                          transformOrigin: p.coverOrigin || 'center',
-                        }}
-                      />
-                    </span>
-                  </span>
                 </li>
               );
             })}

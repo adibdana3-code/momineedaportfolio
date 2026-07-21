@@ -238,10 +238,8 @@ export const projects = [
     color: 'butter',
     cover: asset('berlin-detail.webp'),
     hover: asset('berlin-detail.webp'), // dp-* déplacées vers la section Art
-    // Le cartouche (title block) occupe la bande DROITE du plan : on zoome en
-    // ancrant à gauche pour ne montrer que le dessin sur la vignette.
-    coverZoom: 1.5,
-    coverOrigin: 'left center',
+    // Le cartouche (title block) a été rogné à la SOURCE (image recadrée à
+    // 1570px) → il n'apparaît nulle part, plus besoin de zoom CSS.
     hasModel: false,
     // dp-1/2/3 retirées : elles inaugurent désormais la section « Art »
     gallery: [g('berlin-detail.webp', 'Détail')],

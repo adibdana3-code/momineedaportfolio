@@ -97,7 +97,7 @@ export const projects = [
     gallery: [
       g('s6-pers1.webp', 'perspective'),
       g('s6-pers2.webp', 'perspective'),
-      g('s6-pers3.webp', 'perspective'),
+      g('s6-pers3.jpg', 'perspective'),
       g('s6-axo.webp', 'axo'),
       g('s6-coupe.webp', 'coupe'),
       g('s6-elev-est.webp', 'elevEst', 'md:col-span-8'), // grand
@@ -368,8 +368,8 @@ export const projects = [
     ),
     color: 'bubblegum',
     // Couverture = capture PDV 3/4 générée depuis le modèle 3D lui-même.
-    cover: asset('bague-cover.webp'),
-    hover: asset('bague-cover.webp'),
+    cover: asset('bague-cover.jpg'),
+    hover: asset('bague-cover.jpg'),
     hasModel: true,
     model3d: { type: 'glb', url: model('bague.glb') },
     gallery: [],
@@ -1002,7 +1002,7 @@ const CHAPTERS = {
         'Organisation der Räume',
         'تنظيم الفضاءات'
       ),
-      images: [g('s6-axo.webp', 'axo'), g('s6-pers3.webp', 'perspective')],
+      images: [g('s6-axo.webp', 'axo'), g('s6-pers3.jpg', 'perspective')],
       body: [
         tri(
           "Le rez-de-chaussée regroupe les vestiaires hommes et femmes, une grande salle de prise en charge individuelle, des sanitaires et un espace de détente ouvert sur le patio et sur le niveau supérieur, où se trouve la grande salle de yoga et d'activités de groupe.",
@@ -1156,6 +1156,15 @@ function buildChapters(p) {
 // Rattache article ET chapitres à chaque projet.
 projects.forEach((p) => {
   p.article = ARTICLES[p.slug] || null;
+
+  // Projets à « genèse » (logotypes) : la couverture est déjà révélée à la fin
+  // du récit, comme fusion des signes de référence — c'est la chute de
+  // l'article. On la retire donc du flux de galerie, sinon la même image
+  // apparaîtrait deux fois dans le défilement.
+  if (p.genesis && p.cover) {
+    p.gallery = (p.gallery || []).filter((item) => item.src !== p.cover);
+  }
+
   p.chapters = CHAPTERS[p.slug] || buildChapters(p);
   // Images déjà montrées dans les chapitres → retirées de la galerie de fin,
   // pour ne pas afficher deux fois le même document sur la page.

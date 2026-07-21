@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext.jsx';
@@ -8,6 +8,7 @@ import NotFound from './NotFound.jsx';
 import Magnetic from '../components/ui/Magnetic.jsx';
 import GenesisMark from '../components/ui/GenesisMarks.jsx';
 import ProjectChapters from '../components/sections/ProjectChapters.jsx';
+import Lightbox from '../components/ui/Lightbox.jsx';
 import { useDocumentMeta } from '../hooks/useDocumentMeta.jsx';
 
 // Le viewer 3D (Three.js) est lazy-loadé — ne charge que sur les pages projet.
@@ -33,7 +34,35 @@ export default function ProjectDetail() {
   // Sur slug inconnu on laisse NotFound poser son propre titre (`skip`).
   useDocumentMeta(project?.title[lang], { skip: !project });
 
+  // Index de l'image ouverte en Lightbox (null = modale fermée).
+  const [lbIndex, setLbIndex] = useState(null);
+
+  // Toutes les images de la page, DANS L'ORDRE DU DÉFILEMENT : d'abord celles
+  // réparties dans les chapitres, puis les documents de fin. C'est ce parcours
+  // que les flèches préc./suiv. suivent, pour que la modale reproduise la
+  // lecture de la page. Comme aucune image n'est affichée deux fois, `src`
+  // identifie de façon unique une position dans cette liste.
+  const lightboxItems = useMemo(() => {
+    if (!project) return [];
+    // La couverture des projets à genèse s'intercale entre les chapitres et les
+    // documents de fin — c'est sa position réelle dans la page.
+    const genesisCover =
+      project.genesis && project.cover
+        ? [{ src: project.cover, label: project.genesis.resultLabel }]
+        : [];
+    return [
+      ...(project.chapters || []).flatMap((c) => c.images || []),
+      ...genesisCover,
+      ...(project.restGallery || []),
+    ];
+  }, [project]);
+
   if (!project) return <NotFound />;
+
+  const openLightbox = (src) => {
+    const i = lightboxItems.findIndex((it) => it.src === src);
+    if (i !== -1) setLbIndex(i);
+  };
 
   const L = ui[lang] || ui.FR;
   const T = L.project;
@@ -47,7 +76,12 @@ export default function ProjectDetail() {
   const next = siblings[(sidx + 1) % siblings.length];
 
   return (
-    <article className="px-6 pb-24 pt-28 md:px-10">
+    // Fond BLANC pur, et non le beige `paper` du reste du site : la page projet
+    // est la « feuille » du magazine. Tout l'effet éditorial vient du contraste
+    // entre ce blanc, les colonnes de texte denses et les aplats colorés.
+    // `min-h-screen` : sur un projet court, le beige du Layout ne réapparaît
+    // pas sous l'article.
+    <article className="min-h-screen bg-white px-6 pb-24 pt-28 md:px-10">
       <Magnetic strength={0.4} className="self-start">
         <Link
           to="/"
@@ -84,6 +118,36 @@ export default function ProjectDetail() {
         </div>
       </header>
 
+      {/* Bloc 3D — PLACÉ EN TÊTE, juste après le titre : c'est la pièce la plus
+          impressionnante d'un projet et la seule qui se manipule, elle doit
+          être ce que le visiteur voit et attrape en arrivant. Viewer réel si un
+          modèle existe, sinon placeholder doux. */}
+      {project.model3d ? (
+        <section className="mt-10">
+          <Suspense fallback={<div className="aspect-[16/10] w-full animate-pulse bg-[#F3F1EA]" />}>
+            <ModelViewer
+              type={project.model3d.type}
+              url={project.model3d.url}
+              color={COLOR_HEX[project.color]}
+              scene={project.model3d.scene}
+              label={`${T.scene} · ${T.model}`}
+            />
+          </Suspense>
+        </section>
+      ) : project.hasModel ? (
+        <section className="mt-10 flex aspect-[16/10] flex-col items-center justify-center gap-3 bg-[#F3F1EA] text-center">
+          <span className="font-sans text-[11px] uppercase tracking-editorial text-orange">
+            {T.model}
+          </span>
+          <span className="font-serif text-[clamp(22px,3vw,40px)] italic text-ink">
+            {T.modelSoon}
+          </span>
+          <span className="font-sans text-[10px] uppercase tracking-editorial text-ink/50">
+            {T.modelWait}
+          </span>
+        </section>
+      ) : null}
+
       {/* Accroche colorée */}
       <section className={`mt-10 ${bg} px-6 py-16 md:px-12`}>
         <p className="max-w-2xl font-serif text-[clamp(22px,3.5vw,44px)] italic leading-tight text-ink">
@@ -110,6 +174,8 @@ export default function ProjectDetail() {
         draftLabel={T.draft}
         quote={(project.article?.[lang] || project.article?.FR)?.quote}
         quoteMarks={T.quoteMarks}
+        onImageClick={openLightbox}
+        zoomLabel={C.look}
       />
 
       {/* Genèse — signes de référence puis fusion (projets graphiques).
@@ -159,46 +225,25 @@ export default function ProjectDetail() {
                   {tr(G.resultLabel)}
                 </span>
                 {project.cover && (
-                  <img
-                    src={project.cover}
-                    alt={project.title[lang]}
-                    loading="lazy"
-                    className="mt-8 w-full max-w-[420px] object-contain"
-                  />
+                  <button
+                    type="button"
+                    data-cursor={C.look}
+                    onClick={() => openLightbox(project.cover)}
+                    aria-label={project.title[lang]}
+                    className="mt-8 block w-full max-w-[420px] cursor-none"
+                  >
+                    <img
+                      src={project.cover}
+                      alt={project.title[lang]}
+                      loading="lazy"
+                      className="w-full object-contain"
+                    />
+                  </button>
                 )}
               </div>
             </section>
           );
         })()}
-
-      {/* Bloc 3D — viewer réel si un modèle existe, sinon placeholder doux */}
-      {project.model3d ? (
-        <section className="mt-10">
-          <Suspense
-            fallback={<div className="aspect-[16/10] w-full animate-pulse bg-[#F3F1EA]" />}
-          >
-            <ModelViewer
-              type={project.model3d.type}
-              url={project.model3d.url}
-              color={COLOR_HEX[project.color]}
-              scene={project.model3d.scene}
-              label={`${T.scene} · ${T.model}`}
-            />
-          </Suspense>
-        </section>
-      ) : project.hasModel ? (
-        <section className="mt-10 flex aspect-[16/10] flex-col items-center justify-center gap-3 bg-[#F3F1EA] text-center">
-          <span className="font-sans text-[11px] uppercase tracking-editorial text-orange">
-            {T.model}
-          </span>
-          <span className="font-serif text-[clamp(22px,3vw,40px)] italic text-ink">
-            {T.modelSoon}
-          </span>
-          <span className="font-sans text-[10px] uppercase tracking-editorial text-ink/50">
-            {T.modelWait}
-          </span>
-        </section>
-      ) : null}
 
       {/* Galerie de fin — uniquement les documents NON déjà montrés dans les
           chapitres (`restGallery`), pour ne pas afficher deux fois la même
@@ -214,23 +259,32 @@ export default function ProjectDetail() {
               // `item.label` est un objet i18n { FR, EN, DE, AR } (voir projects.js).
               const caption = item.label[lang] || item.label.FR;
               return (
-              <figure key={item.src} className={`col-span-12 m-0 ${item.span || SPANS[i % SPANS.length]}`}>
-                <div className="overflow-hidden">
-                  <motion.img
-                    src={item.src}
-                    alt={`${project.title[lang]} — ${caption}`}
-                    loading="lazy"
-                    initial={{ opacity: 0, y: 48 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.15 }}
-                    transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
-                    className="w-full object-cover"
-                  />
-                </div>
-                <figcaption className="mt-3 font-sans text-[10px] uppercase tracking-editorial text-ink/50">
-                  {caption}
-                </figcaption>
-              </figure>
+                <figure
+                  key={item.src}
+                  className={`col-span-12 m-0 ${item.span || SPANS[i % SPANS.length]}`}
+                >
+                  <button
+                    type="button"
+                    data-cursor={C.look}
+                    onClick={() => openLightbox(item.src)}
+                    aria-label={`${project.title[lang]} — ${caption}`}
+                    className="block w-full cursor-none overflow-hidden"
+                  >
+                    <motion.img
+                      src={item.src}
+                      alt={`${project.title[lang]} — ${caption}`}
+                      loading="lazy"
+                      initial={{ opacity: 0, y: 48 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, amount: 0.15 }}
+                      transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
+                      className="w-full object-cover transition-transform duration-700 ease-cine hover:scale-[1.02]"
+                    />
+                  </button>
+                  <figcaption className="mt-3 font-sans text-[10px] uppercase tracking-editorial text-ink/50">
+                    {caption}
+                  </figcaption>
+                </figure>
               );
             })}
           </div>
@@ -252,6 +306,16 @@ export default function ProjectDetail() {
           </span>
         </Magnetic>
       </Link>
+
+      {/* Visionneuse plein écran — parcourt toutes les images de la page. */}
+      <Lightbox
+        items={lightboxItems}
+        index={lbIndex}
+        onIndexChange={setLbIndex}
+        onClose={() => setLbIndex(null)}
+        lang={lang}
+        labels={T.lightbox}
+      />
     </article>
   );
 }

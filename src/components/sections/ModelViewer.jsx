@@ -273,8 +273,37 @@ export default function ModelViewer({ type, url, color = '#0A0A0A', scene, label
   const camPos = scene?.camera ?? (interior ? [0, 0.15, radius] : [5, 3, 8]);
   const target = scene?.target ?? [0, 0, 0];
   const controls = interior
-    ? { enableZoom: false, enablePan: false, minDistance: radius, maxDistance: radius, rotateSpeed: -0.35 }
+    ? {
+        enableZoom: false,
+        enablePan: false,
+        minDistance: radius,
+        maxDistance: radius,
+        rotateSpeed: -0.35,
+      }
     : { enableZoom: true, enablePan: false, minDistance: 3, maxDistance: 16, rotateSpeed: 0.55 };
+
+  // Rendu à la demande DÈS QUE LE VIEWER SORT DE L'ÉCRAN.
+  //
+  // Le viewer est désormais en tête de page : sans cela, la scène (ombres 2048,
+  // dpr jusqu'à 2) continuerait de rendre en boucle pendant toute la lecture de
+  // l'article, bien après être sortie du champ.
+  //
+  // Pourquoi pas `frameloop="demand"` en permanence : la rotation du modèle est
+  // pilotée par le scroll dans `useScrollRotation` (via useFrame), avec une
+  // légère oscillation d'inactivité. En mode « demand » aucune frame n'est
+  // demandée au scroll → le modèle se figerait. On garde donc « always » tant
+  // qu'il est visible, et l'on bascule en « demand » sitôt qu'il ne l'est plus.
+  const [inView, setInView] = useState(true);
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') return undefined;
+    const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting), {
+      // marge : la scène est déjà à plein régime juste avant d'entrer dans le champ.
+      rootMargin: '200px 0px',
+    });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   // R3F ne mesure pas toujours son conteneur au montage (lazy + Suspense) :
   // un ResizeObserver force R3F à re-mesurer dès que le conteneur est dimensionné.
@@ -316,6 +345,7 @@ export default function ModelViewer({ type, url, color = '#0A0A0A', scene, label
       <SceneBoundary fallback={fallback}>
         <Canvas
           shadows
+          frameloop={inView ? 'always' : 'demand'}
           dpr={[1, 2]}
           camera={{ position: camPos, fov: interior ? 72 : 40 }}
           gl={{ alpha: true, antialias: true, preserveDrawingBuffer: true }}

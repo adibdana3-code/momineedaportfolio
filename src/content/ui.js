@@ -42,6 +42,13 @@ export const ui = {
       chMatiere: 'Matière & détail',
       // Mention affichée sous un chapitre encore rempli de faux texte.
       draft: 'Texte provisoire',
+      // Modale plein écran (voir ui/Lightbox.jsx).
+      lightbox: {
+        title: 'Visionneuse',
+        close: 'Fermer',
+        prev: 'Image précédente',
+        next: 'Image suivante',
+      },
     },
     skills: 'Logiciels',
     notFound: { text: "Cette page n'existe pas", home: "Retour à l'accueil" },
@@ -97,6 +104,12 @@ export const ui = {
       chProjet: 'The project',
       chMatiere: 'Material & detail',
       draft: 'Placeholder text',
+      lightbox: {
+        title: 'Viewer',
+        close: 'Close',
+        prev: 'Previous image',
+        next: 'Next image',
+      },
     },
     skills: 'Software',
     notFound: { text: "This page doesn't exist", home: 'Back to home' },
@@ -151,6 +164,12 @@ export const ui = {
       chProjet: 'Das Projekt',
       chMatiere: 'Material & Detail',
       draft: 'Platzhaltertext',
+      lightbox: {
+        title: 'Betrachter',
+        close: 'Schließen',
+        prev: 'Vorheriges Bild',
+        next: 'Nächstes Bild',
+      },
     },
     skills: 'Software',
     notFound: { text: 'Diese Seite existiert nicht', home: 'Zurück zur Startseite' },
@@ -205,6 +224,12 @@ export const ui = {
       chProjet: 'المشروع',
       chMatiere: 'المادة والتفصيل',
       draft: 'نص مؤقّت',
+      lightbox: {
+        title: 'العارض',
+        close: 'إغلاق',
+        prev: 'الصورة السابقة',
+        next: 'الصورة التالية',
+      },
     },
     skills: 'البرامج',
     notFound: { text: 'هذه الصفحة غير موجودة', home: 'العودة إلى الرئيسية' },

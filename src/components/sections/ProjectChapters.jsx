@@ -10,47 +10,70 @@ const reveal = {
   transition: { duration: 0.9, ease: EASE },
 };
 
+const captionOf = (item, lang) => item.label[lang] || item.label.FR;
+
+/**
+ * Une image de chapitre, cliquable (ouvre la Lightbox).
+ *
+ * DÉFINIE AU NIVEAU DU MODULE, et non dans `ChapterImages` : un composant
+ * déclaré dans le corps d'un autre change d'identité à chaque rendu, ce qui
+ * pousse React à démonter puis remonter tout le sous-arbre. Les images se
+ * redécodaient et rejouaient leur animation d'apparition à chaque ouverture ou
+ * fermeture de la modale.
+ *
+ * `button` plutôt que `div` : l'ouverture doit être atteignable au clavier
+ * (Tab + Entrée) autant qu'à la souris.
+ */
+function Figure({ item, lang, projectTitle, onImageClick, zoomLabel, className = '' }) {
+  const caption = captionOf(item, lang);
+  return (
+    <figure className={`m-0 ${className}`}>
+      <button
+        type="button"
+        data-cursor={zoomLabel}
+        onClick={() => onImageClick?.(item.src)}
+        aria-label={`${projectTitle} — ${caption}`}
+        className="block w-full cursor-none overflow-hidden"
+      >
+        <motion.img
+          {...reveal}
+          src={item.src}
+          alt={`${projectTitle} — ${caption}`}
+          loading="lazy"
+          className="w-full object-cover transition-transform duration-700 ease-cine hover:scale-[1.02]"
+        />
+      </button>
+      <figcaption className="mt-3 font-sans text-[10px] uppercase tracking-editorial text-ink/50">
+        {caption}
+      </figcaption>
+    </figure>
+  );
+}
+
 /**
  * Colonne d'images d'un chapitre — rythme « magazine » selon le nombre :
  *   1 image  → pleine largeur de la colonne ;
  *   2 images → une pleine, une décalée en retrait (asymétrie éditoriale) ;
  *   3+       → une pleine puis une grille à deux colonnes.
  */
-function ChapterImages({ images, lang, projectTitle }) {
+function ChapterImages({ images, lang, projectTitle, onImageClick, zoomLabel }) {
   if (!images?.length) return null;
 
-  const caption = (item) => item.label[lang] || item.label.FR;
-  const Figure = ({ item, className = '' }) => (
-    <figure className={`m-0 ${className}`}>
-      <div className="overflow-hidden">
-        <motion.img
-          {...reveal}
-          src={item.src}
-          alt={`${projectTitle} — ${caption(item)}`}
-          loading="lazy"
-          className="w-full object-cover"
-        />
-      </div>
-      <figcaption className="mt-3 font-sans text-[10px] uppercase tracking-editorial text-ink/50">
-        {caption(item)}
-      </figcaption>
-    </figure>
-  );
-
+  const shared = { lang, projectTitle, onImageClick, zoomLabel };
   const [first, ...rest] = images;
 
   return (
     <div className="flex flex-col gap-10">
-      <Figure item={first} />
+      <Figure item={first} {...shared} />
       {rest.length === 1 && (
         // Retrait volontaire : la seconde image ne s'aligne pas sur la première,
         // ce décalage crée la respiration typique d'une double-page.
-        <Figure item={rest[0]} className="w-full sm:w-[72%] sm:self-end" />
+        <Figure item={rest[0]} {...shared} className="w-full sm:w-[72%] sm:self-end" />
       )}
       {rest.length > 1 && (
         <div className="grid grid-cols-2 gap-6">
           {rest.map((item) => (
-            <Figure key={item.src} item={item} />
+            <Figure key={item.src} item={item} {...shared} />
           ))}
         </div>
       )}
@@ -80,6 +103,8 @@ export default function ProjectChapters({
   draftLabel,
   quote,
   quoteMarks = ['« ', ' »'],
+  onImageClick,
+  zoomLabel,
 }) {
   if (!chapters?.length) return null;
 
@@ -145,7 +170,13 @@ export default function ProjectChapters({
               {/* ── Colonne images ── */}
               {hasImages && (
                 <div className={`col-span-12 md:col-span-7 ${flip ? 'md:order-1' : 'md:order-2'}`}>
-                  <ChapterImages images={ch.images} lang={lang} projectTitle={projectTitle} />
+                  <ChapterImages
+                    images={ch.images}
+                    lang={lang}
+                    projectTitle={projectTitle}
+                    onImageClick={onImageClick}
+                    zoomLabel={zoomLabel}
+                  />
                 </div>
               )}
             </div>

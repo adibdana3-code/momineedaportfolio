@@ -307,11 +307,9 @@ export const projects = [
     cover: asset('tabouret-couv.webp'),
     hover: asset('tabouret-1.webp'), // survol A→B
     hasModel: false,
-    gallery: [
-      g('tabouret-1.webp', 'Vue'),
-      g('tabouret-2.webp', 'Vue'),
-      g('tabouret-3.webp', 'Vue'),
-    ],
+    // 2 photos distinctes : l'ancienne « tabouret-3 » était un doublon exact de
+    // « tabouret-1 » (même MD5) → retirée.
+    gallery: [g('tabouret-1.webp', 'Vue'), g('tabouret-2.webp', 'Vue')],
   },
 ];
 

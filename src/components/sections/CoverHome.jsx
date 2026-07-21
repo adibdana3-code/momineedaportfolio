@@ -43,7 +43,12 @@ export default function CoverHome() {
             alt=""
             aria-hidden
             className="absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-cine"
-            style={{ opacity: active === p.slug ? 1 : 0 }}
+            style={{
+              opacity: active === p.slug ? 1 : 0,
+              // `coverZoom` : recadrage optionnel (ex. masquer un cartouche de plan)
+              transform: p.coverZoom ? `scale(${p.coverZoom})` : undefined,
+              transformOrigin: p.coverOrigin || 'center',
+            }}
           />
         ))}
         {/* Voiles de lisibilité (Deep Forest) */}
@@ -62,8 +67,10 @@ export default function CoverHome() {
         {/* Masthead central bilingue */}
         <div className="flex flex-1 flex-col items-center justify-center py-10 text-center">
           <div className="flex flex-wrap items-baseline justify-center gap-x-6 gap-y-2">
-            <h1 className="m-0 font-serif text-[clamp(56px,10vw,168px)] font-semibold leading-[0.82] text-paper">
-              Dana <span className="italic font-normal">Adib</span>
+            {/* Nom en Regular, sans italique : « Dana » et « Adib » ont exactement
+                la même graisse et le même style. */}
+            <h1 className="m-0 font-serif text-[clamp(56px,10vw,168px)] font-normal leading-[0.82] text-paper">
+              Dana Adib
             </h1>
             <span
               dir="rtl"
@@ -107,14 +114,22 @@ export default function CoverHome() {
                     </span>
                   </Link>
 
-                  {/* Vignette flottante (apparaît au survol, à droite du titre) */}
+                  {/* Vignette flottante (apparaît au survol, à droite du titre).
+                      La rotation vit sur le conteneur, le zoom de recadrage sur
+                      l'image → les deux transforms ne se marchent pas dessus. */}
                   <span className="pointer-events-none absolute left-full top-1/2 z-20 ml-8 hidden -translate-y-1/2 lg:block">
-                    <img
-                      src={p.cover}
-                      alt=""
-                      aria-hidden
-                      className="h-20 w-28 -rotate-2 border-2 border-paper object-cover opacity-0 shadow-brutalSm transition-all duration-500 ease-cine group-hover:rotate-0 group-hover:opacity-100"
-                    />
+                    <span className="block h-20 w-28 -rotate-2 overflow-hidden border-2 border-paper opacity-0 shadow-brutalSm transition-all duration-500 ease-cine group-hover:rotate-0 group-hover:opacity-100">
+                      <img
+                        src={p.cover}
+                        alt=""
+                        aria-hidden
+                        className="h-full w-full object-cover"
+                        style={{
+                          transform: p.coverZoom ? `scale(${p.coverZoom})` : undefined,
+                          transformOrigin: p.coverOrigin || 'center',
+                        }}
+                      />
+                    </span>
                   </span>
                 </li>
               );

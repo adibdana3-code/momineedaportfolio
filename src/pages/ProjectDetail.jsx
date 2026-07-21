@@ -6,6 +6,7 @@ import { projects, getProject, COLOR_BG, COLOR_HEX } from '../content/projects.j
 import { ui } from '../content/ui.js';
 import NotFound from './NotFound.jsx';
 import Magnetic from '../components/ui/Magnetic.jsx';
+import GenesisMark from '../components/ui/GenesisMarks.jsx';
 
 // Le viewer 3D (Three.js) est lazy-loadé — ne charge que sur les pages projet.
 const ModelViewer = lazy(() => import('../components/sections/ModelViewer.jsx'));
@@ -105,6 +106,65 @@ export default function ProjectDetail() {
                     « {a.quote} »
                   </blockquote>
                 </aside>
+              </div>
+            </section>
+          );
+        })()}
+
+      {/* Genèse — signes de référence puis fusion (projets graphiques).
+          Les visuels de référence sont des placeholders SVG tant que Dana n'a
+          pas fourni les images réelles (crédit affiché sous chacun). */}
+      {project.genesis &&
+        (() => {
+          const G = project.genesis;
+          const tr = (o) => (o ? o[lang] || o.FR : '');
+          return (
+            <section className="mt-16 md:mt-24">
+              <span className="font-sans text-[11px] uppercase tracking-editorial text-ink/50">
+                {tr(G.title)}
+              </span>
+              <p className="mt-6 max-w-3xl font-serif text-[clamp(19px,2.4vw,30px)] italic leading-snug text-ink">
+                {tr(G.intro)}
+              </p>
+
+              {/* Les trois signes de référence */}
+              <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-3 md:gap-10">
+                {G.items.map((it) => (
+                  <figure key={it.key} className="m-0">
+                    <div
+                      className="flex aspect-[4/5] items-center justify-center border-2 border-ink/15 p-8"
+                      style={{ color: COLOR_HEX[project.color] }}
+                    >
+                      <GenesisMark name={it.key} className="h-full w-auto" />
+                    </div>
+                    <figcaption className="mt-3">
+                      <div className="font-sans text-[11px] uppercase tracking-editorial text-ink">
+                        {tr(it.label)}
+                      </div>
+                      <p className="mt-2 font-sans text-[13px] leading-relaxed text-ink/70">
+                        {tr(it.note)}
+                      </p>
+                      <p className="mt-2 font-sans text-[10px] leading-snug text-ink/40">
+                        {tr(G.credit)}
+                      </p>
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
+
+              {/* Fusion → le logotype final */}
+              <div className="mt-14 flex flex-col items-center border-t-2 border-ink pt-10">
+                <span className="font-sans text-[11px] uppercase tracking-editorial text-ink/50">
+                  {tr(G.resultLabel)}
+                </span>
+                {project.cover && (
+                  <img
+                    src={project.cover}
+                    alt={project.title[lang]}
+                    loading="lazy"
+                    className="mt-8 w-full max-w-[420px] object-contain"
+                  />
+                )}
               </div>
             </section>
           );

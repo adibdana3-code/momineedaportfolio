@@ -89,8 +89,43 @@ export const projects = [
     ],
   },
   {
-    slug: 'cuisine',
+    slug: 'rehabilitation-tourcoing',
     num: '03',
+    category: 'architecture',
+    title: tri(
+      'Réhabilitation — Tourcoing',
+      'Rehabilitation — Tourcoing',
+      'Sanierung — Tourcoing',
+      'إعادة تأهيل — توركوان'
+    ),
+    place: tri('Tourcoing', 'Tourcoing', 'Tourcoing', 'توركوان'),
+    year: '2025',
+    typology: tri(
+      'Réhabilitation urbaine · 195 logements',
+      'Urban rehabilitation · 195 dwellings',
+      'Stadtsanierung · 195 Wohnungen',
+      'إعادة تأهيل حضري · ١٩٥ مسكناً'
+    ),
+    summary: tri(
+      "Réhabilitation d'un îlot à Tourcoing — 195 logements, cœurs d'îlot désimperméabilisés et maquette physique comme outil de projet.",
+      'Rehabilitation of an urban block in Tourcoing — 195 dwellings, de-paved block cores and a physical model as a design tool.',
+      'Sanierung eines Blocks in Tourcoing — 195 Wohnungen, entsiegelte Blockinnenbereiche und ein physisches Modell als Entwurfswerkzeug.',
+      'إعادة تأهيل جزيرة عمرانية في توركوان — ١٩٥ مسكناً، وقلوب جزر مُزالة الإسمنت، ومجسّم مادي كأداة تصميم.'
+    ),
+    color: 'acid',
+    cover: asset('tourcoing-1.webp'), // 1re photo de la maquette physique (imposée)
+    hover: asset('tourcoing-2.webp'),
+    hasModel: false,
+    gallery: [
+      g('tourcoing-1.webp', 'Maquette physique'),
+      g('tourcoing-2.webp', 'Perspective'),
+      g('tourcoing-3.webp', 'Axonométrie programmatique'),
+      g('tourcoing-4.webp', 'Plan-masse & flux'),
+    ],
+  },
+  {
+    slug: 'cuisine',
+    num: '04',
     category: 'architecture',
     title: tri('Cuisine', 'Kitchen', 'Küche', 'مطبخ'),
     place: tri('Beyrouth', 'Beirut', 'Beirut', 'بيروت'),
@@ -103,8 +138,8 @@ export const projects = [
       'دراسة مطبخ — جولة غامرة بزاوية 360° من داخل الغرفة.'
     ),
     color: 'acid',
-    cover: asset('cuisine-1.webp'), // rendus réels intégrés (fondu A→B en grille)
-    hover: asset('cuisine-3.webp'),
+    cover: asset('cuisine-3.webp'), // vignette imposée : cuisine-3
+    hover: asset('cuisine-1.webp'),
     hasModel: true,
     // `scene.interior` : caméra placée DANS la géométrie → visite panoramique (voir ModelViewer)
     model3d: { type: 'fbx', url: model('kitchen.fbx'), scene: { interior: true } },
@@ -116,7 +151,7 @@ export const projects = [
   },
   {
     slug: 'villa-montagnes-liban',
-    num: '04',
+    num: '05',
     category: 'architecture',
     title: tri('Villa dans les montagnes', 'Villa in the Mountains', 'Villa in den Bergen', 'فيلا في الجبال'),
     place: tri('Liban', 'Lebanon', 'Libanon', 'لبنان'),
@@ -137,7 +172,7 @@ export const projects = [
   },
   {
     slug: 'dat',
-    num: '05',
+    num: '06',
     category: 'architecture',
     title: tri('D.A.T.', 'D.A.T.', 'D.A.T.', 'D.A.T.'),
     place: tri('Arabie Saoudite', 'Saudi Arabia', 'Saudi-Arabien', 'السعودية'),
@@ -158,7 +193,7 @@ export const projects = [
   },
   {
     slug: 'entree-de-bureaux',
-    num: '06',
+    num: '07',
     category: 'architecture',
     title: tri('Entrée de bureaux', 'Office entrance', 'Bürolobby', 'مدخل مكاتب'),
     place: tri('Beyrouth', 'Beirut', 'Beirut', 'بيروت'),
@@ -171,8 +206,8 @@ export const projects = [
       'تهيئة مدخل مكاتب — بهو استقبال ولوحات إرشادية ومواد، حول هوية العلامة.'
     ),
     color: 'bubblegum',
-    cover: asset('hamra-1.webp'),
-    hover: asset('hamra-2.webp'),
+    cover: asset('hamra-3.webp'), // vignette imposée : hamra-3
+    hover: asset('hamra-1.webp'),
     hasModel: false,
     gallery: [
       g('hamra-1.webp', 'Entrée'),
@@ -183,7 +218,7 @@ export const projects = [
   },
   {
     slug: 'details-berlin',
-    num: '07',
+    num: '08',
     category: 'architecture',
     title: tri('Détails', 'Details', 'Details', 'تفاصيل'),
     place: tri('Berlin', 'Berlin', 'Berlin', 'برلين'),
@@ -203,6 +238,10 @@ export const projects = [
     color: 'butter',
     cover: asset('berlin-detail.webp'),
     hover: asset('berlin-detail.webp'), // dp-* déplacées vers la section Art
+    // Le cartouche (title block) occupe la bande DROITE du plan : on zoome en
+    // ancrant à gauche pour ne montrer que le dessin sur la vignette.
+    coverZoom: 1.5,
+    coverOrigin: 'left center',
     hasModel: false,
     // dp-1/2/3 retirées : elles inaugurent désormais la section « Art »
     gallery: [g('berlin-detail.webp', 'Détail')],
@@ -278,8 +317,9 @@ export const projects = [
       'خاتم مُنمذج بـ Blender — انتقال من مقياس المبنى إلى مقياس المجوهرات، بتجربة ثلاثية الأبعاد تفاعلية.'
     ),
     color: 'bubblegum',
-    cover: null, // pas d'image : carte colorée dans la strip ; la 3D est le contenu de la page
-    hover: null,
+    // Couverture = capture PDV 3/4 générée depuis le modèle 3D lui-même.
+    cover: asset('bague-cover.webp'),
+    hover: asset('bague-cover.webp'),
     hasModel: true,
     model3d: { type: 'glb', url: model('bague.glb') },
     gallery: [],
@@ -310,6 +350,92 @@ export const projects = [
     // 2 photos distinctes : l'ancienne « tabouret-3 » était un doublon exact de
     // « tabouret-1 » (même MD5) → retirée.
     gallery: [g('tabouret-1.webp', 'Vue'), g('tabouret-2.webp', 'Vue')],
+  },
+  {
+    slug: 'logo-ajfl',
+    num: '05',
+    category: 'art',
+    title: tri('Logo AJFL', 'AJFL Logo', 'AJFL-Logo', 'شعار AJFL'),
+    place: tri(
+      'Association des Juristes Franco-Libanais',
+      'French-Lebanese Lawyers Association',
+      'Vereinigung franko-libanesischer Juristen',
+      'جمعية الحقوقيين الفرنسيين اللبنانيين'
+    ),
+    year: '2025',
+    typology: tri(
+      'Identité visuelle · Logotype',
+      'Visual identity · Logotype',
+      'Visuelle Identität · Logotype',
+      'هوية بصرية · شعار'
+    ),
+    summary: tri(
+      "Un logotype qui fait tenir trois symboles en une seule silhouette : la Tour Eiffel, le Cèdre du Liban et la Balance de la Justice.",
+      'A logotype holding three symbols in a single silhouette: the Eiffel Tower, the Cedar of Lebanon and the Scales of Justice.',
+      'Ein Logo, das drei Symbole in einer einzigen Silhouette vereint: Eiffelturm, Libanon-Zeder und Waage der Justitia.',
+      'شعار يجمع ثلاثة رموز في صورة ظلية واحدة: برج إيفل، وأرزة لبنان، وميزان العدالة.'
+    ),
+    color: 'acid',
+    cover: asset('logo-ajfl.webp'),
+    hover: asset('logo-ajfl.webp'),
+    hasModel: false,
+    gallery: [g('logo-ajfl.webp', 'Logotype')],
+    // Section « genèse » : les trois signes de référence puis leur fusion.
+    // ⚠️ Visuels de référence = placeholders SVG (voir ui/GenesisMarks.jsx).
+    genesis: {
+      title: tri('Genèse du logo', 'Genesis of the logo', 'Entstehung des Logos', 'نشأة الشعار'),
+      intro: tri(
+        "Trois signes, trois appartenances. Le logotype ne les juxtapose pas : il les emboîte, jusqu'à ce qu'on ne sache plus où finit l'un et où commence l'autre.",
+        'Three signs, three belongings. The logotype does not juxtapose them: it nests them, until one no longer knows where one ends and the next begins.',
+        'Drei Zeichen, drei Zugehörigkeiten. Das Logo stellt sie nicht nebeneinander, sondern verschränkt sie, bis man nicht mehr weiß, wo das eine endet und das andere beginnt.',
+        'ثلاثة رموز، ثلاثة انتماءات. لا يضعها الشعار جنباً إلى جنب، بل يُشابكها حتى لا يُعرف أين ينتهي أحدها ويبدأ الآخر.'
+      ),
+      items: [
+        {
+          key: 'eiffel',
+          label: tri('La Tour Eiffel', 'The Eiffel Tower', 'Der Eiffelturm', 'برج إيفل'),
+          note: tri(
+            'La France — structure et verticalité, ossature du logotype.',
+            'France — structure and verticality, the backbone of the logotype.',
+            'Frankreich — Struktur und Vertikalität, das Rückgrat des Logos.',
+            'فرنسا — البنية والارتفاع، هيكل الشعار.'
+          ),
+        },
+        {
+          key: 'cedar',
+          label: tri('Le Cèdre du Liban', 'The Cedar of Lebanon', 'Die Libanon-Zeder', 'أرزة لبنان'),
+          note: tri(
+            'Le Liban — étagement horizontal, qui vient coiffer la structure.',
+            'Lebanon — horizontal tiers, crowning the structure.',
+            'Libanon — horizontale Staffelung, die die Struktur krönt.',
+            'لبنان — تدرّج أفقي يتوّج البنية.'
+          ),
+        },
+        {
+          key: 'scales',
+          label: tri('La Balance de la Justice', 'The Scales of Justice', 'Die Waage der Justitia', 'ميزان العدالة'),
+          note: tri(
+            "Le droit — le fléau s'accroche à la première plateforme, plateaux en suspens.",
+            'The law — the beam hooks onto the first platform, pans in suspension.',
+            'Das Recht — der Waagebalken hängt sich an die erste Plattform, die Schalen schweben.',
+            'القانون — تتعلّق الذراع بالمنصّة الأولى، والكفّتان معلّقتان.'
+          ),
+        },
+      ],
+      // Crédit affiché sous CHAQUE visuel de référence.
+      credit: tri(
+        'Illustration de substitution — à remplacer par le visuel de référence et son crédit source.',
+        'Placeholder illustration — to be replaced by the reference image and its source credit.',
+        'Platzhalter-Illustration — durch das Referenzbild und seinen Quellennachweis zu ersetzen.',
+        'رسم بديل مؤقّت — يُستبدل بالصورة المرجعية ومصدرها.'
+      ),
+      resultLabel: tri(
+        'Fusion — le logotype AJFL',
+        'Fusion — the AJFL logotype',
+        'Fusion — das AJFL-Logo',
+        'الدمج — شعار AJFL'
+      ),
+    },
   },
 ];
 
@@ -348,6 +474,15 @@ const ARTICLES = {
       ],
       quote: "Stille als Baumaterial.",
     },
+    AR: {
+      lead: "في قلب باريس، يقترح «لو ويلنس روشفوكو» قوساً من الصمت: مكانٌ تصير فيه العمارة عنايةً، وينزل فيه الضوء من السماء ليضبط إيقاع الجسد.",
+      body: [
+        "ينتظم المشروع حول مقطع سخيّ. بحفر الكتلة، يتحرّر بئر ضوء زينيتي يغذّي المستويات السفلى ويقود الزائر نحو فضاءات الماء.",
+        "الغلاف، المتحفّظ من جهة الشارع، يتناقض مع الداخلية المشغولة للحمّامات. المواد — حجر فاتح، خشب، خرسانة مُلطّفة — تبحث عن صوتيات مكتومة وحرارة بصرية مهدّئة.",
+        "كل عتبة مُصمَّمة كانتقال حسّي: ننتقل من ضجيج المدينة إلى همس الماء عبر تتابع من فضاءات أكثر هدوءاً فأكثر.",
+      ],
+      quote: "أن نجعل من الصمت مادةً للبناء.",
+    },
   },
   'maison-residentielle-etude': {
     FR: {
@@ -373,6 +508,14 @@ const ARTICLES = {
         "Die in Revit erstellten Renderings dienen weniger der Verführung als der Prüfung: Materialien, Schlagschatten und Bildausschnitte werden getestet, bis das Projekt im Detail trägt.",
       ],
       quote: "Ein Haus zeichnen heißt, einen ganzen Tag schreiben.",
+    },
+    AR: {
+      lead: "تمرين دراسي صار بياناً منزلياً: يستكشف «المنزل السكني» كيف تسكن عائلةٌ الضوءَ بقدر ما تسكن الجدران.",
+      body: [
+        "يفصل المخطط بوضوح بين النهار والليل: قاعدة مفتوحة ونافذة تستقبل الحياة المشتركة، بينما ينطوي الطابق العلوي حول خصوصية الغرف.",
+        "الصور المُنتَجة عبر Revit لا تسعى إلى الإغراء بل إلى التحقّق: تُختبر المواد والظلال والتأطيرات حتى يصمد المشروع في تفاصيله.",
+      ],
+      quote: "أن ترسم منزلاً يعني أن تكتب يوماً بأكمله.",
     },
   },
   cuisine: {
@@ -400,6 +543,14 @@ const ARTICLES = {
       ],
       quote: "Die Küche bewohnen heißt, die Geste bewohnen.",
     },
+    AR: {
+      lead: "غرفةٌ من الحياة اليومية تُرفَع إلى مرتبة المشهد: يُزار هذا المطبخ من الداخل، بزاوية ٣٦٠°، كمن يدور حول نفسه في وسط الفضاء.",
+      body: [
+        "يبحث التصميم عن الاستمرارية: تشكّل أسطح العمل والخزائن والممرات خطاً واحداً يحيط بالمستخدم دون أن يحبسه.",
+        "يتيح المجسّم الغامر اختبار النسب الحقيقية — ارتفاع الأثاث، عرض الممرات — قبل أول قطعٍ للمواد.",
+      ],
+      quote: "أن تسكن المطبخ يعني أن تسكن الحركة.",
+    },
   },
   'villa-montagnes-liban': {
     FR: {
@@ -425,6 +576,14 @@ const ARTICLES = {
         "Das interaktive 3D-Modell macht die Volumen in ihrer Tiefe lesbar und zeigt, wie das flache Abendlicht die Fassaden formt.",
       ],
       quote: "Am Hang bauen heißt, mit etwas Größerem als man selbst komponieren.",
+    },
+    AR: {
+      lead: "مستقرّة في التضاريس اللبنانية، تفاوض الفيلا حضورها مع المنحدر: ترتكز، وتتمدّد، وتؤطّر المشهد بدل أن تهيمن عليه.",
+      body: [
+        "تمدّد الشرفات المتتابعة الغرفَ نحو الخارج وتحوّل الطوبوغرافيا إلى تتابع استعمالات: ننزل من صالة إلى حديقة كما ننزل الجبل.",
+        "يكشف المجسّم الثلاثي الأبعاد التفاعلي الكتلَ في سماكتها، ويُظهر كيف ينحت ضوء المساء المائل الواجهات.",
+      ],
+      quote: "البناء على منحدر قبولٌ بالتأليف مع ما هو أكبر منّا.",
     },
   },
   dat: {
@@ -452,6 +611,14 @@ const ARTICLES = {
       ],
       quote: "Die Maschrabiyya — oder wie man Licht bewohnt, ohne es zu erleiden.",
     },
+    AR: {
+      lead: "مبنى متعدّد الاستخدامات، يُخرج D.A.T. لقاءَ مقياس المكتب بمقياس الشارع، حول مفردات معاصرة للمشربية.",
+      body: [
+        "ترشّح الواجهة ضوء الصحراء: تحمي الشبكة المخرّمة من الحرارة، وترسم في الداخل هندسةً متحرّكة من الظلال.",
+        "تتراكم بهوات الاستقبال والمحلات وطوابق المكاتب ويجيب بعضها بعضاً؛ يبحث المشروع عن حضريّة عمودية لا عن مجرّد تكديس.",
+      ],
+      quote: "المشربية، أو كيف نسكن الضوء دون أن نحتمله.",
+    },
   },
   'entree-de-bureaux': {
     FR: {
@@ -477,6 +644,14 @@ const ARTICLES = {
         "Der Weg des Besuchers ist choreografiert: von der Tür bis zum Empfang bereiten jede Fläche und jedes Licht die Begegnung vor.",
       ],
       quote: "Ein Eingang ist ein gebauter Händedruck.",
+    },
+    AR: {
+      lead: "الصورة الأولى لشركة: يكثّف مدخل المكاتب هويةً كاملة في أمتار قليلة — أن يستقبل، وأن يوجّه، وأن يُبهر دون أن يُرهب.",
+      body: [
+        "يلعب البهو على المادة واللوحات الإرشادية لتثبيت أجواء؛ ويُدخل جدارٌ نباتي الحياةَ إلى عتبة العمل.",
+        "مسار الزائر مُصمَّم كرقصة: من الباب إلى الاستقبال، يهيّئ كل سطح وكل ضوء للقاء.",
+      ],
+      quote: "المدخل مصافحةٌ مبنيّة.",
     },
   },
   'details-berlin': {
@@ -504,6 +679,14 @@ const ARTICLES = {
       ],
       quote: "Das Detail ist kein Ornament: Es ist das eingelöste Versprechen der Zeichnung.",
     },
+    AR: {
+      lead: "بعيداً عن المنظورات الكبرى، يُلعب المشروع هنا على مقياس الميليمتر: تفاصيل الغلاف والنجارة التي تجعل العمارة تصمد — وتدوم.",
+      body: [
+        "كل عقدة إنشائية مشروع صغير بذاته: يُتفاوض فيها على الوصل والعزل وتصريف المياه وحركة الحرفي معاً.",
+        "أُنجزت خلال تدريب في مكتب معماري ببرلين، وتذكّر هذه التفاصيل بأن جودة المبنى تُقرأ أولاً فيما لا نكاد نراه.",
+      ],
+      quote: "التفصيل ليس زخرفاً: إنه وعد الرسم وقد تحقّق.",
+    },
   },
   'littoral-variations': {
     FR: {
@@ -529,6 +712,14 @@ const ARTICLES = {
         "Weder ganz Fotografie noch ganz Zeichnung, nutzen diese Variationen die Küste als Feld grafischer Experimente.",
       ],
       quote: "Sehen heißt schon verwandeln.",
+    },
+    AR: {
+      lead: "ساحل واحد، يُقرأ ثلاث مرات. تتساءل السلسلة عمّا يعنيه أن نرى، بتمرير الساحل عبر مرشّحات الكشف والهندسة والتنقيط.",
+      body: [
+        "تكشف كل معالجة طبقة مختلفة من الصورة: يبحث الخط عن الحدّ، وتعيد الهندسة تركيب المشهد، ويجعله التنقيط يهتزّ.",
+        "لا هي فوتوغرافيا تماماً ولا رسمٌ تماماً؛ تستعمل هذه التنويعات الساحلَ كأرض للتجريب البصري.",
+      ],
+      quote: "أن ننظر هو أن نحوّل سلفاً.",
     },
   },
   tabouret: {
@@ -556,6 +747,14 @@ const ARTICLES = {
       ],
       quote: "Ein Hocker ist der kürzeste Weg zwischen Körper und Boden.",
     },
+    AR: {
+      lead: "درجة أصغر في المقياس: المقعد. غرضٌ يومي مُختزَل إلى جوهره، يكثّف في بضع ركائز تفكيراً كاملاً في البنية والجسد.",
+      body: [
+        "يبحث التصميم عن التوازن الصحيح بين الخفّة والثبات: مادة تكفي للحمل، وفراغ يكفي كي لا يثقل.",
+        "المقعد المتواضع أرضُ تجريب أيضاً: تُختبر النسب والوصلات والمواد بالحجم الطبيعي، جاهزةً للورشة.",
+      ],
+      quote: "المقعد أقصر طريق بين الجسد والأرض.",
+    },
   },
   'bague-blender': {
     FR: {
@@ -582,6 +781,14 @@ const ARTICLES = {
       ],
       quote: "Ein Schmuckstück ist am Körper getragene Architektur.",
     },
+    AR: {
+      lead: "تغيير في المقياس: بعد المبنى، الخاتم. يستكشف الغرض العناية نفسها بالمادة والكتلة، لكنه يسع راحة اليد.",
+      body: [
+        "مُنمذجة في Blender، تلعب القطعة على انحناءات متّصلة وعلى علاقة بين المصمت والمفرّغ تلتقط الضوء كما تفعل الواجهة.",
+        "الانتقال إلى الطباعة أو السبك يفرض دقّة الرسم الثلاثي الأبعاد: كل تدوير وكل سماكة هي أصلاً قرار تصنيع.",
+      ],
+      quote: "المجوهرة عمارةٌ تُلبَس.",
+    },
   },
   'photographie-mode-manuel': {
     FR: {
@@ -607,6 +814,82 @@ const ARTICLES = {
         "Der manuelle Modus erzwingt Langsamkeit; er verwandelt die Aufnahme in eine geduldige, fast architektonische Beobachtung des Realen.",
       ],
       quote: "Manuell zu fotografieren heißt, den Blick wieder selbst in die Hand zu nehmen.",
+    },
+    AR: {
+      lead: "أربع صور، أربعة قرارات. وُلدت السلسلة من تمرين بسيط: ضبط كل شيء يدوياً، وتعلّم الضوء بدل احتماله.",
+      body: [
+        "الفتحة، السرعة، الحساسية: يصير كل معيار خياراً واعياً، وطريقةً لكتابة الزمن والعمق داخل الكادر.",
+        "يفرض الوضع اليدوي البطء؛ ويحوّل الالتقاط إلى ملاحظة صبورة، شبه معمارية، للواقع.",
+      ],
+      quote: "التصوير اليدوي استعادةٌ لليد على النظر.",
+    },
+  },
+  'rehabilitation-tourcoing': {
+    FR: {
+      lead: "Réhabiliter plutôt que démolir : à Tourcoing, le projet ouvre les cœurs d'îlot, désimperméabilise les sols et réinvente 195 logements dans un tissu déjà là.",
+      body: [
+        "La maquette physique a servi d'outil de projet autant que de représentation : c'est en manipulant les volumes de carton que se sont décidés les percements, les retraits et les continuités piétonnes.",
+        "L'axonométrie programmatique répartit une typologie très variée — du T1 au T5 — pour éviter l'uniformité sociale, tandis que le plan-masse organise les flux entre les deux cœurs d'îlot végétalisés.",
+      ],
+      quote: "Réhabiliter, c'est écrire dans les marges d'un texte déjà écrit.",
+    },
+    EN: {
+      lead: "Rehabilitating rather than demolishing: in Tourcoing, the project opens the block cores, de-paves the ground and reinvents 195 dwellings within a fabric already there.",
+      body: [
+        "The physical model served as a design tool as much as a representation: it was by handling the card volumes that the openings, setbacks and pedestrian continuities were decided.",
+        "The programmatic axonometry distributes a highly varied typology — from studios to five-room flats — to avoid social uniformity, while the site plan organises the flows between the two planted block cores.",
+      ],
+      quote: "To rehabilitate is to write in the margins of an already written text.",
+    },
+    DE: {
+      lead: "Sanieren statt abreißen: In Tourcoing öffnet das Projekt die Blockinnenbereiche, entsiegelt den Boden und erfindet 195 Wohnungen im Bestand neu.",
+      body: [
+        "Das physische Modell diente ebenso als Entwurfswerkzeug wie als Darstellung: Beim Bewegen der Kartonvolumen wurden Öffnungen, Rücksprünge und fußläufige Verbindungen entschieden.",
+        "Die programmatische Axonometrie verteilt eine sehr vielfältige Typologie — vom Ein- bis zum Fünfzimmer — um soziale Gleichförmigkeit zu vermeiden, während der Lageplan die Wege zwischen den beiden begrünten Blockinnenbereichen ordnet.",
+      ],
+      quote: "Sanieren heißt, an den Rändern eines bereits geschriebenen Textes zu schreiben.",
+    },
+    AR: {
+      lead: "إعادة التأهيل بدل الهدم: في توركوان، يفتح المشروع قلوب الجزر العمرانية، ويزيل الإسمنت عن الأرض، ويعيد ابتكار ١٩٥ مسكناً داخل نسيج قائم.",
+      body: [
+        "كان المجسّم المادي أداة تصميم بقدر ما كان وسيلة تمثيل: فبتحريك كتل الكرتون تقرّرت الفتحات والانكفاءات والاستمراريات المخصّصة للمشاة.",
+        "يوزّع الرسم الأكسونومتري البرنامجي تنويعة واسعة من الشقق تفادياً للتجانس الاجتماعي، بينما ينظّم المخطط العام الحركة بين قلبَي الجزيرتين المشجّرين.",
+      ],
+      quote: "إعادة التأهيل كتابةٌ على هوامش نصٍّ مكتوب سلفاً.",
+    },
+  },
+  'logo-ajfl': {
+    FR: {
+      lead: "Comment faire tenir deux pays et une profession dans un seul dessin ? Le logotype de l'AJFL répond par la superposition plutôt que par l'addition.",
+      body: [
+        "La Tour Eiffel fournit l'ossature verticale ; le Cèdre du Liban vient l'habiter en s'étageant à l'horizontale ; la Balance s'accroche à la première plateforme et met l'ensemble en équilibre.",
+        "Le trait reste volontairement dessiné à la main, presque hésitant : il évite l'effet d'emblème officiel et rappelle que l'association est d'abord une communauté de personnes.",
+      ],
+      quote: "Trois symboles, une seule silhouette.",
+    },
+    EN: {
+      lead: "How do you fit two countries and a profession into a single drawing? The AJFL logotype answers by superimposition rather than addition.",
+      body: [
+        "The Eiffel Tower provides the vertical backbone; the Cedar of Lebanon inhabits it, tiering horizontally; the Scales hook onto the first platform and bring the whole into balance.",
+        "The line remains deliberately hand-drawn, almost hesitant: it avoids the official-emblem effect and recalls that the association is first of all a community of people.",
+      ],
+      quote: "Three symbols, a single silhouette.",
+    },
+    DE: {
+      lead: "Wie bringt man zwei Länder und einen Berufsstand in eine einzige Zeichnung? Das AJFL-Logo antwortet mit Überlagerung statt Addition.",
+      body: [
+        "Der Eiffelturm liefert das vertikale Rückgrat; die Libanon-Zeder bewohnt es und staffelt sich horizontal; die Waage hängt sich an die erste Plattform und bringt das Ganze ins Gleichgewicht.",
+        "Die Linie bleibt bewusst handgezeichnet, fast zögernd: Sie vermeidet den Effekt eines offiziellen Emblems und erinnert daran, dass der Verein zuallererst eine Gemeinschaft von Menschen ist.",
+      ],
+      quote: "Drei Symbole, eine einzige Silhouette.",
+    },
+    AR: {
+      lead: "كيف نُدخل بلدين ومهنةً في رسم واحد؟ يجيب شعار AJFL بالتراكب لا بالجمع.",
+      body: [
+        "يمنح برج إيفل الهيكل العمودي؛ وتسكنه أرزة لبنان متدرّجةً أفقياً؛ ويتعلّق الميزان بالمنصّة الأولى فيضع الكل في توازن.",
+        "يبقى الخط مرسوماً باليد عن قصد، شبه متردّد: يتفادى أثر الشعار الرسمي ويذكّر بأن الجمعية هي أولاً جماعة من الأشخاص.",
+      ],
+      quote: "ثلاثة رموز، صورة ظلية واحدة.",
     },
   },
 };

@@ -2,6 +2,7 @@ import CoverHome from '../components/sections/CoverHome.jsx';
 import ArtStrip from '../components/sections/ArtStrip.jsx';
 import Skills from '../components/sections/Skills.jsx';
 import Contact from '../components/sections/Contact.jsx';
+import { useDocumentMeta } from '../hooks/useDocumentMeta.jsx';
 
 /**
  * Accueil « Magazine Éditorial ».
@@ -11,6 +12,7 @@ import Contact from '../components/sections/Contact.jsx';
  * Suivent : Art (horizontal), Logiciels, Contact.
  */
 export default function Home() {
+  useDocumentMeta();
   return (
     <>
       <CoverHome />

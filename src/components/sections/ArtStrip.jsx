@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext.jsx';
+import { ui } from '../../content/ui.js';
 import { artProjects } from '../../content/projects.js';
 import { COLOR_BG } from '../../content/projects.js';
 
@@ -27,6 +28,7 @@ const t = {
 export default function ArtStrip() {
   const { lang } = useLanguage();
   const c = t[lang] || t.FR;
+  const C = (ui[lang] || ui.FR).cursor;
   const ref = useRef(null);
   const drag = useRef({ active: false, startX: 0, startLeft: 0, moved: 0 });
 
@@ -74,7 +76,7 @@ export default function ArtStrip() {
             key={p.slug}
             to={`/projet/${p.slug}`}
             onClick={guardClick}
-            data-cursor="Voir"
+            data-cursor={C.view}
             draggable={false}
             className="group m-0 block flex-none"
             style={{ width: 340 }}

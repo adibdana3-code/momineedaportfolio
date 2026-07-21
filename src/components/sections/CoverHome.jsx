@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext.jsx';
+import { ui } from '../../content/ui.js';
 import { architectureProjects, COLOR_TEXT } from '../../content/projects.js';
 
 // Nom en arabe (Reem Kufi imposé par la DA), affiché en permanence sur la couverture.
@@ -30,6 +31,7 @@ const items = architectureProjects.filter((p) => p.cover);
 export default function CoverHome() {
   const { lang } = useLanguage();
   const c = t[lang] || t.FR;
+  const C = (ui[lang] || ui.FR).cursor;
   const [active, setActive] = useState(items[0]?.slug);
 
   return (
@@ -99,7 +101,7 @@ export default function CoverHome() {
                     to={`/projet/${p.slug}`}
                     onMouseEnter={() => setActive(p.slug)}
                     onFocus={() => setActive(p.slug)}
-                    data-cursor="Voir"
+                    data-cursor={C.view}
                     className="flex items-baseline gap-4 py-2"
                   >
                     <span className={`font-sans text-[10px] uppercase tracking-editorial ${on ? COLOR_TEXT[p.color] : 'text-paper/45'}`}>

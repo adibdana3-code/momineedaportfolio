@@ -21,6 +21,7 @@ const itemV = {
 /** Sous-menu déroulant d'une catégorie de projets (Architecture / Art). */
 function ProjectGroup({ label, items, defaultOpen, onNavigate }) {
   const { lang } = useLanguage();
+  const C = (ui[lang] || ui.FR).cursor;
   const [open, setOpen] = useState(defaultOpen);
   return (
     <div className="border-t border-ink/15 py-4">
@@ -55,7 +56,7 @@ function ProjectGroup({ label, items, defaultOpen, onNavigate }) {
                 <Link
                   to={`/projet/${p.slug}`}
                   onClick={onNavigate}
-                  data-cursor="Voir"
+                  data-cursor={C.view}
                   className="group flex items-baseline gap-3"
                 >
                   <span className={`font-sans text-[10px] uppercase tracking-editorial ${COLOR_TEXT[p.color]}`}>
@@ -83,7 +84,9 @@ function ProjectGroup({ label, items, defaultOpen, onNavigate }) {
  */
 export default function MenuOverlay({ open, onClose }) {
   const { lang, setLang } = useLanguage();
-  const M = (ui[lang] || ui.FR).menu;
+  const L = ui[lang] || ui.FR;
+  const M = L.menu;
+  const C = L.cursor;
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -157,7 +160,7 @@ export default function MenuOverlay({ open, onClose }) {
                         variants={itemV}
                         type="button"
                         onClick={() => goSection(s.id)}
-                        data-cursor="Aller"
+                        data-cursor={C.go}
                         className="block pb-[0.2em] font-serif text-[clamp(38px,7vw,84px)] italic leading-[0.98] tracking-tight text-ink transition-colors duration-300 hover:text-orange"
                       >
                         {s.label}

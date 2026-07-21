@@ -3,6 +3,8 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { useFBX, useGLTF, OrbitControls } from '@react-three/drei';
 import { useScroll, useTransform } from 'framer-motion';
 import * as THREE from 'three';
+import { useLanguage } from '../../context/LanguageContext.jsx';
+import { ui } from '../../content/ui.js';
 
 const TARGET = 5; // taille cible du modèle dans la scène
 const STONE = '#CBC7BC'; // matériau « maquette » neutre
@@ -251,13 +253,15 @@ class SceneBoundary extends Component {
  * @param {object} [scene] { interior?, camera?:[x,y,z], radius?, target?:[x,y,z], dropGround? }
  * @param {string} label  petit cartel
  */
-export default function ModelViewer({
-  type,
-  url,
-  color = '#0A0A0A',
-  scene,
-  label = 'Scène 3D',
-}) {
+export default function ModelViewer({ type, url, color = '#0A0A0A', scene, label }) {
+  // Cartels, indices d'interaction et libellés de curseur suivent la langue.
+  const { lang } = useLanguage();
+  const L = ui[lang] || ui.FR;
+  const V = L.viewer;
+  const C = L.cursor;
+  // Cartel par défaut traduit (la page projet en fournit un explicitement).
+  const cartel = label ?? L.project.scene;
+
   const wrapRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: wrapRef, offset: ['start end', 'end start'] });
   const progress = useTransform(scrollYProgress, [0, 1], [0, 1]);
@@ -289,22 +293,22 @@ export default function ModelViewer({
   const fallback = (
     <div className="flex h-full w-full items-center justify-center">
       <span className="font-serif text-[clamp(20px,3vw,34px)] italic text-ink/60">
-        Modèle indisponible
+        {V.unavailable}
       </span>
     </div>
   );
 
-  const hint = interior ? 'Glisser pour regarder · 360°' : 'Glisser pour tourner';
+  const hint = interior ? V.hintLook : V.hintTurn;
   const dropGround = !!scene?.dropGround;
 
   return (
     <div
       ref={wrapRef}
-      data-cursor={interior ? 'Regarder' : 'Tourner'}
+      data-cursor={interior ? C.look : C.turn}
       className="relative h-[56vh] min-h-[380px] w-full overflow-hidden bg-[#F3F1EA]"
     >
       <span className="pointer-events-none absolute left-4 top-4 z-10 font-sans text-[10px] uppercase tracking-editorial text-ink/50">
-        {label}
+        {cartel}
       </span>
       <span className="pointer-events-none absolute bottom-4 right-4 z-10 font-sans text-[10px] uppercase tracking-editorial text-ink/40">
         {hint}

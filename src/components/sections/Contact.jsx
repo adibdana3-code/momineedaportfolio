@@ -1,22 +1,26 @@
 import { motion } from 'framer-motion';
 import { useLanguage } from '../../context/LanguageContext.jsx';
+import { ui } from '../../content/ui.js';
 import Magnetic from '../ui/Magnetic.jsx';
 
 const EMAIL = 'dana.adib@cesmo.org';
 const INSTAGRAM = 'https://www.instagram.com/momineedaportfolio/';
 const CV_URL = `${import.meta.env.BASE_URL}cv-dana-adib.pdf`;
 
+// `instagram` : le nom de la plateforme est translittéré en arabe (إنستغرام),
+// usage courant en RTL — le lien, lui, reste évidemment identique.
 const t = {
-  FR: { tag: '(Prenons contact)', title: 'Travaillons\nensemble', cv: 'CV (pdf)', cities: 'Paris · Berlin · Beyrouth' },
-  EN: { tag: "(Let's talk)", title: "Let's work\ntogether", cv: 'CV (pdf)', cities: 'Paris · Berlin · Beirut' },
-  DE: { tag: '(Kontakt)', title: 'Arbeiten wir\nzusammen', cv: 'CV (pdf)', cities: 'Paris · Berlin · Beirut' },
-  AR: { tag: '(لنتواصل)', title: 'لنعمل\nمعًا', cv: 'السيرة الذاتية (PDF)', cities: 'باريس · برلين · بيروت' },
+  FR: { tag: '(Prenons contact)', title: 'Travaillons\nensemble', cv: 'CV (pdf)', instagram: 'Instagram', cities: 'Paris · Berlin · Beyrouth' },
+  EN: { tag: "(Let's talk)", title: "Let's work\ntogether", cv: 'CV (pdf)', instagram: 'Instagram', cities: 'Paris · Berlin · Beirut' },
+  DE: { tag: '(Kontakt)', title: 'Arbeiten wir\nzusammen', cv: 'CV (pdf)', instagram: 'Instagram', cities: 'Paris · Berlin · Beirut' },
+  AR: { tag: '(لنتواصل)', title: 'لنعمل\nمعًا', cv: 'السيرة الذاتية (PDF)', instagram: 'إنستغرام', cities: 'باريس · برلين · بيروت' },
 };
 
 /** Contact — bloc plein Amaranth (#933B5B), texte Chalk pour le contraste. */
 export default function Contact() {
   const { lang } = useLanguage();
   const c = t[lang] || t.FR;
+  const C = (ui[lang] || ui.FR).cursor;
 
   return (
     <footer id="contact" className="border-t-2 border-ink bg-amaranth px-6 py-24 text-chalk md:px-10 md:py-32">
@@ -40,7 +44,7 @@ export default function Contact() {
         <Magnetic strength={0.3}>
           <a
             href={`mailto:${EMAIL}`}
-            data-cursor="Écrire"
+            data-cursor={C.write}
             className="font-serif text-[clamp(22px,3.4vw,48px)] italic lowercase text-chalk underline decoration-2 underline-offset-4 transition-opacity hover:opacity-70"
           >
             {EMAIL}
@@ -55,7 +59,7 @@ export default function Contact() {
               data-link
               className="font-serif text-[clamp(22px,3vw,44px)] italic lowercase text-chalk underline decoration-2 underline-offset-4 transition-opacity hover:opacity-70"
             >
-              Instagram
+              {c.instagram}
             </a>
           </Magnetic>
           <Magnetic strength={0.4}>
@@ -63,7 +67,7 @@ export default function Contact() {
               href={CV_URL}
               target="_blank"
               rel="noreferrer"
-              data-cursor="Ouvrir"
+              data-cursor={C.open}
               className="font-serif text-[clamp(22px,3vw,44px)] italic lowercase text-chalk underline decoration-2 underline-offset-4 transition-opacity hover:opacity-70"
             >
               {c.cv}

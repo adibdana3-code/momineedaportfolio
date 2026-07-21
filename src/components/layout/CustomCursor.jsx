@@ -1,5 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { useLanguage } from '../../context/LanguageContext.jsx';
+import { ui } from '../../content/ui.js';
 
 /**
  * Curseur personnalisé « cinématique ».
@@ -8,13 +10,24 @@ import { motion, useMotionValue, useSpring } from 'framer-motion';
  * n'importe quel fond, donc reste visible partout (blanc, noir, rose, vert…).
  *
  * États : point plein (défaut) · anneau moyen (liens) · grand anneau + label
- * (éléments [data-cursor], le label venant de l'attribut, défaut « Découvrir »).
+ * (éléments [data-cursor], le label venant de l'attribut).
+ *
+ * MULTILINGUE : les composants posent déjà un `data-cursor` TRADUIT (les
+ * libellés viennent de `ui[lang].cursor`). Deux précautions ici :
+ *   1. le repli quand l'attribut est vide suit la langue courante ;
+ *   2. si l'utilisateur change de langue ALORS QU'IL SURVOLE un élément, le
+ *      label affiché serait figé dans l'ancienne langue (il n'est relu qu'au
+ *      `mouseover`) → on garde une référence sur l'élément survolé et on relit
+ *      son attribut à chaque changement de langue.
  *
  * NB : on utilise `data-cursor` (et NON `data-discover`) car React Router
  * injecte lui-même un `data-discover="true"` sur chaque <Link> — la collision
  * faisait apparaître « true » dans le curseur.
  */
 export default function CustomCursor() {
+  const { lang } = useLanguage();
+  const C = (ui[lang] || ui.FR).cursor;
+
   const x = useMotionValue(-100);
   const y = useMotionValue(-100);
   const cfg = { damping: 30, stiffness: 260, mass: 0.55 };
@@ -22,8 +35,16 @@ export default function CustomCursor() {
   const sy = useSpring(y, cfg);
 
   const [mode, setMode] = useState('default'); // 'default' | 'link' | 'discover'
-  const [label, setLabel] = useState('Découvrir');
+  const [label, setLabel] = useState(C.discover);
   const [enabled, setEnabled] = useState(false);
+
+  // Dernier élément [data-cursor] survolé — sert à relire son libellé traduit
+  // quand la langue change sans que la souris ne bouge.
+  const hovered = useRef(null);
+  // Repli de libellé toujours à jour, sans réabonner les écouteurs à chaque
+  // changement de langue.
+  const fallback = useRef(C.discover);
+  fallback.current = C.discover;
 
   useEffect(() => {
     if (!window.matchMedia || !window.matchMedia('(pointer: fine)').matches) return;
@@ -36,10 +57,12 @@ export default function CustomCursor() {
     const over = (e) => {
       const cursorEl = e.target.closest?.('[data-cursor]');
       if (cursorEl) {
+        hovered.current = cursorEl;
         setMode('discover');
-        setLabel(cursorEl.getAttribute('data-cursor') || 'Découvrir');
+        setLabel(cursorEl.getAttribute('data-cursor') || fallback.current);
         return;
       }
+      hovered.current = null;
       if (e.target.closest?.('a, button, [data-link]')) {
         setMode('link');
         return;
@@ -54,6 +77,15 @@ export default function CustomCursor() {
       document.removeEventListener('mouseover', over);
     };
   }, [x, y]);
+
+  // Traduction « à chaud » : au changement de langue, on relit l'attribut de
+  // l'élément encore survolé (React l'a déjà re-rendu avec le libellé traduit).
+  // Hors survol, on remet le libellé par défaut dans la nouvelle langue — sans
+  // quoi le tout premier survol afficherait encore la langue précédente.
+  useEffect(() => {
+    const el = hovered.current;
+    setLabel(el?.isConnected ? el.getAttribute('data-cursor') || C.discover : C.discover);
+  }, [lang, C.discover]);
 
   if (!enabled) return null;
 

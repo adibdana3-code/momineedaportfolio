@@ -1,11 +1,14 @@
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext.jsx';
 import { ui } from '../content/ui.js';
+import { useDocumentMeta } from '../hooks/useDocumentMeta.jsx';
 
 /** Page 404 (routage React Router — distincte du 404.html GitHub Pages). */
 export default function NotFound() {
   const { lang } = useLanguage();
-  const T = (ui[lang] || ui.FR).notFound;
+  const L = ui[lang] || ui.FR;
+  const T = L.notFound;
+  useDocumentMeta(L.doc.notFound);
   return (
     <section className="flex min-h-screen flex-col items-center justify-center gap-6 px-6 text-center">
       <h1 className="font-serif text-[clamp(80px,20vw,260px)] italic leading-none text-ink">

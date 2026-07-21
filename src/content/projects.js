@@ -12,12 +12,59 @@
  *
  * ⚠️ Projet Hamra : métadonnées à CONFIRMER par Dana.
  */
+import { ui } from './ui.js';
+
 const asset = (p) => `${import.meta.env.BASE_URL}img/projects/${p}`;
 const model = (p) => `${import.meta.env.BASE_URL}models/${p}`;
 // i18n : 4 langues. AR (arabe) retombe sur FR si non fourni → aucune casse.
 const tri = (fr, en, de, ar) => ({ FR: fr, EN: en ?? fr, DE: de ?? fr, AR: ar ?? fr });
-// span optionnel = classe de largeur desktop de la vignette dans la galerie
-const g = (file, label, span) => ({ src: asset(file), label, span });
+
+/**
+ * Légendes des documents de galerie (le cartel sous chaque image de la page
+ * projet). Elles étaient auparavant écrites en dur en français : elles sont
+ * désormais traduites dans les quatre langues, comme le reste du site.
+ * Le vocabulaire est mutualisé — « Perspective », « Rendu », « Vue »…
+ * reviennent dans plusieurs projets.
+ */
+const GL = {
+  perspective: tri('Perspective', 'Perspective', 'Perspektive', 'منظور'),
+  axo: tri('Axonométrie', 'Axonometry', 'Axonometrie', 'رسم أكسونومتري'),
+  axoProg: tri(
+    'Axonométrie programmatique',
+    'Programmatic axonometry',
+    'Programmatische Axonometrie',
+    'رسم أكسونومتري برنامجي'
+  ),
+  coupe: tri('Coupe', 'Section', 'Schnitt', 'مقطع'),
+  elevEst: tri('Élévation est', 'East elevation', 'Ostansicht', 'واجهة شرقية'),
+  elevSud: tri('Élévation sud', 'South elevation', 'Südansicht', 'واجهة جنوبية'),
+  elevNord: tri('Élévation nord', 'North elevation', 'Nordansicht', 'واجهة شمالية'),
+  elevOuest: tri('Élévation ouest', 'West elevation', 'Westansicht', 'واجهة غربية'),
+  planRdc: tri('Plan RDC', 'Ground floor plan', 'Grundriss EG', 'مخطط الطابق الأرضي'),
+  planR1: tri('Plan R+1', 'First floor plan', 'Grundriss 1. OG', 'مخطط الطابق الأول'),
+  planMasse: tri('Plan-masse & flux', 'Site plan & flows', 'Lageplan & Wege', 'مخطط عام وحركة'),
+  rendu: tri('Rendu', 'Render', 'Rendering', 'صورة تصييرية'),
+  vue: tri('Vue', 'View', 'Ansicht', 'منظر'),
+  maquette: tri('Maquette physique', 'Physical model', 'Physisches Modell', 'مجسّم مادي'),
+  hall: tri('Hall', 'Lobby', 'Halle', 'بهو'),
+  entree: tri('Entrée', 'Entrance', 'Eingang', 'مدخل'),
+  detail: tri('Détail', 'Detail', 'Detail', 'تفصيل'),
+  detailMurVegetal: tri(
+    'Détail — mur végétal',
+    'Detail — green wall',
+    'Detail — begrünte Wand',
+    'تفصيل — جدار نباتي'
+  ),
+  logotype: tri('Logotype', 'Logotype', 'Logotype', 'شعار'),
+  detection: tri('Détection', 'Detection', 'Erkennung', 'كشف'),
+  geometrie: tri('Géométrie', 'Geometry', 'Geometrie', 'هندسة'),
+  trame: tri('Trame', 'Halftone', 'Raster', 'تنقيط'),
+  modeManuel: tri('Mode manuel', 'Manual mode', 'Manueller Modus', 'وضع يدوي'),
+};
+
+// span optionnel = classe de largeur desktop de la vignette dans la galerie.
+// `key` renvoie à une entrée de GL ci-dessus → légende traduite.
+const g = (file, key, span) => ({ src: asset(file), label: GL[key], span });
 
 export const projects = [
   // ─────────────────────────── ARCHITECTURE ───────────────────────────
@@ -30,12 +77,17 @@ export const projects = [
     title: tri('Le Wellness Rochefoucauld', 'Le Wellness Rochefoucauld', 'Le Wellness Rochefoucauld', 'ويلنس روشفوكو'),
     place: tri('Paris', 'Paris', 'Paris', 'باريس'),
     year: '2026',
-    typology: tri('Bien-être · Spa urbain', 'Wellness · Urban spa', 'Wellness · Stadt-Spa', 'عافية · سبا حضري'),
+    typology: tri(
+      'Bien-être · Centre & logement',
+      'Wellness · Centre & dwelling',
+      'Wellness · Zentrum & Wohnung',
+      'عافية · مركز ومسكن'
+    ),
     summary: tri(
-      "Un lieu de soin et de silence au cœur de Paris — travail sur la coupe, la lumière zénithale et l'enveloppe.",
-      'A place of care and silence in the heart of Paris — a study of section, zenithal light and envelope.',
-      'Ein Ort der Pflege und Stille im Herzen von Paris — eine Studie über Schnitt, Zenitlicht und Gebäudehülle.',
-      'مكان للعناية والصمت في قلب باريس — دراسة في المقطع والضوء الزينيتي والغلاف.'
+      "Un centre de bien-être holistique dans le XIVe arrondissement de Paris — soin, nature et intériorité, autour d'un patio qui relie la terre au ciel.",
+      'A holistic wellness centre in the 14th arrondissement of Paris — care, nature and interiority, around a patio connecting earth to sky.',
+      'Ein ganzheitliches Wellnesszentrum im 14. Arrondissement von Paris — Pflege, Natur und Innerlichkeit rund um einen Patio, der Erde und Himmel verbindet.',
+      'مركز عافية شمولي في الدائرة الرابعة عشرة بباريس — عناية وطبيعة وباطن، حول فناء يصل الأرض بالسماء.'
     ),
     color: 'bubblegum',
     cover: asset('s6-pers1.webp'),
@@ -43,15 +95,15 @@ export const projects = [
     hasModel: true,
     model3d: { type: 'fbx', url: model('wellness.fbx') },
     gallery: [
-      g('s6-pers1.webp', 'Perspective'),
-      g('s6-pers2.webp', 'Perspective'),
-      g('s6-pers3.webp', 'Perspective'),
-      g('s6-axo.webp', 'Axonométrie'),
-      g('s6-coupe.webp', 'Coupe'),
-      g('s6-elev-est.webp', 'Élévation est', 'md:col-span-8'), // grand
-      g('s6-elev-sud.webp', 'Élévation sud', 'md:col-span-4'), // petit
-      g('s6-elev-nord.webp', 'Élévation nord'),
-      g('s6-elev-ouest.webp', 'Élévation ouest'),
+      g('s6-pers1.webp', 'perspective'),
+      g('s6-pers2.webp', 'perspective'),
+      g('s6-pers3.webp', 'perspective'),
+      g('s6-axo.webp', 'axo'),
+      g('s6-coupe.webp', 'coupe'),
+      g('s6-elev-est.webp', 'elevEst', 'md:col-span-8'), // grand
+      g('s6-elev-sud.webp', 'elevSud', 'md:col-span-4'), // petit
+      g('s6-elev-nord.webp', 'elevNord'),
+      g('s6-elev-ouest.webp', 'elevOuest'),
     ],
   },
   {
@@ -77,15 +129,15 @@ export const projects = [
     model3d: { type: 'fbx', url: model('maison.fbx'), scene: { hideMeshes: ['Toposolid', 'Railing'] } },
     gallery: [
       // Plans juste sous la 3D (côte à côte) pour une meilleure lecture
-      g('maison-ind-plan-rdc.webp', 'Plan RDC', 'md:col-span-6'),
-      g('maison-ind-plan-r1.webp', 'Plan R+1', 'md:col-span-6'),
-      g('maison-ind-rend-5.webp', 'Rendu'),
-      g('maison-ind-rend-1.webp', 'Rendu'),
-      g('maison-ind-rend-2.webp', 'Rendu'),
-      g('maison-ind-rend-3.webp', 'Rendu'),
-      g('maison-ind-rend-4.webp', 'Rendu'),
-      g('maison-ind-1.webp', 'Vue'),
-      g('maison-ind-2.webp', 'Vue'),
+      g('maison-ind-plan-rdc.webp', 'planRdc', 'md:col-span-6'),
+      g('maison-ind-plan-r1.webp', 'planR1', 'md:col-span-6'),
+      g('maison-ind-rend-5.webp', 'rendu'),
+      g('maison-ind-rend-1.webp', 'rendu'),
+      g('maison-ind-rend-2.webp', 'rendu'),
+      g('maison-ind-rend-3.webp', 'rendu'),
+      g('maison-ind-rend-4.webp', 'rendu'),
+      g('maison-ind-1.webp', 'vue'),
+      g('maison-ind-2.webp', 'vue'),
     ],
   },
   {
@@ -117,10 +169,10 @@ export const projects = [
     hover: asset('tourcoing-2.webp'),
     hasModel: false,
     gallery: [
-      g('tourcoing-1.webp', 'Maquette physique'),
-      g('tourcoing-2.webp', 'Perspective'),
-      g('tourcoing-3.webp', 'Axonométrie programmatique'),
-      g('tourcoing-4.webp', 'Plan-masse & flux'),
+      g('tourcoing-1.webp', 'maquette'),
+      g('tourcoing-2.webp', 'perspective'),
+      g('tourcoing-3.webp', 'axoProg'),
+      g('tourcoing-4.webp', 'planMasse'),
     ],
   },
   {
@@ -144,9 +196,9 @@ export const projects = [
     // `scene.interior` : caméra placée DANS la géométrie → visite panoramique (voir ModelViewer)
     model3d: { type: 'fbx', url: model('kitchen.fbx'), scene: { interior: true } },
     gallery: [
-      g('cuisine-1.webp', 'Rendu'),
-      g('cuisine-3.webp', 'Rendu'),
-      g('cuisine-2.webp', 'Rendu'),
+      g('cuisine-1.webp', 'rendu'),
+      g('cuisine-3.webp', 'rendu'),
+      g('cuisine-2.webp', 'rendu'),
     ],
   },
   {
@@ -168,7 +220,7 @@ export const projects = [
     hover: asset('villa-fond.webp'),
     hasModel: true,
     model3d: { type: 'fbx', url: model('villa.fbx') },
-    gallery: [g('villa-fond.webp', 'Vue')],
+    gallery: [g('villa-fond.webp', 'vue')],
   },
   {
     slug: 'dat',
@@ -189,7 +241,7 @@ export const projects = [
     hover: asset('dat-2.webp'),
     hasModel: false,
     // Toutes les images « dat-* » du dossier images sont intégrées ici.
-    gallery: [g('dat-1.webp', 'Hall'), g('dat-2.webp', 'Vue'), g('dat-3.webp', 'Vue')],
+    gallery: [g('dat-1.webp', 'hall'), g('dat-2.webp', 'vue'), g('dat-3.webp', 'vue')],
   },
   {
     slug: 'entree-de-bureaux',
@@ -210,10 +262,10 @@ export const projects = [
     hover: asset('hamra-1.webp'),
     hasModel: false,
     gallery: [
-      g('hamra-1.webp', 'Entrée'),
-      g('hamra-2.webp', 'Hall'),
-      g('hamra-3.webp', 'Détail — mur végétal'),
-      g('hamra-4.webp', 'Détail'),
+      g('hamra-1.webp', 'entree'),
+      g('hamra-2.webp', 'hall'),
+      g('hamra-3.webp', 'detailMurVegetal'),
+      g('hamra-4.webp', 'detail'),
     ],
   },
   {
@@ -242,7 +294,7 @@ export const projects = [
     // 1570px) → il n'apparaît nulle part, plus besoin de zoom CSS.
     hasModel: false,
     // dp-1/2/3 retirées : elles inaugurent désormais la section « Art »
-    gallery: [g('berlin-detail.webp', 'Détail')],
+    gallery: [g('berlin-detail.webp', 'detail')],
   },
 
   // ──────────────────────── ART & EXPÉRIMENTATION ──────────────────────
@@ -265,9 +317,9 @@ export const projects = [
     hover: asset('dp-2.webp'),
     hasModel: false,
     gallery: [
-      g('dp-1.webp', 'Détection'),
-      g('dp-2.webp', 'Géométrie'),
-      g('dp-3.webp', 'Trame'),
+      g('dp-1.webp', 'detection'),
+      g('dp-2.webp', 'geometrie'),
+      g('dp-3.webp', 'trame'),
     ],
   },
   {
@@ -289,10 +341,10 @@ export const projects = [
     hover: asset('photo-manuel-1.webp'),
     hasModel: false,
     gallery: [
-      g('photo-manuel-1.webp', 'Mode manuel'),
-      g('photo-manuel-2.webp', 'Mode manuel'),
-      g('photo-manuel-3.webp', 'Mode manuel'),
-      g('photo-manuel-4.webp', 'Mode manuel'),
+      g('photo-manuel-1.webp', 'modeManuel'),
+      g('photo-manuel-2.webp', 'modeManuel'),
+      g('photo-manuel-3.webp', 'modeManuel'),
+      g('photo-manuel-4.webp', 'modeManuel'),
     ],
   },
   {
@@ -351,7 +403,7 @@ export const projects = [
     model3d: { type: 'glb', url: model('tabouret.glb'), scene: { forceColor: true } },
     // 2 photos distinctes : l'ancienne « tabouret-3 » était un doublon exact de
     // « tabouret-1 » (même MD5) → retirée.
-    gallery: [g('tabouret-1.webp', 'Vue'), g('tabouret-2.webp', 'Vue')],
+    gallery: [g('tabouret-1.webp', 'vue'), g('tabouret-2.webp', 'vue')],
   },
   {
     slug: 'logo-ajfl',
@@ -381,7 +433,7 @@ export const projects = [
     cover: asset('logo-ajfl.webp'),
     hover: asset('logo-ajfl.webp'),
     hasModel: false,
-    gallery: [g('logo-ajfl.webp', 'Logotype')],
+    gallery: [g('logo-ajfl.webp', 'logotype')],
     // Section « genèse » : les trois signes de référence puis leur fusion.
     // ⚠️ Visuels de référence = placeholders SVG (voir ui/GenesisMarks.jsx).
     genesis: {
@@ -448,42 +500,28 @@ export const projects = [
  * (AR non fourni ici → repli sur FR côté rendu ; Dana n'a demandé que 3 langues.)
  */
 const ARTICLES = {
+  // Wellness : chapô + citation. Le corps du texte est découpé en CHAPITRES
+  // (voir CHAPTERS ci-dessous) — d'où un `body` vide ici.
   'wellness-rochefoucauld': {
     FR: {
-      lead: "Au cœur de Paris, Le Wellness Rochefoucauld propose une parenthèse de silence : un lieu où l'architecture se fait soin, et où la lumière descend du ciel pour rythmer le corps.",
-      body: [
-        "Le projet s'organise autour d'une coupe généreuse. En creusant le volume, on libère un puits de lumière zénithale qui irrigue les niveaux inférieurs et guide le visiteur vers les espaces d'eau.",
-        "L'enveloppe, sobre depuis la rue, contraste avec l'intériorité travaillée des bains. Les matériaux — pierre claire, bois, béton adouci — cherchent une acoustique feutrée et une température visuelle apaisante.",
-        "Chaque seuil est pensé comme une transition sensorielle : on passe du bruit de la ville au murmure de l'eau par une séquence d'espaces de plus en plus calmes.",
-      ],
-      quote: "Faire du silence un matériau de projet.",
+      lead: "Situé dans le XIVe arrondissement de Paris, sur le site de l'ancien hôpital de la Rochefoucauld, ce centre de bien-être a été pensé pour un couple de praticiens formés à la kinésithérapie, dont l'approche du soin s'est élargie vers une pratique plus somatique : consultations individuelles, yoga, méditation guidée, massages et thérapies corporelles globales. Le programme répond à un double besoin : une activité en rez-de-chaussée, et un logement aux étages supérieurs.",
+      body: [],
+      quote: "Le patio relie la terre au ciel à travers tout le bâtiment.",
     },
     EN: {
-      lead: "In the heart of Paris, Le Wellness Rochefoucauld offers a parenthesis of silence: a place where architecture becomes care, and where light falls from above to set the rhythm of the body.",
-      body: [
-        "The project is organised around a generous section. Carving into the volume releases a shaft of zenithal light that feeds the lower levels and leads visitors towards the water spaces.",
-        "Restrained from the street, the envelope contrasts with the crafted interiority of the baths. The materials — pale stone, wood, softened concrete — seek a muffled acoustic and a soothing visual temperature.",
-        "Each threshold is conceived as a sensory transition: one moves from the city's noise to the murmur of water through a sequence of increasingly calm spaces.",
-      ],
-      quote: "Turning silence into a building material.",
+      lead: 'Located in the 14th arrondissement of Paris, on the site of the former Rochefoucauld hospital, this wellness centre was designed for a couple of practitioners trained in physiotherapy, whose approach to care has broadened towards a more somatic practice: individual consultations, yoga, guided meditation, massage and whole-body therapies. The brief answers a twofold need: a practice on the ground floor, and a dwelling on the upper levels.',
+      body: [],
+      quote: 'The patio connects earth to sky through the entire building.',
     },
     DE: {
-      lead: "Im Herzen von Paris bietet Le Wellness Rochefoucauld eine Klammer der Stille: ein Ort, an dem Architektur zur Pflege wird und Licht von oben den Rhythmus des Körpers vorgibt.",
-      body: [
-        "Das Projekt ist um einen großzügigen Schnitt organisiert. Das Aushöhlen des Volumens öffnet einen Schacht aus Zenitlicht, der die unteren Ebenen versorgt und die Besucher zu den Wasserräumen führt.",
-        "Von der Straße zurückhaltend, kontrastiert die Hülle mit der sorgfältig gestalteten Innerlichkeit der Bäder. Die Materialien — heller Stein, Holz, geglätteter Beton — suchen eine gedämpfte Akustik und eine beruhigende visuelle Temperatur.",
-        "Jede Schwelle ist als sinnlicher Übergang gedacht: Vom Lärm der Stadt gelangt man durch eine Folge zunehmend ruhiger Räume zum Murmeln des Wassers.",
-      ],
-      quote: "Stille als Baumaterial.",
+      lead: 'Im 14. Arrondissement von Paris, auf dem Gelände des ehemaligen Krankenhauses La Rochefoucauld, entstand dieses Wellnesszentrum für ein Therapeutenpaar mit physiotherapeutischer Ausbildung, dessen Verständnis von Pflege sich zu einer stärker somatischen Praxis erweitert hat: Einzelkonsultationen, Yoga, geführte Meditation, Massagen und ganzheitliche Körpertherapien. Das Programm beantwortet einen doppelten Bedarf: eine Praxis im Erdgeschoss und eine Wohnung in den Obergeschossen.',
+      body: [],
+      quote: 'Der Patio verbindet Erde und Himmel durch das gesamte Gebäude.',
     },
     AR: {
-      lead: "في قلب باريس، يقترح «لو ويلنس روشفوكو» قوساً من الصمت: مكانٌ تصير فيه العمارة عنايةً، وينزل فيه الضوء من السماء ليضبط إيقاع الجسد.",
-      body: [
-        "ينتظم المشروع حول مقطع سخيّ. بحفر الكتلة، يتحرّر بئر ضوء زينيتي يغذّي المستويات السفلى ويقود الزائر نحو فضاءات الماء.",
-        "الغلاف، المتحفّظ من جهة الشارع، يتناقض مع الداخلية المشغولة للحمّامات. المواد — حجر فاتح، خشب، خرسانة مُلطّفة — تبحث عن صوتيات مكتومة وحرارة بصرية مهدّئة.",
-        "كل عتبة مُصمَّمة كانتقال حسّي: ننتقل من ضجيج المدينة إلى همس الماء عبر تتابع من فضاءات أكثر هدوءاً فأكثر.",
-      ],
-      quote: "أن نجعل من الصمت مادةً للبناء.",
+      lead: 'يقع هذا المركز للعافية في الدائرة الرابعة عشرة من باريس، على أرض مستشفى لا روشفوكو السابق، وقد صُمِّم لزوجين معالِجَين تكوَّنا في العلاج الفيزيائي، ثم اتّسعت مقاربتهما للعناية نحو ممارسة أكثر جسدانية: استشارات فردية، ويوغا، وتأمّل موجَّه، وتدليك، وعلاجات جسدية شاملة. يستجيب البرنامج لحاجة مزدوجة: نشاط مهني في الطابق الأرضي، ومسكن في الطوابق العليا.',
+      body: [],
+      quote: 'الفناء يصل الأرض بالسماء عبر المبنى بأكمله.',
     },
   },
   'maison-residentielle-etude': {
@@ -896,9 +934,233 @@ const ARTICLES = {
   },
 };
 
-// Rattache chaque article à son projet (champ `project.article` = { FR, EN, DE }).
+/**
+ * FAUX TEXTE — paragraphes de remplissage, en attendant les textes réels de
+ * Dana. Latin (« lorem ipsum ») pour FR/EN/DE, placeholder arabe pour AR : un
+ * bloc latin au milieu d'une page RTL casserait la mise en page et la lecture.
+ * Tout chapitre qui en contient est marqué `draft: true` → mention visible
+ * « Texte provisoire » sur la page, pour ne jamais confondre avec du définitif.
+ */
+const LOREM = [
+  tri(
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    undefined,
+    undefined,
+    'لوريم إيبسوم هو ببساطة نص شكلي يُستخدم في صناعة الطباعة والتنضيد. كان لوريم إيبسوم النص الشكلي القياسي للصناعة منذ القرن الخامس عشر، حين أخذت مطبعة مجهولة لوحة من الحروف وخلطتها لتصنع كتاب عيّنة من الحروف.'
+  ),
+  tri(
+    'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    undefined,
+    undefined,
+    'لقد نجا هذا النص ليس فقط خمسة قرون، بل انتقل أيضاً إلى التنضيد الإلكتروني وبقي كما هو دون تغيير يُذكر. وقد شاع استعماله في ستينيات القرن الماضي مع صدور أوراق تحتوي مقاطع من لوريم إيبسوم.'
+  ),
+  tri(
+    'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
+    undefined,
+    undefined,
+    'وفي الآونة الأخيرة انتشر مع برامج النشر المكتبي التي تضمّنت نسخاً من لوريم إيبسوم. الغاية من هذا النص هي ملء المساحة ريثما يُكتب المحتوى النهائي للمشروع.'
+  ),
+  tri(
+    'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt neque porro quisquam est.',
+    undefined,
+    undefined,
+    'من المعروف أن المحتوى المقروء لصفحةٍ ما سيصرف انتباه القارئ عن التركيز على الشكل الخارجي للنص أو على طريقة توزيع الفقرات في الصفحة التي يقرأها.'
+  ),
+];
+
+/**
+ * CHAPITRES rédigés à la main — mise en page « double-page magazine » :
+ * chaque chapitre est un bloc texte + images, affiché en alternance
+ * gauche/droite par ProjectChapters.jsx.
+ *
+ * `images` : noms de fichiers + clé de légende (mêmes clés que GL). Les images
+ * consommées ici ne sont PAS répétées dans la galerie de bas de page.
+ */
+const CHAPTERS = {
+  'wellness-rochefoucauld': [
+    {
+      title: tri(
+        'Un patio comme cœur du projet',
+        'A patio at the heart of the project',
+        'Ein Patio als Herz des Projekts',
+        'فناء في قلب المشروع'
+      ),
+      images: [g('s6-coupe.webp', 'coupe'), g('s6-pers2.webp', 'perspective')],
+      body: [
+        tri(
+          "Le patio est le point de convergence du projet : il concentre l'énergie et accompagne la libération du corps et de l'esprit pendant les séances, tout en incarnant le lien entre nature et intériorité. Sa conception s'inspire du principe de la kundalini en yoga — le serpent le long duquel l'énergie circule vers le ciel — d'où sa structure verticale, qui relie la terre au ciel à travers tout le bâtiment.",
+          "The patio is the project's point of convergence: it concentrates energy and accompanies the release of body and mind during sessions, while embodying the link between nature and interiority. Its design draws on the principle of kundalini in yoga — the serpent along which energy rises towards the sky — hence its vertical structure, which connects earth to sky through the entire building.",
+          'Der Patio ist der Konvergenzpunkt des Projekts: Er bündelt die Energie und begleitet während der Sitzungen das Loslassen von Körper und Geist; zugleich verkörpert er die Verbindung von Natur und Innerlichkeit. Seine Gestaltung greift das Prinzip der Kundalini im Yoga auf — die Schlange, entlang derer die Energie zum Himmel steigt — daher seine vertikale Struktur, die Erde und Himmel durch das gesamte Gebäude hindurch verbindet.',
+          'الفناء الداخلي هو نقطة التقاء المشروع: يركّز الطاقة ويرافق تحرّر الجسد والذهن أثناء الجلسات، ويجسّد في الوقت نفسه الصلة بين الطبيعة والباطن. يستلهم تصميمه مبدأ الكونداليني في اليوغا — الأفعى التي تصعد الطاقة على امتدادها نحو السماء — ومن هنا بنيته العمودية التي تصل الأرض بالسماء عبر المبنى بأكمله.'
+        ),
+      ],
+    },
+    {
+      title: tri(
+        'Organisation des espaces',
+        'Organisation of the spaces',
+        'Organisation der Räume',
+        'تنظيم الفضاءات'
+      ),
+      images: [g('s6-axo.webp', 'axo'), g('s6-pers3.webp', 'perspective')],
+      body: [
+        tri(
+          "Le rez-de-chaussée regroupe les vestiaires hommes et femmes, une grande salle de prise en charge individuelle, des sanitaires et un espace de détente ouvert sur le patio et sur le niveau supérieur, où se trouve la grande salle de yoga et d'activités de groupe.",
+          "The ground floor brings together the men's and women's changing rooms, a large room for individual treatment, sanitary facilities and a relaxation area opening onto the patio and onto the level above, where the large yoga and group-activity room is located.",
+          'Im Erdgeschoss liegen die Umkleiden für Damen und Herren, ein großer Raum für Einzelbehandlungen, Sanitärräume sowie ein Ruhebereich, der sich zum Patio und zum darüberliegenden Geschoss öffnet, in dem sich der große Raum für Yoga und Gruppenaktivitäten befindet.',
+          'يضم الطابق الأرضي غرف تبديل الملابس للرجال والنساء، وقاعة كبيرة للجلسات الفردية، ومرافق صحية، ومساحة استرخاء تنفتح على الفناء وعلى الطابق العلوي حيث تقع قاعة اليوغا والأنشطة الجماعية الكبرى.'
+        ),
+        tri(
+          "Au premier étage cohabitent cet espace d'activité et la partie inférieure du logement, accessible depuis les locaux communs partagés avec le centre de médiation artistique voisin. L'entrée du logement se fait par un vestibule abritant l'escalier vers le deuxième étage, et qui dessert également le salon, lui-même ouvert sur une terrasse surplombant le parc, ancrant une fois de plus le bâtiment dans son environnement naturel.",
+          'On the first floor, this activity space coexists with the lower part of the dwelling, reached from the communal areas shared with the neighbouring art mediation centre. The dwelling is entered through a vestibule housing the stair to the second floor, which also serves the living room, itself opening onto a terrace overlooking the park — anchoring the building once again in its natural setting.',
+          'Im ersten Obergeschoss teilen sich dieser Aktivitätsbereich und der untere Teil der Wohnung das Geschoss; letztere ist über die Gemeinschaftsräume erschlossen, die mit dem benachbarten Zentrum für Kunstvermittlung geteilt werden. Der Zugang zur Wohnung erfolgt über einen Vorraum, der die Treppe ins zweite Obergeschoss aufnimmt und zugleich das Wohnzimmer erschließt, das sich auf eine Terrasse mit Blick über den Park öffnet — und das Gebäude erneut in seiner natürlichen Umgebung verankert.',
+          'في الطابق الأول يتجاور فضاء النشاط هذا مع الجزء السفلي من المسكن، الذي يُدخل إليه من المرافق المشتركة مع مركز الوساطة الفنية المجاور. يتم الدخول إلى المسكن عبر ردهة تحتضن الدَّرَج المؤدّي إلى الطابق الثاني، وتخدم كذلك الصالة المنفتحة على شرفة تطلّ على الحديقة، فترسّخ المبنى مرة أخرى في محيطه الطبيعي.'
+        ),
+        tri(
+          "Le deuxième étage réunit toutes les pièces de vie : une grande chambre parentale orientée à l'Est avec son propre dressing, une salle d'eau, une salle de bain, une buanderie, un cellier, ainsi qu'une vaste cuisine traversante offrant à la fois une vue sur le patio et sur le parc. Une seconde terrasse mène encore plus haut, vers un toit-terrasse panoramique dominant l'ensemble du projet, un espace pensé pour les dîners entre amis, complété par un édicule de rangement pour le mobilier d'extérieur.",
+          'The second floor gathers all the living spaces: a large east-facing main bedroom with its own dressing room, a shower room, a bathroom, a laundry, a pantry, and a vast through-kitchen offering views of both the patio and the park. A second terrace leads higher still, to a panoramic roof terrace overlooking the whole project — a space conceived for dinners with friends, completed by a small storage structure for the outdoor furniture.',
+          'Das zweite Obergeschoss versammelt alle Wohnräume: ein großes, nach Osten orientiertes Elternschlafzimmer mit eigenem Ankleidezimmer, ein Duschbad, ein Badezimmer, eine Waschküche, eine Speisekammer sowie eine weitläufige, durchgesteckte Küche mit Blick auf den Patio und den Park. Eine zweite Terrasse führt noch höher, zu einer panoramischen Dachterrasse über dem gesamten Projekt — ein Ort für Abendessen mit Freunden, ergänzt durch einen kleinen Aufbau für die Außenmöbel.',
+          'يجمع الطابق الثاني كل غرف المعيشة: غرفة نوم رئيسية واسعة موجّهة نحو الشرق مع غرفة ملابس خاصة بها، وغرفة استحمام، وحمّام، وغرفة غسيل، ومخزن مؤن، ومطبخ فسيح نافذ يطلّ على الفناء والحديقة معاً. وتقود شرفة ثانية إلى ما هو أعلى: سطح بانورامي يهيمن على المشروع بأكمله، فضاء مُصمَّم للعشاء بين الأصدقاء، يكمّله كُشك صغير لحفظ أثاث الخارج.'
+        ),
+      ],
+    },
+    {
+      title: tri(
+        'Matérialité et structure',
+        'Materiality and structure',
+        'Materialität und Struktur',
+        'المادية والبنية'
+      ),
+      images: [g('s6-elev-est.webp', 'elevEst')],
+      body: [
+        tri(
+          "Le couple souhaitait une atmosphère brute et naturelle, en écho à leur philosophie du soin et aux espaces traditionnels tels que les temazcalli mexicains. Le rez-de-chaussée adopte ainsi une structure massive en pierre de Saint-Maximin beige (50 x 30 x 40 cm), tandis que les planchers, en prédalles de béton apparentes en sous-face et traitées au bouche-pores, renforcent cette matérialité brute. Les sols, en béton ciré, assurent une continuité visuelle à travers tout le bâtiment.",
+          'The couple wanted a raw, natural atmosphere, echoing their philosophy of care and traditional spaces such as the Mexican temazcalli. The ground floor therefore adopts a massive structure in beige Saint-Maximin stone (50 × 30 × 40 cm), while the floors — precast concrete slabs left exposed on their underside and treated with a pore filler — reinforce this raw materiality. Polished concrete floors ensure visual continuity throughout the building.',
+          'Das Paar wünschte sich eine rohe, natürliche Atmosphäre — im Einklang mit seiner Philosophie der Pflege und mit traditionellen Räumen wie den mexikanischen Temazcalli. Das Erdgeschoss erhält daher eine massive Struktur aus beigem Saint-Maximin-Stein (50 × 30 × 40 cm), während die Decken aus Betonfertigteilplatten, an der Unterseite sichtbar belassen und porenverschlossen behandelt, diese rohe Materialität verstärken. Böden aus geglättetem Sichtbeton sorgen für visuelle Kontinuität durch das gesamte Gebäude.',
+          'أراد الزوجان أجواءً خاماً وطبيعية، صدىً لفلسفتهما في العناية وللفضاءات التقليدية مثل التيمازكالي المكسيكية. لذلك يعتمد الطابق الأرضي بنية مصمتة من حجر سان-مكسيمان البيج (٥٠ × ٣٠ × ٤٠ سم)، بينما تعزّز الأرضيات — بلاطات خرسانية سابقة الصب مكشوفة من الأسفل ومعالَجة بسادّ المسام — هذه المادية الخام. أما أرضيات الخرسانة المصقولة فتؤمّن استمرارية بصرية عبر المبنى كله.'
+        ),
+        tri(
+          "Ce principe structurel se retrouve à chaque étage. Aux niveaux supérieurs, les murs en briques beiges apportent chaleur et douceur aux espaces plus intimes, tout en conservant l'esprit naturel voulu par les praticiens.",
+          'This structural principle recurs on every floor. On the upper levels, beige brick walls bring warmth and softness to the more intimate spaces, while preserving the natural spirit sought by the practitioners.',
+          'Dieses Konstruktionsprinzip kehrt in jedem Geschoss wieder. In den oberen Ebenen verleihen Wände aus beigem Ziegel den intimeren Räumen Wärme und Sanftheit und bewahren zugleich den natürlichen Geist, den sich die Therapeuten gewünscht haben.',
+          'يتكرّر هذا المبدأ الإنشائي في كل طابق. في المستويات العليا، تمنح جدران الطوب البيج دفئاً ونعومةً للفضاءات الأكثر حميمية، مع الحفاظ على الروح الطبيعية التي أرادها المعالِجان.'
+        ),
+        tri(
+          "À l'extérieur, les deux terrasses côté ouest reprennent le béton ciré pour prolonger le dialogue entre intérieur et extérieur. Le toit-terrasse combine une partie végétalisée et une partie praticable en dalles sur plots. Les essences choisies — géranium, campanule, pennisetum, heuchère, lavande, achillée — sont à la fois décoratives et adaptées au climat parisien, fleurissant d'avril à octobre, soit précisément la période d'usage de la terrasse.",
+          'Outside, the two west-facing terraces take up the same polished concrete to extend the dialogue between inside and out. The roof terrace combines a planted area with a walkable surface of pedestal-mounted paving. The chosen species — geranium, campanula, pennisetum, heuchera, lavender, yarrow — are both decorative and suited to the Parisian climate, flowering from April to October, precisely the period when the terrace is in use.',
+          'Außen nehmen die beiden westseitigen Terrassen denselben geglätteten Sichtbeton auf und verlängern so den Dialog zwischen Innen und Außen. Die Dachterrasse verbindet eine begrünte Fläche mit einem begehbaren Belag aus Platten auf Stelzlagern. Die gewählten Arten — Geranie, Glockenblume, Pennisetum, Purpurglöckchen, Lavendel, Schafgarbe — sind zugleich dekorativ und an das Pariser Klima angepasst; sie blühen von April bis Oktober, genau in der Nutzungszeit der Terrasse.',
+          'في الخارج، تستعيد الشرفتان الغربيتان الخرسانة المصقولة نفسها لتمديد الحوار بين الداخل والخارج. ويجمع سطح المبنى بين جزء مشجَّر وجزء قابل للسير عليه ببلاطات على قواعد. أما الأنواع النباتية المختارة — الغرنوقي، الجريس، البِنِّيسيتوم، الهيوكيرا، الخزامى، الأخيلية — فهي زخرفية وملائمة لمناخ باريس في آن، تُزهر من نيسان إلى تشرين الأول، أي تماماً في فترة استعمال الشرفة.'
+        ),
+      ],
+    },
+    {
+      title: tri("L'enveloppe", 'The envelope', 'Die Gebäudehülle', 'الغلاف'),
+      images: [g('s6-elev-sud.webp', 'elevSud'), g('s6-elev-nord.webp', 'elevNord')],
+      body: [
+        tri(
+          "L'enveloppe du bâtiment se compose d'une tôle d'acier perforée, qui habille les deux étages supérieurs en deux variantes complémentaires : des panneaux fixes de 1,85 x 1 m sur les parties non vitrées, et des panneaux aux dimensions identiques mais aux perforations plus larges devant les parties vitrées, laissant passer davantage de lumière et pouvant s'ouvrir pour maximiser les apports lumineux. Les garde-corps sont eux aussi traités en panneaux d'acier fixes.",
+          "The building's envelope is made of perforated sheet steel, clothing the two upper floors in two complementary variants: fixed panels of 1.85 × 1 m on the solid parts, and panels of identical dimensions but with wider perforations in front of the glazed parts, letting in more light and able to open in order to maximise daylight. The balustrades are likewise treated as fixed steel panels.",
+          'Die Gebäudehülle besteht aus perforiertem Stahlblech, das die beiden Obergeschosse in zwei einander ergänzenden Varianten bekleidet: feste Paneele von 1,85 × 1 m vor den geschlossenen Flächen und Paneele gleicher Abmessung, jedoch mit größeren Perforationen vor den verglasten Flächen, die mehr Licht einlassen und sich öffnen lassen, um den Lichteintrag zu maximieren. Auch die Geländer sind als feste Stahlpaneele ausgeführt.',
+          'يتكوّن غلاف المبنى من صفائح فولاذية مثقّبة تكسو الطابقين العلويين في صيغتين متكاملتين: ألواح ثابتة بقياس ١٫٨٥ × ١ م أمام الأجزاء المصمتة، وألواح بالقياس نفسه لكن بثقوب أوسع أمام الأجزاء الزجاجية، تسمح بمرور ضوء أكبر ويمكن فتحها لتعظيم الإضاءة الطبيعية. كما عولجت الدرابزينات هي أيضاً بألواح فولاذية ثابتة.'
+        ),
+        tri(
+          "Le vitrage se décline également en deux versions : du verre dépoli Saint-Gobain pour les espaces nécessitant de l'intimité, comme ceux du rez-de-chaussée, et du verre transparent pour les autres ouvertures.",
+          'The glazing also comes in two versions: frosted Saint-Gobain glass for spaces requiring privacy, such as those on the ground floor, and clear glass for the other openings.',
+          'Auch die Verglasung gibt es in zwei Ausführungen: mattiertes Saint-Gobain-Glas für Räume, die Privatheit erfordern — etwa im Erdgeschoss — und Klarglas für die übrigen Öffnungen.',
+          'ويأتي الزجاج كذلك في صيغتين: زجاج معتِم من سان-غوبان للفضاءات التي تتطلّب خصوصية، كتلك الموجودة في الطابق الأرضي، وزجاج شفاف لسائر الفتحات.'
+        ),
+      ],
+    },
+    {
+      title: tri('En conclusion', 'In conclusion', 'Fazit', 'خلاصة'),
+      images: [g('s6-elev-ouest.webp', 'elevOuest')],
+      body: [
+        tri(
+          "Le projet répond pleinement à la demande initiale : concevoir un espace holistique, à la fois professionnel et privé, dédié au soin et au bien-être, où la nature reste omniprésente, à travers la conception architecturale, les espaces extérieurs, le patio vitré et le choix des matériaux.",
+          'The project fully answers the initial brief: to design a holistic space, at once professional and private, dedicated to care and well-being, where nature remains omnipresent — through the architectural design, the outdoor spaces, the glazed patio and the choice of materials.',
+          'Das Projekt erfüllt die ursprüngliche Aufgabe vollständig: einen ganzheitlichen Ort zu entwerfen, zugleich beruflich und privat, der Pflege und Wohlbefinden gewidmet ist und in dem die Natur allgegenwärtig bleibt — durch den architektonischen Entwurf, die Außenräume, den verglasten Patio und die Materialwahl.',
+          'يستجيب المشروع بالكامل للطلب الأولي: تصميم فضاء شمولي، مهني وخاص في آن، مكرَّس للعناية والعافية، تبقى فيه الطبيعة حاضرة في كل مكان — عبر التصميم المعماري والفضاءات الخارجية والفناء المزجَّج واختيار المواد.'
+        ),
+      ],
+    },
+  ],
+};
+
+// Titre de chapitre générique, repris des libellés d'interface (4 langues).
+const uiTitle = (key) => ({
+  FR: ui.FR.project[key],
+  EN: ui.EN.project[key],
+  DE: ui.DE.project[key],
+  AR: ui.AR.project[key],
+});
+
+/**
+ * Construit des chapitres pour les projets qui n'en ont pas encore de rédigés :
+ * on réutilise le texte d'article EXISTANT (chapô + corps, déjà traduit) et on
+ * complète avec du faux texte pour tenir la mise en page magazine. Les images
+ * de la galerie sont réparties entre les chapitres, deux par deux.
+ *
+ * Les chapitres contenant du faux texte sont marqués `draft` → mention visible
+ * sur la page, pour que Dana repère d'un coup d'œil ce qui reste à écrire.
+ */
+function buildChapters(p) {
+  const article = ARTICLES[p.slug];
+  const paras = article ? article.FR.body.map((_, i) => i) : [];
+  // Un paragraphe d'article devient un objet i18n reconstruit langue par langue.
+  const fromArticle = (i) => ({
+    FR: article.FR.body[i],
+    EN: article.EN.body[i],
+    DE: article.DE.body[i],
+    AR: article.AR.body[i],
+  });
+  // Répartition ÉQUILIBRÉE des images entre les chapitres, en gardant l'ordre
+  // d'origine (les plans doivent rester avant les rendus). Découpe en tranches
+  // contiguës de tailles aussi proches que possible : 4 images → 2/1/1,
+  // 9 images → 3/3/3. Sans cela, les premiers chapitres prenaient tout et le
+  // dernier se retrouvait sans aucune image.
+  const chunk = (arr, n) => {
+    const out = [];
+    let i = 0;
+    for (let k = 0; k < n; k += 1) {
+      const size = Math.ceil((arr.length - i) / (n - k));
+      out.push(arr.slice(i, i + size));
+      i += size;
+    }
+    return out;
+  };
+
+  const [imgsA, imgsB, imgsC] = chunk(p.gallery || [], 3);
+
+  return [
+    {
+      title: uiTitle('chIntention'),
+      images: imgsA,
+      body: paras.length > 0 ? [fromArticle(0), LOREM[0]] : [LOREM[0], LOREM[1]],
+      draft: true,
+    },
+    {
+      title: uiTitle('chProjet'),
+      images: imgsB,
+      body: paras.length > 1 ? [fromArticle(1), LOREM[1]] : [LOREM[2]],
+      draft: true,
+    },
+    {
+      title: uiTitle('chMatiere'),
+      images: imgsC,
+      body: paras.length > 2 ? [fromArticle(2), LOREM[2]] : [LOREM[3]],
+      draft: true,
+    },
+  ];
+}
+
+// Rattache article ET chapitres à chaque projet.
 projects.forEach((p) => {
   p.article = ARTICLES[p.slug] || null;
+  p.chapters = CHAPTERS[p.slug] || buildChapters(p);
+  // Images déjà montrées dans les chapitres → retirées de la galerie de fin,
+  // pour ne pas afficher deux fois le même document sur la page.
+  const used = new Set(p.chapters.flatMap((c) => (c.images || []).map((i) => i.src)));
+  p.restGallery = (p.gallery || []).filter((item) => !used.has(item.src));
 });
 
 export const getProject = (slug) => projects.find((p) => p.slug === slug);

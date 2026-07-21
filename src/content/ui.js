@@ -1,8 +1,12 @@
 /**
- * Dictionnaire des libellés d'interface (FR / EN / DE).
+ * Dictionnaire des libellés d'interface (FR / EN / DE / AR).
  * Usage : `const T = ui[lang] || ui.FR;` dans les composants.
  * Les contenus longs par section (Hero, Studio, Contact, Art) vivent dans
- * leurs propres composants ; ici : navigation, boutons, en-têtes, page projet.
+ * leurs propres composants ; ici : navigation, boutons, en-têtes, page projet,
+ * libellés du curseur personnalisé, cartels du viewer 3D et titres de document.
+ *
+ * ⚠️ Toute clé ajoutée ici DOIT l'être dans les QUATRE langues : l'arabe ne
+ * doit jamais retomber sur le français (exigence de traduction intégrale).
  */
 export const ui = {
   FR: {
@@ -30,9 +34,38 @@ export const ui = {
       scene: 'Scène 3D',
       docs: 'Documents & images',
       next: 'Projet suivant',
+      // Titres de chapitre génériques, utilisés quand un projet n'a pas encore
+      // de chapitres rédigés (voir `buildChapters` dans projects.js).
+      quoteMarks: ['« ', ' »'],
+      chIntention: 'Intention',
+      chProjet: 'Le projet',
+      chMatiere: 'Matière & détail',
+      // Mention affichée sous un chapitre encore rempli de faux texte.
+      draft: 'Texte provisoire',
     },
     skills: 'Logiciels',
     notFound: { text: "Cette page n'existe pas", home: "Retour à l'accueil" },
+    // Libellés du curseur personnalisé (voir layout/CustomCursor.jsx).
+    cursor: {
+      discover: 'Découvrir',
+      view: 'Voir',
+      go: 'Aller',
+      next: 'Suivant',
+      write: 'Écrire',
+      open: 'Ouvrir',
+      look: 'Regarder',
+      turn: 'Tourner',
+    },
+    viewer: {
+      unavailable: 'Modèle indisponible',
+      hintLook: 'Glisser pour regarder · 360°',
+      hintTurn: 'Glisser pour tourner',
+    },
+    doc: {
+      title: 'Dana Adib — Architecture',
+      description: "Dana Adib — portfolio d'architecture. Espaces, matière et récit.",
+      notFound: 'Page introuvable',
+    },
   },
   EN: {
     nav: { index: 'Index', projets: 'Projects', studio: 'Studio', contact: 'Contact' },
@@ -59,9 +92,34 @@ export const ui = {
       scene: '3D scene',
       docs: 'Documents & images',
       next: 'Next project',
+      quoteMarks: ['“', '”'],
+      chIntention: 'Intention',
+      chProjet: 'The project',
+      chMatiere: 'Material & detail',
+      draft: 'Placeholder text',
     },
     skills: 'Software',
     notFound: { text: "This page doesn't exist", home: 'Back to home' },
+    cursor: {
+      discover: 'Discover',
+      view: 'View',
+      go: 'Go',
+      next: 'Next',
+      write: 'Write',
+      open: 'Open',
+      look: 'Look',
+      turn: 'Turn',
+    },
+    viewer: {
+      unavailable: 'Model unavailable',
+      hintLook: 'Drag to look around · 360°',
+      hintTurn: 'Drag to rotate',
+    },
+    doc: {
+      title: 'Dana Adib — Architecture',
+      description: 'Dana Adib — architecture portfolio. Space, material and narrative.',
+      notFound: 'Page not found',
+    },
   },
   DE: {
     nav: { index: 'Index', projets: 'Projekte', studio: 'Studio', contact: 'Kontakt' },
@@ -88,9 +146,34 @@ export const ui = {
       scene: '3D-Szene',
       docs: 'Dokumente & Bilder',
       next: 'Nächstes Projekt',
+      quoteMarks: ['„', '“'],
+      chIntention: 'Intention',
+      chProjet: 'Das Projekt',
+      chMatiere: 'Material & Detail',
+      draft: 'Platzhaltertext',
     },
     skills: 'Software',
     notFound: { text: 'Diese Seite existiert nicht', home: 'Zurück zur Startseite' },
+    cursor: {
+      discover: 'Entdecken',
+      view: 'Ansehen',
+      go: 'Los',
+      next: 'Weiter',
+      write: 'Schreiben',
+      open: 'Öffnen',
+      look: 'Umsehen',
+      turn: 'Drehen',
+    },
+    viewer: {
+      unavailable: 'Modell nicht verfügbar',
+      hintLook: 'Ziehen zum Umsehen · 360°',
+      hintTurn: 'Ziehen zum Drehen',
+    },
+    doc: {
+      title: 'Dana Adib — Architektur',
+      description: 'Dana Adib — Architektur-Portfolio. Raum, Material und Erzählung.',
+      notFound: 'Seite nicht gefunden',
+    },
   },
   AR: {
     nav: { index: 'الفهرس', projets: 'المشاريع', studio: 'استوديو', contact: 'تواصل' },
@@ -117,9 +200,34 @@ export const ui = {
       scene: 'مشهد ثلاثي الأبعاد',
       docs: 'مستندات وصور',
       next: 'المشروع التالي',
+      quoteMarks: ['«', '»'],
+      chIntention: 'النيّة',
+      chProjet: 'المشروع',
+      chMatiere: 'المادة والتفصيل',
+      draft: 'نص مؤقّت',
     },
     skills: 'البرامج',
     notFound: { text: 'هذه الصفحة غير موجودة', home: 'العودة إلى الرئيسية' },
+    cursor: {
+      discover: 'اكتشف',
+      view: 'شاهد',
+      go: 'انتقل',
+      next: 'التالي',
+      write: 'راسل',
+      open: 'افتح',
+      look: 'انظر حولك',
+      turn: 'أدر',
+    },
+    viewer: {
+      unavailable: 'المجسّم غير متاح',
+      hintLook: 'اسحب للنظر حولك · 360°',
+      hintTurn: 'اسحب للتدوير',
+    },
+    doc: {
+      title: 'دانا أديب — عمارة',
+      description: 'دانا أديب — بورتفوليو عمارة. فضاء ومادة وسرد.',
+      notFound: 'الصفحة غير موجودة',
+    },
   },
 };
 

@@ -9,6 +9,10 @@ import { ui } from '../../content/ui.js';
  * décroissante (tri explicite ci-dessous, indépendant de l'ordre d'écriture).
  * La barre est toujours présente (pas de saut de mise en page) mais ne se
  * remplit qu'au survol, via une variable CSS `--lvl` + `group-hover`.
+ *
+ * `name` est soit une chaîne (nom propre de logiciel, identique partout), soit
+ * un objet { FR, EN, DE, AR } quand le libellé contient un mot commun à
+ * traduire — c'est le cas de « Suite Microsoft ».
  */
 const SKILLS = [
   { code: 'Ac', name: 'AutoCAD', level: 100, bg: 'bg-bubblegum' },
@@ -18,13 +22,24 @@ const SKILLS = [
   { code: 'Ps', name: 'Photoshop', level: 85, bg: 'bg-bubblegum' },
   { code: 'Id', name: 'InDesign', level: 85, bg: 'bg-acid' },
   { code: 'Su', name: 'SketchUp', level: 85, bg: 'bg-orange' },
-  { code: 'Ms', name: 'Suite Microsoft', level: 85, bg: 'bg-butter' },
+  {
+    code: 'Ms',
+    name: {
+      FR: 'Suite Microsoft',
+      EN: 'Microsoft Suite',
+      DE: 'Microsoft-Suite',
+      AR: 'حزمة مايكروسوفت',
+    },
+    level: 85,
+    bg: 'bg-butter',
+  },
   { code: 'Rh', name: 'Rhino', level: 15, bg: 'bg-bubblegum' },
   { code: 'Bl', name: 'Blender', level: 10, bg: 'bg-acid' },
 ].sort((a, b) => b.level - a.level); // maîtrise décroissante
 
 export default function Skills() {
   const { lang } = useLanguage();
+  const skillName = (name) => (typeof name === 'string' ? name : name[lang] || name.FR);
   return (
     <section id="skills" className="border-t-2 border-ink px-6 py-24 md:px-10">
       <span className="font-sans text-[11px] uppercase tracking-wide2 text-ink/50">
@@ -32,7 +47,7 @@ export default function Skills() {
       </span>
       <div className="mt-10 flex flex-wrap gap-5 md:gap-7">
         {SKILLS.map((s) => (
-          <div key={s.name} className="group flex w-[104px] flex-col items-center gap-3 md:w-[112px]">
+          <div key={s.code} className="group flex w-[104px] flex-col items-center gap-3 md:w-[112px]">
             <div
               className={`flex h-[84px] w-[84px] items-center justify-center rounded-[26px] border-2 border-ink ${s.bg} shadow-brutalSm transition-transform duration-500 ease-cine group-hover:-translate-y-2 md:h-24 md:w-24`}
             >
@@ -42,7 +57,7 @@ export default function Skills() {
             </div>
 
             <span className="text-center font-sans text-[11px] lowercase leading-tight tracking-wide text-ink/70">
-              {s.name}
+              {skillName(s.name)}
             </span>
 
             {/* Jauge de maîtrise : se remplit au survol */}

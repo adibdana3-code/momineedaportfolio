@@ -7,6 +7,8 @@ import { ui } from '../content/ui.js';
 import NotFound from './NotFound.jsx';
 import Magnetic from '../components/ui/Magnetic.jsx';
 import GenesisMark from '../components/ui/GenesisMarks.jsx';
+import ProjectChapters from '../components/sections/ProjectChapters.jsx';
+import { useDocumentMeta } from '../hooks/useDocumentMeta.jsx';
 
 // Le viewer 3D (Three.js) est lazy-loadé — ne charge que sur les pages projet.
 const ModelViewer = lazy(() => import('../components/sections/ModelViewer.jsx'));
@@ -27,9 +29,15 @@ export default function ProjectDetail() {
   const { lang } = useLanguage();
   const project = getProject(slug);
 
+  // Appelé AVANT le repli 404 : les hooks ne peuvent pas être conditionnels.
+  // Sur slug inconnu on laisse NotFound poser son propre titre (`skip`).
+  useDocumentMeta(project?.title[lang], { skip: !project });
+
   if (!project) return <NotFound />;
 
-  const T = (ui[lang] || ui.FR).project;
+  const L = ui[lang] || ui.FR;
+  const T = L.project;
+  const C = L.cursor;
   const bg = COLOR_BG[project.color];
   const place = project.place[lang] ?? project.place;
 
@@ -83,37 +91,26 @@ export default function ProjectDetail() {
         </p>
       </section>
 
-      {/* Article éditorial « magazine » : chapô + corps en colonnes + citation.
-          AR retombe sur FR (textes d'attente fournis en FR/EN/DE). */}
-      {project.article &&
-        (() => {
-          const a = project.article[lang] || project.article.FR;
-          if (!a) return null;
-          return (
-            <section className="mt-14 md:mt-20">
-              <p className="max-w-3xl font-serif text-[clamp(20px,2.6vw,34px)] italic leading-snug text-ink">
-                {a.lead}
-              </p>
-              <div className="mt-10 grid grid-cols-12 gap-8 md:gap-12">
-                <div className="col-span-12 font-sans text-[15px] leading-relaxed text-ink/80 md:col-span-7 md:columns-2 md:gap-10">
-                  {a.body.map((para, i) => (
-                    <p key={i} className="mb-4 break-inside-avoid">
-                      {para}
-                    </p>
-                  ))}
-                </div>
-                <aside className="col-span-12 md:col-span-5">
-                  <blockquote
-                    className="m-0 border-t-2 border-ink pt-6 font-serif text-[clamp(22px,3vw,40px)] italic leading-tight"
-                    style={{ color: COLOR_HEX[project.color] }}
-                  >
-                    « {a.quote} »
-                  </blockquote>
-                </aside>
-              </div>
-            </section>
-          );
-        })()}
+      {/* Chapô — grande accroche éditoriale qui ouvre l'article. */}
+      {project.article && (
+        <section className="mt-14 md:mt-20">
+          <p className="max-w-3xl font-serif text-[clamp(20px,2.6vw,34px)] italic leading-snug text-ink">
+            {(project.article[lang] || project.article.FR).lead}
+          </p>
+        </section>
+      )}
+
+      {/* Corps de l'article en CHAPITRES alternés (texte d'un côté, images de
+          l'autre, côtés inversés à chaque chapitre) — la double-page magazine. */}
+      <ProjectChapters
+        chapters={project.chapters}
+        lang={lang}
+        projectTitle={project.title[lang]}
+        accent={COLOR_HEX[project.color]}
+        draftLabel={T.draft}
+        quote={(project.article?.[lang] || project.article?.FR)?.quote}
+        quoteMarks={T.quoteMarks}
+      />
 
       {/* Genèse — signes de référence puis fusion (projets graphiques).
           Les visuels de référence sont des placeholders SVG tant que Dana n'a
@@ -203,19 +200,25 @@ export default function ProjectDetail() {
         </section>
       ) : null}
 
-      {/* Galerie — sans contour, révélation « tracé » (wipe gauche→droite) */}
-      {project.gallery?.length > 0 && (
+      {/* Galerie de fin — uniquement les documents NON déjà montrés dans les
+          chapitres (`restGallery`), pour ne pas afficher deux fois la même
+          image sur la page. Vide sur les projets dont tous les documents ont
+          été répartis dans le récit (ex. Wellness). */}
+      {project.restGallery?.length > 0 && (
         <section className="mt-16">
           <span className="font-sans text-[11px] uppercase tracking-editorial text-ink/50">
-            {T.docs} ({String(project.gallery.length).padStart(2, '0')})
+            {T.docs} ({String(project.restGallery.length).padStart(2, '0')})
           </span>
           <div className="mt-8 grid grid-cols-12 gap-8 md:gap-12">
-            {project.gallery.map((item, i) => (
+            {project.restGallery.map((item, i) => {
+              // `item.label` est un objet i18n { FR, EN, DE, AR } (voir projects.js).
+              const caption = item.label[lang] || item.label.FR;
+              return (
               <figure key={item.src} className={`col-span-12 m-0 ${item.span || SPANS[i % SPANS.length]}`}>
                 <div className="overflow-hidden">
                   <motion.img
                     src={item.src}
-                    alt={`${project.title[lang]} — ${item.label}`}
+                    alt={`${project.title[lang]} — ${caption}`}
                     loading="lazy"
                     initial={{ opacity: 0, y: 48 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -225,10 +228,11 @@ export default function ProjectDetail() {
                   />
                 </div>
                 <figcaption className="mt-3 font-sans text-[10px] uppercase tracking-editorial text-ink/50">
-                  {item.label}
+                  {caption}
                 </figcaption>
               </figure>
-            ))}
+              );
+            })}
           </div>
         </section>
       )}
@@ -236,7 +240,7 @@ export default function ProjectDetail() {
       {/* Projet suivant */}
       <Link
         to={`/projet/${next.slug}`}
-        data-cursor="Suivant"
+        data-cursor={C.next}
         className="group mt-24 flex items-center justify-between border-t-2 border-ink pt-8"
       >
         <span className="font-sans text-[11px] uppercase tracking-editorial text-ink/50">

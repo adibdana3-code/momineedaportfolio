@@ -31,9 +31,21 @@
       rel="stylesheet"
     />
 
+    <!-- Statistiques Umami (sans cookie, conforme RGPD → pas de bannière).
+         URL absolue vers le cloud Umami : Vite ne la réécrit pas, elle reste
+         donc valide une fois le site buildé et publié sous le sous-chemin
+         GitHub Pages (/momineedaportfolio/). `defer` : ne bloque pas le rendu.
+         Umami suit de lui-même les changements d'URL de la SPA (History API),
+         chaque page projet est donc comptée séparément. -->
+    <script
+      defer
+      src="https://cloud.umami.is/script.js"
+      data-website-id="4a812f8e-fafa-406b-a004-809150b2e80f"
+    ></script>
+
     <title>Dana Adib — Architecture</title>
-    <script type="module" crossorigin src="/momineedaportfolio/assets/index-CPeD6tlg.js"></script>
-    <link rel="stylesheet" crossorigin href="/momineedaportfolio/assets/index-DyFANW2x.css">
+    <script type="module" crossorigin src="/momineedaportfolio/assets/index-B97A-Jod.js"></script>
+    <link rel="stylesheet" crossorigin href="/momineedaportfolio/assets/index-CTC8RTqj.css">
   </head>
   <body>
     <div id="root"></div>

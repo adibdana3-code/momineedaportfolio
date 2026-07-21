@@ -30,13 +30,13 @@ export default function Contact() {
           whileInView={{ y: '0%' }}
           viewport={{ once: true }}
           transition={{ duration: 1.1, ease: [0.76, 0, 0.24, 1] }}
-          className="mt-4 whitespace-pre-line font-serif text-[clamp(48px,11vw,170px)] italic leading-[0.9] tracking-tight text-chalk"
+          className="mt-4 whitespace-pre-line pb-[0.24em] font-serif text-[clamp(48px,11vw,170px)] italic leading-[0.9] tracking-tight text-chalk"
         >
           {c.title}
         </motion.h2>
       </div>
 
-      <div className="mt-14 flex flex-wrap items-end justify-between gap-8 border-t-2 border-chalk/30 pt-8">
+      <div className="mt-10 flex flex-wrap items-end justify-between gap-8 border-t-2 border-chalk/30 pt-8">
         <Magnetic strength={0.3}>
           <a
             href={`mailto:${EMAIL}`}

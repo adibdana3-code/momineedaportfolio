@@ -61,7 +61,7 @@ function ProjectGroup({ label, items, defaultOpen, onNavigate }) {
                   <span className={`font-sans text-[10px] uppercase tracking-editorial ${COLOR_TEXT[p.color]}`}>
                     {p.num}
                   </span>
-                  <span className="font-serif text-[clamp(20px,3.4vw,34px)] italic leading-tight text-ink transition-transform duration-500 ease-cine group-hover:translate-x-2">
+                  <span className="pb-[0.1em] font-serif text-[clamp(20px,3.4vw,34px)] italic leading-tight text-ink transition-transform duration-500 ease-cine group-hover:translate-x-2">
                     {p.title[lang]}
                   </span>
                 </Link>
@@ -158,7 +158,7 @@ export default function MenuOverlay({ open, onClose }) {
                         type="button"
                         onClick={() => goSection(s.id)}
                         data-cursor="Aller"
-                        className="block font-serif text-[clamp(38px,7vw,84px)] italic leading-[0.98] tracking-tight text-ink transition-colors duration-300 hover:text-orange"
+                        className="block pb-[0.2em] font-serif text-[clamp(38px,7vw,84px)] italic leading-[0.98] tracking-tight text-ink transition-colors duration-300 hover:text-orange"
                       >
                         {s.label}
                       </motion.button>

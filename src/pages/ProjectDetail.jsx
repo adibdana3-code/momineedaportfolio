@@ -51,16 +51,20 @@ export default function ProjectDetail() {
       </Magnetic>
 
       {/* En-tête */}
-      <header className="mt-8 border-b-2 border-ink pb-10">
+      <header className="mt-8 border-b-2 border-ink pb-6">
         <span className="font-sans text-[11px] uppercase tracking-editorial text-ink/40">
           {T.label} ({project.num})
         </span>
+        {/* `pb` en em : l'interlignage serré (0.92) fait dépasser les jambages
+            (« g », « J » en Playfair italique) sous la boîte de ligne, que le
+            conteneur overflow-hidden rognait. 0.22em couvre le débord mesuré
+            (0.205em) et suit la taille du clamp. */}
         <div className="overflow-hidden">
           <motion.h1
             initial={{ y: '110%' }}
             animate={{ y: '0%' }}
             transition={{ duration: 1.1, ease: [0.76, 0, 0.24, 1] }}
-            className="mt-3 font-serif text-[clamp(48px,10vw,150px)] italic leading-[0.92] tracking-tight text-ink"
+            className="mt-3 pb-[0.22em] font-serif text-[clamp(48px,10vw,150px)] italic leading-[0.92] tracking-tight text-ink"
           >
             {project.title[lang]}
           </motion.h1>

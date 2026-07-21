@@ -83,13 +83,16 @@ export default function ArtStrip() {
               <div className="relative aspect-[3/4] overflow-hidden border-2 border-paper/15">
                 {p.cover ? (
                   <>
+                    {/* Les deux calques portent un fond OPAQUE (bg-paper) : sans lui,
+                        une image à fond transparent (logo, objet détouré) laisserait
+                        voir l'autre calque par transparence → les deux visibles à la fois. */}
                     {/* Image de survol (dessous) */}
                     <img
                       src={p.hover || p.cover}
                       alt=""
                       aria-hidden
                       draggable={false}
-                      className="absolute inset-0 h-full w-full scale-105 object-cover"
+                      className="absolute inset-0 h-full w-full scale-105 bg-paper object-cover"
                     />
                     {/* Couverture (dessus, s'efface au survol) */}
                     <img
@@ -97,7 +100,7 @@ export default function ArtStrip() {
                       alt={p.title[lang]}
                       loading="lazy"
                       draggable={false}
-                      className="absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-cine group-hover:opacity-0"
+                      className="absolute inset-0 h-full w-full bg-paper object-cover transition-opacity duration-700 ease-cine group-hover:opacity-0"
                     />
                   </>
                 ) : (

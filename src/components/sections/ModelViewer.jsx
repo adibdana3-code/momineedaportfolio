@@ -113,18 +113,32 @@ function FBXModel({ url, progress, spin, dropGround, hideMeshes, color = STONE }
 
 /**
  * Modèle glTF/GLB (ex. bague Blender) — centré, mis à l'échelle.
- * On CONSERVE les matériaux natifs (c'est le design de l'objet lui-même, pas une
- * maquette d'architecture). Draco est décodé automatiquement par drei/useGLTF.
+ * Par défaut on CONSERVE les matériaux natifs (le design de l'objet lui-même).
+ *
+ * `forceColor` : remplace les matériaux par la couleur d'accent du projet.
+ * Indispensable pour les exports CAO (ex. SimLab) dont le matériau par défaut
+ * a `metallicFactor: 1` sans carte d'environnement → l'objet rendrait NOIR.
+ *
+ * Draco est décodé automatiquement par drei/useGLTF si nécessaire.
  */
-function GLBModel({ url, progress, spin }) {
+function GLBModel({ url, progress, spin, forceColor, color = STONE }) {
   const gltf = useGLTF(url);
   const ref = useRef();
   const { obj, scale } = useMemo(() => {
     const obj = gltf.scene.clone(true); // clone → pas de mutation du cache useGLTF
+    const mat = forceColor
+      ? new THREE.MeshStandardMaterial({
+          color: new THREE.Color(color),
+          roughness: 0.75,
+          metalness: 0,
+          side: THREE.DoubleSide,
+        })
+      : null;
     obj.traverse((o) => {
       if (o.isMesh) {
         o.castShadow = true;
         o.receiveShadow = true;
+        if (mat) o.material = mat;
       }
     });
     const box = new THREE.Box3().setFromObject(obj);
@@ -135,7 +149,7 @@ function GLBModel({ url, progress, spin }) {
     obj.position.sub(center); // recentre l'objet (glTF déjà Y-up, pas de rotation)
     const maxDim = Math.max(size.x, size.y, size.z) || 1;
     return { obj, scale: TARGET / maxDim };
-  }, [gltf]);
+  }, [gltf, forceColor, color]);
   useScrollRotation(ref, progress, spin);
   useEffect(() => {
     window.dispatchEvent(new Event('resize'));
@@ -335,7 +349,13 @@ export default function ModelViewer({
                 color={color}
               />
             ) : type === 'glb' ? (
-              <GLBModel url={url} progress={progress} spin={!interior} />
+              <GLBModel
+                url={url}
+                progress={progress}
+                spin={!interior}
+                forceColor={!!scene?.forceColor}
+                color={color}
+              />
             ) : (
               <MassingModel url={url} color={color} progress={progress} spin={!interior} />
             )}

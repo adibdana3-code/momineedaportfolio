@@ -344,7 +344,11 @@ export const projects = [
     color: 'butter',
     cover: asset('tabouret-couv.webp'),
     hover: asset('tabouret-1.webp'), // survol A→B
-    hasModel: false,
+    hasModel: true,
+    // Export SimLab (CAO) : son unique matériau hérite de `metallicFactor: 1`
+    // sans environnement → rendrait noir. `forceColor` applique la couleur
+    // d'accent du projet (voir ModelViewer.GLBModel).
+    model3d: { type: 'glb', url: model('tabouret.glb'), scene: { forceColor: true } },
     // 2 photos distinctes : l'ancienne « tabouret-3 » était un doublon exact de
     // « tabouret-1 » (même MD5) → retirée.
     gallery: [g('tabouret-1.webp', 'Vue'), g('tabouret-2.webp', 'Vue')],

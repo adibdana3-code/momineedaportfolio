@@ -97,7 +97,7 @@ export const projects = [
     gallery: [
       g('s6-pers1.webp', 'perspective'),
       g('s6-pers2.webp', 'perspective'),
-      g('s6-pers3.jpg', 'perspective'),
+      g('s6-pers3.webp', 'perspective'),
       g('s6-axo.webp', 'axo'),
       g('s6-coupe.webp', 'coupe'),
       g('s6-elev-est.webp', 'elevEst', 'md:col-span-8'), // grand
@@ -1002,7 +1002,7 @@ const CHAPTERS = {
         'Organisation der Räume',
         'تنظيم الفضاءات'
       ),
-      images: [g('s6-axo.webp', 'axo'), g('s6-pers3.jpg', 'perspective')],
+      images: [g('s6-axo.webp', 'axo'), g('s6-pers3.webp', 'perspective')],
       body: [
         tri(
           "Le rez-de-chaussée regroupe les vestiaires hommes et femmes, une grande salle de prise en charge individuelle, des sanitaires et un espace de détente ouvert sur le patio et sur le niveau supérieur, où se trouve la grande salle de yoga et d'activités de groupe.",

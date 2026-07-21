@@ -284,6 +284,35 @@ export const projects = [
     model3d: { type: 'glb', url: model('bague.glb') },
     gallery: [],
   },
+  {
+    slug: 'tabouret',
+    num: '04',
+    category: 'art',
+    title: tri('Tabouret', 'Stool', 'Hocker', 'مقعد'),
+    place: tri("Design d'objet", 'Object design', 'Objektdesign', 'تصميم منتج'),
+    year: '2025',
+    typology: tri(
+      'Design de mobilier · Assise',
+      'Furniture design · Seat',
+      'Möbeldesign · Sitzmöbel',
+      'تصميم أثاث · مقعد'
+    ),
+    summary: tri(
+      "Un tabouret dessiné comme un petit manifeste d'assise — structure, matière et équilibre à l'échelle du corps.",
+      'A stool designed as a small manifesto of seating — structure, material and balance at the scale of the body.',
+      'Ein Hocker, entworfen als kleines Manifest des Sitzens — Struktur, Material und Gleichgewicht im Maßstab des Körpers.',
+      'مقعد مُصمَّم كبيانٍ صغير للجلوس — بنية ومادة وتوازن على مقياس الجسد.'
+    ),
+    color: 'butter',
+    cover: asset('tabouret-couv.webp'),
+    hover: asset('tabouret-1.webp'), // survol A→B
+    hasModel: false,
+    gallery: [
+      g('tabouret-1.webp', 'Vue'),
+      g('tabouret-2.webp', 'Vue'),
+      g('tabouret-3.webp', 'Vue'),
+    ],
+  },
 ];
 
 /**
@@ -502,6 +531,32 @@ const ARTICLES = {
         "Weder ganz Fotografie noch ganz Zeichnung, nutzen diese Variationen die Küste als Feld grafischer Experimente.",
       ],
       quote: "Sehen heißt schon verwandeln.",
+    },
+  },
+  tabouret: {
+    FR: {
+      lead: "Descendre encore d'une échelle : le tabouret. Objet du quotidien réduit à l'essentiel, il condense en quelques appuis toute une réflexion sur la structure et le corps.",
+      body: [
+        "Le dessin cherche le juste équilibre entre légèreté et stabilité : assez de matière pour tenir, assez de vide pour ne pas peser.",
+        "Assise modeste, le tabouret est aussi un terrain d'expérimentation : proportions, assemblages et matières s'y testent à taille réelle, prêts à passer à l'atelier.",
+      ],
+      quote: "Un tabouret, c'est le plus court chemin entre le corps et le sol.",
+    },
+    EN: {
+      lead: "One scale further down: the stool. An everyday object pared to the essential, it condenses into a few supports a whole reflection on structure and the body.",
+      body: [
+        "The design seeks the right balance between lightness and stability: enough material to hold, enough void not to weigh.",
+        "A modest seat, the stool is also a testing ground: proportions, joints and materials are tried at full scale, ready for the workshop.",
+      ],
+      quote: "A stool is the shortest path between the body and the ground.",
+    },
+    DE: {
+      lead: "Eine Stufe kleiner: der Hocker. Ein auf das Wesentliche reduziertes Alltagsobjekt, das in wenigen Stützen eine ganze Überlegung zu Struktur und Körper verdichtet.",
+      body: [
+        "Der Entwurf sucht die richtige Balance zwischen Leichtigkeit und Stabilität: genug Material, um zu tragen, genug Leere, um nicht zu lasten.",
+        "Als bescheidener Sitz ist der Hocker auch ein Versuchsfeld: Proportionen, Verbindungen und Materialien werden im Maßstab 1:1 erprobt, bereit für die Werkstatt.",
+      ],
+      quote: "Ein Hocker ist der kürzeste Weg zwischen Körper und Boden.",
     },
   },
   'bague-blender': {

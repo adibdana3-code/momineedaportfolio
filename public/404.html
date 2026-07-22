@@ -7,10 +7,10 @@
       SPA fallback pour GitHub Pages (technique rafgraph/spa-github-pages).
       Encode le chemin demandé et redirige vers index.html, qui le restaure.
       pathSegmentsToKeep : 1 pour un "project site" (user.github.io/<repo>/),
-      0 pour un "user/org site" (user.github.io/). À ajuster au déploiement.
+      0 pour un "user/org site" (user.github.io/). Ici site utilisateur → 0.
     -->
     <script type="text/javascript">
-      var pathSegmentsToKeep = 1;
+      var pathSegmentsToKeep = 0;
       var l = window.location;
       l.replace(
         l.protocol +

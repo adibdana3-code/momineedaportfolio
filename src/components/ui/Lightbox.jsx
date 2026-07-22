@@ -130,7 +130,15 @@ export default function Lightbox({ items, index, onClose, onIndexChange, lang, l
         />
 
         {total > 1 && (
-          <div className="pointer-events-none absolute inset-x-3 flex items-center justify-between md:inset-x-8">
+          // `dir="ltr"` FORCÉ : en arabe, <html dir="rtl"> inverserait
+          // `justify-between`, plaçant la flèche « précédent » (←) à droite et
+          // « suivant » (→) à gauche. On veut EXACTEMENT le même sens et la même
+          // logique qu'en FR/EN/DE — flèche gauche = précédent, droite = suivant,
+          // quelle que soit la langue.
+          <div
+            dir="ltr"
+            className="pointer-events-none absolute inset-x-3 flex items-center justify-between md:inset-x-8"
+          >
             <button
               type="button"
               data-link

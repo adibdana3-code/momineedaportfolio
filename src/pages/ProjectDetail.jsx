@@ -148,17 +148,18 @@ export default function ProjectDetail() {
         </section>
       ) : null}
 
-      {/* Accroche colorée */}
+      {/* Accroche colorée — pleine largeur : c'est un titre-accroche, il doit
+          occuper toute la section et non rester tassé à gauche. */}
       <section className={`mt-10 ${bg} px-6 py-16 md:px-12`}>
-        <p className="max-w-2xl font-serif text-[clamp(22px,3.5vw,44px)] italic leading-tight text-ink">
+        <p className="max-w-5xl font-serif text-[clamp(22px,3.5vw,44px)] italic leading-tight text-ink">
           {project.summary[lang]}
         </p>
       </section>
 
-      {/* Chapô — grande accroche éditoriale qui ouvre l'article. */}
+      {/* Chapô — grande accroche éditoriale qui ouvre l'article, pleine largeur. */}
       {project.article && (
         <section className="mt-14 md:mt-20">
-          <p className="max-w-3xl font-serif text-[clamp(20px,2.6vw,34px)] italic leading-snug text-ink">
+          <p className="max-w-5xl font-serif text-[clamp(20px,2.6vw,34px)] italic leading-snug text-ink">
             {(project.article[lang] || project.article.FR).lead}
           </p>
         </section>
@@ -190,7 +191,7 @@ export default function ProjectDetail() {
               <span className="font-sans text-[11px] uppercase tracking-editorial text-ink/50">
                 {tr(G.title)}
               </span>
-              <p className="mt-6 max-w-3xl font-serif text-[clamp(19px,2.4vw,30px)] italic leading-snug text-ink">
+              <p className="mt-6 max-w-5xl font-serif text-[clamp(19px,2.4vw,30px)] italic leading-snug text-ink">
                 {tr(G.intro)}
               </p>
 

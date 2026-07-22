@@ -120,7 +120,13 @@ export default function ProjectChapters({
 
         return (
           <section key={i}>
-            <div className="grid grid-cols-12 items-start gap-x-8 gap-y-10 border-t-2 border-ink pt-10 md:gap-x-14 md:pt-14">
+            {/* `md:items-center` : la colonne texte est souvent bien plus courte
+                que la colonne images (une image portrait fait 1200px, un texte de
+                trois lignes ~330px). En alignement haut, cela laissait un immense
+                vide vertical à côté du texte. On CENTRE donc verticalement le texte
+                face au visuel — il l'accompagne au lieu de flotter tout en haut,
+                et la double-page « respire » comme un magazine imprimé. */}
+            <div className="grid grid-cols-12 items-start gap-x-8 gap-y-10 border-t-2 border-ink pt-10 md:items-center md:gap-x-14 md:pt-14">
               {/* ── Colonne texte ── */}
               <div
                 className={`col-span-12 md:sticky md:top-28 ${

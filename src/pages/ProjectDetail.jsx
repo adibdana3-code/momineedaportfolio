@@ -2,7 +2,7 @@ import { lazy, Suspense, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext.jsx';
-import { projects, getProject, COLOR_HEX } from '../content/projects.js';
+import { architectureProjects, artProjects, getProject, COLOR_HEX } from '../content/projects.js';
 import { ui } from '../content/ui.js';
 import NotFound from './NotFound.jsx';
 import Magnetic from '../components/ui/Magnetic.jsx';
@@ -79,8 +79,9 @@ export default function ProjectDetail() {
   const C = L.cursor;
   const place = project.place[lang] ?? project.place;
 
-  // Projet suivant (navigation cyclique DANS la même famille : archi ou art)
-  const siblings = projects.filter((p) => p.category === project.category);
+  // Projet suivant (navigation cyclique DANS la même famille : archi ou art),
+  // en suivant l'ordre trié par `num` — le même que l'accueil.
+  const siblings = project.category === 'art' ? artProjects : architectureProjects;
   const sidx = siblings.findIndex((p) => p.slug === slug);
   const next = siblings[(sidx + 1) % siblings.length];
 

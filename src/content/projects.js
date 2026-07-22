@@ -295,7 +295,7 @@ export const projects = [
   // ──────────────────────── ART & EXPÉRIMENTATION ──────────────────────
   {
     slug: 'littoral-variations',
-    num: '01',
+    num: '04',
     category: 'art',
     title: tri('Littoral, variations', 'Shoreline, variations', 'Küste, Variationen', 'الساحل، تنويعات'),
     place: tri('Liban', 'Lebanon', 'Libanon', 'لبنان'),
@@ -319,7 +319,7 @@ export const projects = [
   },
   {
     slug: 'photographie-mode-manuel',
-    num: '02',
+    num: '05',
     category: 'art',
     title: tri('Photographie en mode manuel', 'Manual-mode photography', 'Fotografie im manuellen Modus', 'تصوير بالوضع اليدوي'),
     place: tri('Séries personnelles', 'Personal series', 'Persönliche Serien', 'سلاسل شخصية'),
@@ -344,7 +344,7 @@ export const projects = [
   },
   {
     slug: 'bague-blender',
-    num: '03',
+    num: '02',
     category: 'art',
     title: tri('Bague — design 3D', 'Ring — 3D design', 'Ring — 3D-Design', 'خاتم — تصميم ثلاثي الأبعاد'),
     place: tri('Modélisation Blender', 'Blender modelling', 'Blender-Modellierung', 'نمذجة بـ Blender'),
@@ -371,7 +371,7 @@ export const projects = [
   },
   {
     slug: 'tabouret',
-    num: '04',
+    num: '03',
     category: 'art',
     title: tri('Tabouret', 'Stool', 'Hocker', 'مقعد'),
     place: tri("Design d'objet", 'Object design', 'Objektdesign', 'تصميم منتج'),
@@ -402,7 +402,7 @@ export const projects = [
   },
   {
     slug: 'logo-ajfl',
-    num: '05',
+    num: '01',
     category: 'art',
     title: tri('Logo AJFL', 'AJFL Logo', 'AJFL-Logo', 'شعار AJFL'),
     place: tri(
@@ -1219,9 +1219,14 @@ projects.forEach((p) => {
 
 export const getProject = (slug) => projects.find((p) => p.slug === slug);
 
-// Vues filtrées par famille (grille projets, section Art, menu, navigation cyclique).
-export const architectureProjects = projects.filter((p) => p.category === 'architecture');
-export const artProjects = projects.filter((p) => p.category === 'art');
+// Vues filtrées par famille (grille projets, section Art, menu, navigation cyclique),
+// TRIÉES par `num` : l'ordre d'affichage suit la numérotation (importance /
+// aboutissement pour l'Art), indépendamment de l'ordre du tableau source.
+const byNum = (a, b) => a.num.localeCompare(b.num);
+export const architectureProjects = projects
+  .filter((p) => p.category === 'architecture')
+  .sort(byNum);
+export const artProjects = projects.filter((p) => p.category === 'art').sort(byNum);
 
 // Palette utilitaire (classes en toutes lettres pour le scanner Tailwind).
 // Palette éditoriale (voir tailwind.config.js — mêmes valeurs remappées).

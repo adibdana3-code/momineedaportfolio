@@ -23,20 +23,24 @@ const captionOf = (item, lang) => item.label[lang] || item.label.FR;
 function Figure({ item, lang, projectTitle, onImageClick, zoomLabel }) {
   const caption = captionOf(item, lang);
   return (
-    <figure className="m-0">
+    // `w-fit` : la figure épouse la taille de l'image (bornée ci-dessous), elle
+    // est centrée par le conteneur et ne s'étire plus sur toute la largeur.
+    <figure className="m-0 w-fit max-w-full">
       <button
         type="button"
         data-cursor={zoomLabel}
         onClick={() => onImageClick?.(item.src)}
         aria-label={`${projectTitle} — ${caption}`}
-        className="block w-full cursor-none overflow-hidden"
+        className="block cursor-none overflow-hidden"
       >
+        {/* Dimensions BORNÉES : largeur au plus celle de la colonne, hauteur au
+            plus ~78vh — un plan vertical ne dépasse plus la hauteur de l'écran. */}
         <motion.img
           {...reveal}
           src={item.src}
           alt={`${projectTitle} — ${caption}`}
           loading="lazy"
-          className="w-full object-contain"
+          className="block max-h-[78vh] w-auto max-w-full object-contain"
         />
       </button>
       <figcaption className="mt-3 font-sans text-[10px] uppercase tracking-editorial text-ink/50">
@@ -98,9 +102,9 @@ export default function ProjectChapters({
               ))}
             </div>
 
-            {/* Images du chapitre, à la suite, en pleine largeur. */}
+            {/* Images du chapitre, à la suite, centrées et à taille bornée. */}
             {ch.images?.length > 0 && (
-              <div className="mt-10 flex flex-col gap-12 md:mt-12">
+              <div className="mt-10 flex flex-col items-center gap-12 md:mt-12">
                 {ch.images.map((item) => (
                   <Figure key={item.src} item={item} {...shared} />
                 ))}

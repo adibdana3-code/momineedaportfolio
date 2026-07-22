@@ -144,12 +144,7 @@ export const projects = [
     slug: 'rehabilitation-tourcoing',
     num: '03',
     category: 'architecture',
-    title: tri(
-      'Réhabilitation — Tourcoing',
-      'Rehabilitation — Tourcoing',
-      'Sanierung — Tourcoing',
-      'إعادة تأهيل — توركوان'
-    ),
+    title: tri('Réhabilitation', 'Rehabilitation', 'Sanierung', 'إعادة تأهيل'),
     place: tri('Tourcoing', 'Tourcoing', 'Tourcoing', 'توركوان'),
     year: '2025',
     typology: tri(

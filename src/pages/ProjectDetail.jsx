@@ -273,18 +273,18 @@ export default function ProjectDetail() {
             <span className="font-sans text-[11px] uppercase tracking-editorial text-ink/50">
               {T.docs} ({String(project.restGallery.length).padStart(2, '0')})
             </span>
-            <div className="mt-8 flex flex-col gap-12">
+            <div className="mt-8 flex flex-col items-center gap-12">
               {project.restGallery.map((item) => {
                 // `item.label` est un objet i18n { FR, EN, DE, AR } (voir projects.js).
                 const caption = item.label[lang] || item.label.FR;
                 return (
-                  <figure key={item.src} className="m-0">
+                  <figure key={item.src} className="m-0 w-fit max-w-full">
                     <button
                       type="button"
                       data-cursor={C.look}
                       onClick={() => openLightbox(item.src)}
                       aria-label={`${project.title[lang]} — ${caption}`}
-                      className="block w-full cursor-none overflow-hidden"
+                      className="block cursor-none overflow-hidden"
                     >
                       <motion.img
                         src={item.src}
@@ -294,7 +294,7 @@ export default function ProjectDetail() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, amount: 0.15 }}
                         transition={{ duration: 0.9, ease: EASE }}
-                        className="w-full object-contain"
+                        className="block max-h-[78vh] w-auto max-w-full object-contain"
                       />
                     </button>
                     <figcaption className="mt-3 font-sans text-[10px] uppercase tracking-editorial text-ink/50">

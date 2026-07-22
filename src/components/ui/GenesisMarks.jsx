@@ -1,9 +1,9 @@
 /**
  * Marques de référence (SVG) pour la section « Genèse » d'un projet graphique.
  *
- * ⚠️ Illustrations de SUBSTITUTION (placeholders) : Dana n'a pas encore fourni
- * les visuels de référence. Elles sont volontairement au trait, en currentColor,
- * pour rester dans la DA éditoriale — à remplacer par ses images + crédits réels.
+ * Les trois signes (Tour Eiffel, Cèdre, Balance) sont redessinés au trait, en
+ * currentColor, pour rester dans la DA éditoriale et se fondre avec le logotype
+ * final — chaque signe est ainsi présenté dans le même langage graphique.
  */
 
 const common = {

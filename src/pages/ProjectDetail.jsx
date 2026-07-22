@@ -14,17 +14,6 @@ import { useDocumentMeta } from '../hooks/useDocumentMeta.jsx';
 // Le viewer 3D (Three.js) est lazy-loadé — ne charge que sur les pages projet.
 const ModelViewer = lazy(() => import('../components/sections/ModelViewer.jsx'));
 
-// Rythme de la galerie (spans desktop qui alternent, images en ratio naturel
-// pour ne pas rogner les plans/coupes/élévations).
-const SPANS = [
-  'md:col-span-8',
-  'md:col-span-4',
-  'md:col-span-6',
-  'md:col-span-6',
-  'md:col-span-7',
-  'md:col-span-5',
-];
-
 export default function ProjectDetail() {
   const { slug } = useParams();
   const { lang } = useLanguage();
@@ -120,9 +109,9 @@ export default function ProjectDetail() {
 
       {/* Bloc 3D — PLACÉ EN TÊTE, juste après le titre : c'est la pièce la plus
           impressionnante d'un projet et la seule qui se manipule, elle doit
-          être ce que le visiteur voit et attrape en arrivant. Viewer réel si un
-          modèle existe, sinon placeholder doux. */}
-      {project.model3d ? (
+          être ce que le visiteur voit et attrape en arrivant. Rendu uniquement
+          si un modèle existe ; sinon rien, jamais d'emplacement vide. */}
+      {project.model3d && (
         <section className="mt-10">
           <Suspense fallback={<div className="aspect-[16/10] w-full animate-pulse bg-[#F3F1EA]" />}>
             <ModelViewer
@@ -134,19 +123,7 @@ export default function ProjectDetail() {
             />
           </Suspense>
         </section>
-      ) : project.hasModel ? (
-        <section className="mt-10 flex aspect-[16/10] flex-col items-center justify-center gap-3 bg-[#F3F1EA] text-center">
-          <span className="font-sans text-[11px] uppercase tracking-editorial text-orange">
-            {T.model}
-          </span>
-          <span className="font-serif text-[clamp(22px,3vw,40px)] italic text-ink">
-            {T.modelSoon}
-          </span>
-          <span className="font-sans text-[10px] uppercase tracking-editorial text-ink/50">
-            {T.modelWait}
-          </span>
-        </section>
-      ) : null}
+      )}
 
       {/* Accroche colorée — pleine largeur : c'est un titre-accroche, il doit
           occuper toute la section et non rester tassé à gauche. */}
@@ -165,23 +142,21 @@ export default function ProjectDetail() {
         </section>
       )}
 
-      {/* Corps de l'article en CHAPITRES alternés (texte d'un côté, images de
-          l'autre, côtés inversés à chaque chapitre) — la double-page magazine. */}
+      {/* Corps de l'article en CHAPITRES : texte en flux, images en composition
+          asymétrique (voir ProjectChapters) — la double-page magazine. */}
       <ProjectChapters
         chapters={project.chapters}
         lang={lang}
         projectTitle={project.title[lang]}
         accent={COLOR_HEX[project.color]}
-        draftLabel={T.draft}
         quote={(project.article?.[lang] || project.article?.FR)?.quote}
         quoteMarks={T.quoteMarks}
         onImageClick={openLightbox}
         zoomLabel={C.look}
       />
 
-      {/* Genèse — signes de référence puis fusion (projets graphiques).
-          Les visuels de référence sont des placeholders SVG tant que Dana n'a
-          pas fourni les images réelles (crédit affiché sous chacun). */}
+      {/* Genèse — les trois signes de référence redessinés, puis leur fusion en
+          logotype (projets d'identité graphique). */}
       {project.genesis &&
         (() => {
           const G = project.genesis;
@@ -255,15 +230,16 @@ export default function ProjectDetail() {
           <span className="font-sans text-[11px] uppercase tracking-editorial text-ink/50">
             {T.docs} ({String(project.restGallery.length).padStart(2, '0')})
           </span>
-          <div className="mt-8 grid grid-cols-12 gap-8 md:gap-12">
-            {project.restGallery.map((item, i) => {
+          {/* Masonry deux colonnes : un vrai « mur d'images » de lookbook. Les
+              hauteurs naturelles s'imbriquent sans laisser de vides, contrairement
+              à une grille stricte qui alignait chaque rangée sur l'image la plus
+              haute. */}
+          <div className="mt-8 gap-8 [column-gap:2rem] sm:columns-2 md:[column-gap:3rem]">
+            {project.restGallery.map((item) => {
               // `item.label` est un objet i18n { FR, EN, DE, AR } (voir projects.js).
               const caption = item.label[lang] || item.label.FR;
               return (
-                <figure
-                  key={item.src}
-                  className={`col-span-12 m-0 ${item.span || SPANS[i % SPANS.length]}`}
-                >
+                <figure key={item.src} className="m-0 mb-8 break-inside-avoid md:mb-12">
                   <button
                     type="button"
                     data-cursor={C.look}

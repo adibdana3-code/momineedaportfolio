@@ -29,19 +29,15 @@ export const ui = {
       back: '← Index',
       label: 'Projet',
       model: 'Maquette 3D',
-      modelSoon: 'Bientôt interactive',
-      modelWait: 'En attente du modèle Revit / GLB',
       scene: 'Scène 3D',
       docs: 'Documents & images',
       next: 'Projet suivant',
-      // Titres de chapitre génériques, utilisés quand un projet n'a pas encore
-      // de chapitres rédigés (voir `buildChapters` dans projects.js).
+      // Titres de chapitre génériques, répartis sur les paragraphes de l'article
+      // (voir `buildChapters` dans projects.js).
       quoteMarks: ['« ', ' »'],
       chIntention: 'Intention',
       chProjet: 'Le projet',
       chMatiere: 'Matière & détail',
-      // Mention affichée sous un chapitre encore rempli de faux texte.
-      draft: 'Texte provisoire',
       // Modale plein écran (voir ui/Lightbox.jsx).
       lightbox: {
         title: 'Visionneuse',
@@ -94,8 +90,6 @@ export const ui = {
       back: '← Index',
       label: 'Project',
       model: '3D model',
-      modelSoon: 'Coming soon',
-      modelWait: 'Awaiting the Revit / GLB model',
       scene: '3D scene',
       docs: 'Documents & images',
       next: 'Next project',
@@ -103,7 +97,6 @@ export const ui = {
       chIntention: 'Intention',
       chProjet: 'The project',
       chMatiere: 'Material & detail',
-      draft: 'Placeholder text',
       lightbox: {
         title: 'Viewer',
         close: 'Close',
@@ -154,8 +147,6 @@ export const ui = {
       back: '← Index',
       label: 'Projekt',
       model: '3D-Modell',
-      modelSoon: 'Bald interaktiv',
-      modelWait: 'Warten auf das Revit-/GLB-Modell',
       scene: '3D-Szene',
       docs: 'Dokumente & Bilder',
       next: 'Nächstes Projekt',
@@ -163,7 +154,6 @@ export const ui = {
       chIntention: 'Intention',
       chProjet: 'Das Projekt',
       chMatiere: 'Material & Detail',
-      draft: 'Platzhaltertext',
       lightbox: {
         title: 'Betrachter',
         close: 'Schließen',
@@ -214,8 +204,6 @@ export const ui = {
       back: 'الفهرس →',
       label: 'مشروع',
       model: 'مجسّم ثلاثي الأبعاد',
-      modelSoon: 'تفاعلي قريبًا',
-      modelWait: 'بانتظار نموذج Revit / GLB',
       scene: 'مشهد ثلاثي الأبعاد',
       docs: 'مستندات وصور',
       next: 'المشروع التالي',
@@ -223,7 +211,6 @@ export const ui = {
       chIntention: 'النيّة',
       chProjet: 'المشروع',
       chMatiere: 'المادة والتفصيل',
-      draft: 'نص مؤقّت',
       lightbox: {
         title: 'العارض',
         close: 'إغلاق',

@@ -210,10 +210,10 @@ export const projects = [
     year: '2025',
     typology: tri('Résidentiel · Villa', 'Residential · Villa', 'Wohnbau · Villa', 'سكني · فيلا'),
     summary: tri(
-      'Une villa posée dans le relief libanais — maquette 3D interactive (Revit/GLB) à intégrer.',
-      'A villa set into the Lebanese relief — interactive 3D model (Revit/GLB) to be integrated.',
-      'Eine Villa im libanesischen Relief — interaktives 3D-Modell (Revit/GLB) folgt.',
-      'فيلا تستقر في التضاريس اللبنانية — مجسّم ثلاثي الأبعاد تفاعلي.'
+      'Une villa posée dans le relief libanais — le volume se parcourt en 3D interactive, terrasse après terrasse.',
+      'A villa set into the Lebanese relief — the volume is explored in interactive 3D, terrace after terrace.',
+      'Eine Villa im libanesischen Relief — das Volumen wird interaktiv in 3D erkundet, Terrasse für Terrasse.',
+      'فيلا تستقر في التضاريس اللبنانية — يُستكشف الحجم بتقنية ثلاثية الأبعاد تفاعلية، شرفةً بعد شرفة.'
     ),
     color: 'acid',
     cover: asset('villa-fond.webp'),
@@ -434,8 +434,8 @@ export const projects = [
     hover: asset('logo-ajfl.webp'),
     hasModel: false,
     gallery: [g('logo-ajfl.webp', 'logotype')],
-    // Section « genèse » : les trois signes de référence puis leur fusion.
-    // ⚠️ Visuels de référence = placeholders SVG (voir ui/GenesisMarks.jsx).
+    // Section « genèse » : les trois signes de référence, redessinés en signes
+    // graphiques (voir ui/GenesisMarks.jsx), puis leur fusion en logotype.
     genesis: {
       title: tri('Genèse du logo', 'Genesis of the logo', 'Entstehung des Logos', 'نشأة الشعار'),
       intro: tri(
@@ -476,12 +476,12 @@ export const projects = [
           ),
         },
       ],
-      // Crédit affiché sous CHAQUE visuel de référence.
+      // Légende affichée sous CHAQUE signe de référence (interprétation dessinée).
       credit: tri(
-        'Illustration de substitution — à remplacer par le visuel de référence et son crédit source.',
-        'Placeholder illustration — to be replaced by the reference image and its source credit.',
-        'Platzhalter-Illustration — durch das Referenzbild und seinen Quellennachweis zu ersetzen.',
-        'رسم بديل مؤقّت — يُستبدل بالصورة المرجعية ومصدرها.'
+        'Signe de référence, redessiné pour le logotype.',
+        'Reference sign, redrawn for the logotype.',
+        'Referenzzeichen, für das Logo neu gezeichnet.',
+        'رمز مرجعي، أُعيد رسمه من أجل الشعار.'
       ),
       resultLabel: tri(
         'Fusion — le logotype AJFL',
@@ -494,10 +494,11 @@ export const projects = [
 ];
 
 /**
- * Articles éditoriaux façon magazine de design — TEXTES D'ATTENTE (à remplacer
- * par les vrais textes de Dana). Chaque entrée : { lead (chapô), body[] (corps
- * en colonnes), quote (citation mise en avant) } × { FR, EN, DE }.
- * (AR non fourni ici → repli sur FR côté rendu ; Dana n'a demandé que 3 langues.)
+ * Articles éditoriaux façon magazine de design. Chaque entrée :
+ * { lead (chapô d'introduction), body[] (corps en colonnes, 2 à 3 paragraphes),
+ *   quote (citation mise en avant) } × { FR, EN, DE, AR }.
+ * Les quatre langues sont rédigées intégralement — l'arabe ne retombe jamais
+ * sur le français.
  */
 const ARTICLES = {
   // Wellness : chapô + citation. Le corps du texte est découpé en CHAPITRES
@@ -934,39 +935,98 @@ const ARTICLES = {
   },
 };
 
+
 /**
- * FAUX TEXTE — paragraphes de remplissage, en attendant les textes réels de
- * Dana. Latin (« lorem ipsum ») pour FR/EN/DE, placeholder arabe pour AR : un
- * bloc latin au milieu d'une page RTL casserait la mise en page et la lecture.
- * Tout chapitre qui en contient est marqué `draft: true` → mention visible
- * « Texte provisoire » sur la page, pour ne jamais confondre avec du définitif.
+ * Troisième paragraphe de corps ajouté à chaque article, pour des pages
+ * pleinement « solides » (chapô + trois paragraphes détaillés). Défini à part
+ * puis fusionné dans les `body` ci-dessus — plus lisible que d'alourdir chaque
+ * bloc de langue. Ton architectural, analytique, dans les quatre langues.
+ * (Wellness a son propre récit en chapitres → pas concerné.)
  */
-const LOREM = [
-  tri(
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    undefined,
-    undefined,
-    'لوريم إيبسوم هو ببساطة نص شكلي يُستخدم في صناعة الطباعة والتنضيد. كان لوريم إيبسوم النص الشكلي القياسي للصناعة منذ القرن الخامس عشر، حين أخذت مطبعة مجهولة لوحة من الحروف وخلطتها لتصنع كتاب عيّنة من الحروف.'
+const ARTICLE_EXTRA = {
+  'maison-residentielle-etude': tri(
+    "Au-delà de l'exercice, le projet fut un banc d'essai méthodologique : modéliser sous Revit, c'est construire deux fois — une première en données, une seconde en images — et apprendre à faire dialoguer la rigueur du plan avec la sensibilité du rendu. Chaque façade a été calibrée selon son orientation, pour que la lumière naturelle devienne un matériau de projet à part entière.",
+    'Beyond the exercise, the project was a methodological testing ground: to model in Revit is to build twice — once in data, once in images — and to learn how the rigour of the plan can dialogue with the sensibility of the render. Each façade was calibrated according to its orientation, so that daylight became a design material in its own right.',
+    'Über die Übung hinaus war das Projekt ein methodischer Prüfstand: In Revit zu modellieren heißt, zweimal zu bauen — einmal in Daten, einmal in Bildern — und zu lernen, wie die Strenge des Grundrisses mit der Sensibilität des Renderings in Dialog tritt. Jede Fassade wurde nach ihrer Ausrichtung kalibriert, sodass das Tageslicht zu einem eigenständigen Entwurfsmaterial wurde.',
+    'أبعد من التمرين، كان المشروع منصّة اختبار منهجية: أن تُنمذج في Revit يعني أن تبني مرتين — مرةً في البيانات ومرةً في الصور — وأن تتعلّم كيف تتحاور صرامة المخطط مع حساسية التصيير. ضُبطت كل واجهة تبعاً لتوجيهها، حتى يغدو الضوء الطبيعي مادةً تصميمية قائمة بذاتها.'
   ),
-  tri(
-    'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    undefined,
-    undefined,
-    'لقد نجا هذا النص ليس فقط خمسة قرون، بل انتقل أيضاً إلى التنضيد الإلكتروني وبقي كما هو دون تغيير يُذكر. وقد شاع استعماله في ستينيات القرن الماضي مع صدور أوراق تحتوي مقاطع من لوريم إيبسوم.'
+  cuisine: tri(
+    "Le projet accorde une attention particulière aux matières et à la lumière : plans clairs, façades de meubles mates et jeux de reflets mesurés composent une ambiance à la fois fonctionnelle et sereine. Loin d'un simple aménagement, la cuisine est traitée comme un fragment d'architecture intérieure, où chaque rangement et chaque hauteur répond à une logique d'usage.",
+    'The project pays particular attention to materials and light: pale worktops, matte cabinet fronts and measured plays of reflection compose an atmosphere that is at once functional and serene. Far from a mere fit-out, the kitchen is treated as a fragment of interior architecture, where every storage unit and every height answers a logic of use.',
+    'Das Projekt widmet Materialien und Licht besondere Aufmerksamkeit: helle Arbeitsflächen, matte Möbelfronten und ein maßvolles Spiel der Reflexe schaffen eine Atmosphäre, die zugleich funktional und ruhig ist. Weit mehr als eine bloße Einrichtung wird die Küche als Fragment der Innenarchitektur behandelt, in dem jeder Stauraum und jede Höhe einer Nutzungslogik folgt.',
+    'يولي المشروع عنايةً خاصة للمواد والضوء: أسطح فاتحة، وواجهات أثاث مطفأة اللمعان، وانعكاسات محسوبة، تؤلّف أجواءً وظيفية وهادئة في آن. وبعيداً عن مجرّد تجهيز، يُعامَل المطبخ كشذرة من العمارة الداخلية، حيث يستجيب كل خزان وكل ارتفاع لمنطق استعمال.'
   ),
-  tri(
-    'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
-    undefined,
-    undefined,
-    'وفي الآونة الأخيرة انتشر مع برامج النشر المكتبي التي تضمّنت نسخاً من لوريم إيبسوم. الغاية من هذا النص هي ملء المساحة ريثما يُكتب المحتوى النهائي للمشروع.'
+  'villa-montagnes-liban': tri(
+    "La matérialité prolonge cette négociation avec le site : pierre locale en soubassement, enduits clairs et larges baies inscrivent la villa dans la palette de la montagne libanaise. Le projet cherche moins à s'imposer qu'à cadrer des vues, transformant chaque ouverture en tableau du paysage.",
+    'The materiality extends this negotiation with the site: local stone at the base, pale renders and wide bays set the villa within the palette of the Lebanese mountains. The project seeks less to impose itself than to frame views, turning each opening into a picture of the landscape.',
+    'Die Materialität setzt diese Verhandlung mit dem Ort fort: lokaler Stein im Sockel, helle Putze und breite Fensterbänder fügen die Villa in die Palette der libanesischen Berge ein. Das Projekt will sich weniger aufdrängen, als Ausblicke rahmen, und verwandelt jede Öffnung in ein Bild der Landschaft.',
+    'تمدّد المادية هذا التفاوض مع الموقع: حجر محلي في القاعدة، وطلاء فاتح، وفتحات واسعة، تُدرج الفيلا في لوحة ألوان الجبل اللبناني. يسعى المشروع إلى تأطير المشاهد أكثر من فرض نفسه، محوّلاً كل فتحة إلى لوحةٍ للمنظر.'
   ),
-  tri(
-    'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt neque porro quisquam est.',
-    undefined,
-    undefined,
-    'من المعروف أن المحتوى المقروء لصفحةٍ ما سيصرف انتباه القارئ عن التركيز على الشكل الخارجي للنص أو على طريقة توزيع الفقرات في الصفحة التي يقرأها.'
+  dat: tri(
+    "Au sol, le projet ouvre l'immeuble sur la ville : commerces et halls forment un socle actif qui met la vie publique au contact de la rue, tandis que les plateaux de bureaux gagnent en calme à mesure qu'ils s'élèvent. Le moucharabieh contemporain n'est pas qu'un motif : c'est un dispositif climatique, qui gère l'ensoleillement intense sans renoncer aux vues.",
+    'At ground level, the project opens the building onto the city: retail and lobbies form an active base that brings public life into contact with the street, while the office floors grow calmer as they rise. The contemporary mashrabiya is not merely a motif: it is a climatic device, managing intense sunlight without giving up the views.',
+    'Im Erdgeschoss öffnet das Projekt das Gebäude zur Stadt: Handel und Hallen bilden einen aktiven Sockel, der das öffentliche Leben mit der Straße in Kontakt bringt, während die Büroetagen mit zunehmender Höhe ruhiger werden. Die zeitgenössische Maschrabiyya ist nicht nur ein Motiv: Sie ist eine klimatische Vorrichtung, die die intensive Sonneneinstrahlung steuert, ohne auf die Ausblicke zu verzichten.',
+    'عند الأرض، يفتح المشروع المبنى على المدينة: تشكّل المحلات والبهوات قاعدةً نشطة تضع الحياة العامة على تماسّ مع الشارع، بينما تزداد طوابق المكاتب هدوءاً كلما ارتفعت. والمشربية المعاصرة ليست زخرفاً فحسب: إنها أداة مناخية تُدير الإشعاع الشمسي الشديد دون التخلّي عن المناظر.'
   ),
-];
+  'entree-de-bureaux': tri(
+    "La palette matérielle — pierre, bois clair et métal patiné — installe une élégance sobre, pensée pour durer au-delà des effets de mode. L'éclairage, enfin, sculpte l'espace autant qu'il guide : lumière rasante sur les matières, points chauds à l'accueil, pour que le seuil dise d'emblée le soin porté à ceux qu'il reçoit.",
+    'The material palette — stone, pale wood and patinated metal — sets a sober elegance, meant to last beyond passing fashions. Lighting, finally, sculpts the space as much as it guides: grazing light on the materials, warm focal points at the reception, so that the threshold announces at once the care given to those it welcomes.',
+    'Die Materialpalette — Stein, helles Holz und patiniertes Metall — schafft eine nüchterne Eleganz, die über Modeerscheinungen hinaus Bestand haben soll. Das Licht schließlich formt den Raum ebenso, wie es leitet: streifendes Licht auf den Materialien, warme Lichtpunkte am Empfang, damit die Schwelle sogleich die Sorgfalt für die Empfangenen ausspricht.',
+    'تُرسي لوحة المواد — الحجر والخشب الفاتح والمعدن المتعتّق — أناقةً رصينة، مقصودةً لتدوم أبعد من الموضات العابرة. أما الإضاءة فتنحت الفضاء بقدر ما توجّه: ضوء مائل على المواد، وبؤر دافئة عند الاستقبال، كي تُعلن العتبة منذ الوهلة الأولى العنايةَ بمن تستقبلهم.'
+  ),
+  'details-berlin': tri(
+    "Travailler le détail, c'est accepter que l'architecture se joue autant sur la planche à dessin que sur le chantier : chaque coupe verticale négocie l'isolation, l'acoustique et la mise en œuvre réelle de l'artisan. Cette expérience berlinoise a nourri une conviction — la cohérence d'un bâtiment se construit du grand au petit, sans jamais relâcher l'attention.",
+    "To work on the detail is to accept that architecture is decided as much on the drawing board as on site: every vertical section negotiates insulation, acoustics and the craftsman's actual execution. This Berlin experience fed a conviction — a building's coherence is built from the large to the small, never letting attention slacken.",
+    'Am Detail zu arbeiten heißt zu akzeptieren, dass Architektur ebenso am Reißbrett wie auf der Baustelle entschieden wird: Jeder Vertikalschnitt verhandelt Dämmung, Akustik und die tatsächliche Ausführung des Handwerkers. Diese Berliner Erfahrung nährte eine Überzeugung — die Kohärenz eines Gebäudes entsteht vom Großen zum Kleinen, ohne die Aufmerksamkeit je nachlassen zu lassen.',
+    'أن تشتغل على التفصيل يعني أن تقبل بأن العمارة تُحسم على لوح الرسم بقدر ما تُحسم في الورشة: يفاوض كل مقطع عمودي العزلَ والصوتيات والتنفيذ الفعلي للحرفي. غذّت هذه التجربة البرلينية قناعة — تماسك المبنى يُبنى من الكبير إلى الصغير، دون أن يفتر الانتباه قط.'
+  ),
+  'littoral-variations': tri(
+    "En déclinant un même motif selon trois protocoles, la série interroge la frontière entre photographie et dessin, entre relevé et interprétation. Ce qui se donne à voir n'est plus la côte elle-même, mais la manière dont un regard — et un outil — la découpent, la mesurent et la recomposent.",
+    'By declining a single motif through three protocols, the series questions the border between photography and drawing, between survey and interpretation. What is offered to the eye is no longer the coast itself, but the way in which a gaze — and a tool — cut it, measure it and recompose it.',
+    'Indem sie ein einziges Motiv nach drei Protokollen durchspielt, befragt die Serie die Grenze zwischen Fotografie und Zeichnung, zwischen Aufnahme und Deutung. Was sich dem Auge zeigt, ist nicht mehr die Küste selbst, sondern die Art, wie ein Blick — und ein Werkzeug — sie zerschneiden, vermessen und neu zusammensetzen.',
+    'بتصريف الموتيف الواحد وفق ثلاثة بروتوكولات، تتساءل السلسلة عن الحدّ بين الفوتوغرافيا والرسم، بين الرصد والتأويل. فما يُعرَض على العين لم يعد الساحل نفسه، بل الطريقة التي بها يقصّه نظرٌ — وأداةٌ — ويقيسانه ويعيدان تركيبه.'
+  ),
+  tabouret: tri(
+    "Du dessin à l'atelier, chaque assemblage est éprouvé : sections de bois, angles de piètement et surfaces d'appui sont ajustés jusqu'à ce que la stabilité découle de la géométrie plutôt que de la masse. Le tabouret devient alors un exercice de sincérité constructive, où rien n'est ajouté qui ne serve à tenir.",
+    'From drawing to workshop, each joint is tested: timber sections, leg angles and bearing surfaces are adjusted until stability arises from geometry rather than mass. The stool thus becomes an exercise in constructive honesty, where nothing is added that does not serve to hold.',
+    'Von der Zeichnung zur Werkstatt wird jede Verbindung erprobt: Holzquerschnitte, Beinwinkel und Auflageflächen werden angepasst, bis die Stabilität aus der Geometrie und nicht aus der Masse entsteht. Der Hocker wird so zu einer Übung in konstruktiver Ehrlichkeit, in der nichts hinzugefügt wird, was nicht dem Halt dient.',
+    'من الرسم إلى الورشة، تُختبر كل وصلة: تُضبط مقاطع الخشب وزوايا الأرجل وأسطح الارتكاز حتى ينبع الثبات من الهندسة لا من الكتلة. فيغدو المقعد تمريناً في الصدق الإنشائي، حيث لا يُضاف شيء لا يخدم الإمساك.'
+  ),
+  'bague-blender': tri(
+    "Travaillée comme une micro-architecture, la bague se pense en termes de surfaces, de reflets et de continuités : la modélisation numérique devient un artisanat, où l'on sculpte la lumière autant que la matière. Le passage au réel — impression, fonte, polissage — rappelle que le fichier 3D n'est qu'une promesse, que seule la fabrication tient.",
+    'Worked as a micro-architecture, the ring is thought in terms of surfaces, reflections and continuities: digital modelling becomes a craft, where one sculpts light as much as matter. The move to the real — printing, casting, polishing — recalls that the 3D file is only a promise, kept solely by fabrication.',
+    'Als Mikroarchitektur bearbeitet, wird der Ring in Flächen, Reflexen und Kontinuitäten gedacht: Die digitale Modellierung wird zum Handwerk, in dem man das Licht ebenso formt wie die Materie. Der Schritt ins Reale — Druck, Guss, Politur — erinnert daran, dass die 3D-Datei nur ein Versprechen ist, das allein die Fertigung einlöst.',
+    'مُعالَجاً كعمارة مصغّرة، يُفكَّر في الخاتم بلغة الأسطح والانعكاسات والاستمراريات: تصير النمذجة الرقمية حرفةً، يُنحَت فيها الضوء بقدر ما تُنحَت المادة. والانتقال إلى الواقع — طباعة، سبك، صقل — يذكّر بأن الملف الثلاثي الأبعاد مجرّد وعد، لا يوفيه سوى التصنيع.'
+  ),
+  'photographie-mode-manuel': tri(
+    "Au-delà de la technique, l'exercice affine le regard : choisir une ouverture, c'est déjà décider de ce qui compte dans le cadre et de ce qui s'efface. Chaque image devient une petite étude de composition, où la contrainte du tout-manuel oblige à voir avant de déclencher.",
+    'Beyond technique, the exercise sharpens the eye: to choose an aperture is already to decide what matters in the frame and what fades away. Each image becomes a small study in composition, where the constraint of full-manual forces one to see before releasing the shutter.',
+    'Über die Technik hinaus schärft die Übung den Blick: eine Blende zu wählen heißt bereits zu entscheiden, was im Bild zählt und was zurücktritt. Jedes Bild wird zu einer kleinen Kompositionsstudie, in der der Zwang des rein Manuellen dazu nötigt, zu sehen, bevor man auslöst.',
+    'أبعد من التقنية، يشحذ التمرين النظر: اختيار الفتحة قرارٌ سلفاً بما يهمّ في الكادر وما ينمحي. تغدو كل صورة دراسةً صغيرة في التأليف، حيث يُلزم قيدُ الوضع اليدوي الكامل بالرؤية قبل الضغط على الزر.'
+  ),
+  'rehabilitation-tourcoing': tri(
+    "Au-delà de la forme, le projet porte une stratégie écologique et sociale : désimperméabiliser pour laisser respirer les sols, planter pour rafraîchir les cœurs d'îlot, et mêler les typologies pour éviter la ségrégation. Réhabiliter devient ici un acte politique autant qu'architectural — préférer le soin du déjà-là à la table rase.",
+    'Beyond form, the project carries an ecological and social strategy: de-paving to let the soil breathe, planting to cool the block cores, and mixing typologies to avoid segregation. To rehabilitate here becomes a political act as much as an architectural one — preferring care for what is already there to the clean slate.',
+    'Über die Form hinaus trägt das Projekt eine ökologische und soziale Strategie: entsiegeln, damit der Boden atmet, bepflanzen, um die Blockinneren zu kühlen, und Typologien mischen, um Segregation zu vermeiden. Sanieren wird hier zu einem ebenso politischen wie architektonischen Akt — die Sorge um das Bestehende der Tabula rasa vorzuziehen.',
+    'أبعد من الشكل، يحمل المشروع استراتيجيةً بيئية واجتماعية: إزالة الإسمنت كي تتنفّس الأرض، والتشجير لتلطيف قلوب الجزر، ومزج الأنماط السكنية لتفادي الفصل. تغدو إعادة التأهيل هنا فعلاً سياسياً بقدر ما هي معمارية — تفضيل العناية بما هو قائم على الأرض البيضاء.'
+  ),
+  'logo-ajfl': tri(
+    "La mise au point a suivi une longue série d'esquisses, cherchant le point exact où trois symboles deviennent une seule forme, lisible à petite comme à grande échelle. Réduit à un seul trait, le logotype reste reconnaissable en filigrane, en tampon ou en en-tête — preuve qu'une identité tient d'abord dans la justesse de son signe.",
+    'The refinement followed a long series of sketches, seeking the exact point where three symbols become a single form, legible at small and large scale alike. Reduced to a single line, the logotype stays recognisable as a watermark, a stamp or a letterhead — proof that an identity holds first in the rightness of its sign.',
+    'Die Ausarbeitung folgte einer langen Reihe von Skizzen, auf der Suche nach dem genauen Punkt, an dem drei Symbole zu einer einzigen Form werden, die im Kleinen wie im Großen lesbar bleibt. Auf eine einzige Linie reduziert, bleibt das Logo als Wasserzeichen, Stempel oder Briefkopf erkennbar — Beweis, dass eine Identität zuerst in der Richtigkeit ihres Zeichens liegt.',
+    'تبع الإنجازُ سلسلةً طويلة من الاسكتشات، بحثاً عن النقطة الدقيقة التي تصير عندها ثلاثة رموز شكلاً واحداً مقروءاً في المقياس الصغير كما الكبير. ومختزَلاً إلى خطٍّ واحد، يبقى الشعار قابلاً للتمييز كعلامة مائية أو ختم أو ترويسة — دليلٌ على أن الهوية تكمن أولاً في صواب علامتها.'
+  ),
+};
+
+// Fusionne le 3e paragraphe dans le corps de chaque article, langue par langue.
+Object.entries(ARTICLE_EXTRA).forEach(([slug, extra]) => {
+  const a = ARTICLES[slug];
+  if (!a) return;
+  a.FR.body.push(extra.FR);
+  a.EN.body.push(extra.EN);
+  a.DE.body.push(extra.DE);
+  a.AR.body.push(extra.AR);
+});
 
 /**
  * CHAPITRES rédigés à la main — mise en page « double-page magazine » :
@@ -1095,17 +1155,21 @@ const uiTitle = (key) => ({
 });
 
 /**
- * Construit des chapitres pour les projets qui n'en ont pas encore de rédigés :
- * on réutilise le texte d'article EXISTANT (chapô + corps, déjà traduit) et on
- * complète avec du faux texte pour tenir la mise en page magazine. Les images
- * de la galerie sont réparties entre les chapitres, deux par deux.
- *
- * Les chapitres contenant du faux texte sont marqués `draft` → mention visible
- * sur la page, pour que Dana repère d'un coup d'œil ce qui reste à écrire.
+ * Construit les chapitres d'un projet à partir de son ARTICLE — uniquement du
+ * texte RÉEL et traduit (chapô à part, puis un paragraphe de corps par
+ * chapitre). Aucun texte d'attente : le nombre de chapitres suit le nombre de
+ * paragraphes rédigés (jusqu'à trois). Les images de la galerie sont réparties
+ * entre ces chapitres, en conservant l'ordre d'origine.
  */
 function buildChapters(p) {
   const article = ARTICLES[p.slug];
-  const paras = article ? article.FR.body.map((_, i) => i) : [];
+  const bodies = article ? article.FR.body : [];
+  // Un chapitre par paragraphe de corps rédigé (au plus trois, pour garder le
+  // rythme « double-page »). Un projet sans corps d'article ne produit aucun
+  // chapitre (son récit tient alors dans le chapô + la galerie).
+  const nChapters = Math.min(3, bodies.length);
+  if (nChapters === 0) return [];
+
   // Un paragraphe d'article devient un objet i18n reconstruit langue par langue.
   const fromArticle = (i) => ({
     FR: article.FR.body[i],
@@ -1129,28 +1193,14 @@ function buildChapters(p) {
     return out;
   };
 
-  const [imgsA, imgsB, imgsC] = chunk(p.gallery || [], 3);
+  const titleKeys = ['chIntention', 'chProjet', 'chMatiere'];
+  const imgChunks = chunk(p.gallery || [], nChapters);
 
-  return [
-    {
-      title: uiTitle('chIntention'),
-      images: imgsA,
-      body: paras.length > 0 ? [fromArticle(0), LOREM[0]] : [LOREM[0], LOREM[1]],
-      draft: true,
-    },
-    {
-      title: uiTitle('chProjet'),
-      images: imgsB,
-      body: paras.length > 1 ? [fromArticle(1), LOREM[1]] : [LOREM[2]],
-      draft: true,
-    },
-    {
-      title: uiTitle('chMatiere'),
-      images: imgsC,
-      body: paras.length > 2 ? [fromArticle(2), LOREM[2]] : [LOREM[3]],
-      draft: true,
-    },
-  ];
+  return Array.from({ length: nChapters }, (_, i) => ({
+    title: uiTitle(titleKeys[Math.min(i, titleKeys.length - 1)]),
+    images: imgChunks[i] || [],
+    body: [fromArticle(i)],
+  }));
 }
 
 // Rattache article ET chapitres à chaque projet.

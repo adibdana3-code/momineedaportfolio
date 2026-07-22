@@ -182,7 +182,7 @@ export default function ProjectDetail() {
 
         {/* Chapô — grande accroche éditoriale qui ouvre l'article. */}
         {lead && (
-          <p className="max-w-3xl font-serif text-[clamp(20px,2.6vw,34px)] italic leading-snug text-ink">
+          <p className="mx-auto max-w-3xl font-serif text-[clamp(22px,2.8vw,36px)] italic leading-snug text-ink">
             {lead}
           </p>
         )}
@@ -208,12 +208,14 @@ export default function ProjectDetail() {
             const tr = (o) => (o ? o[lang] || o.FR : '');
             return (
               <section className="mt-20 border-t-2 border-ink/10 pt-12 md:mt-28">
-                <span className="font-sans text-[11px] uppercase tracking-editorial text-ink/50">
-                  {tr(G.title)}
-                </span>
-                <p className="mt-6 max-w-[65ch] font-serif text-[clamp(19px,2.4vw,30px)] italic leading-snug text-ink">
-                  {tr(G.intro)}
-                </p>
+                <div className="mx-auto max-w-3xl">
+                  <span className="font-sans text-[11px] uppercase tracking-editorial text-ink/50">
+                    {tr(G.title)}
+                  </span>
+                  <p className="mt-6 font-serif text-[clamp(20px,2.5vw,32px)] italic leading-snug text-ink">
+                    {tr(G.intro)}
+                  </p>
+                </div>
 
                 {/* Les trois signes de référence */}
                 <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-3 md:gap-10">

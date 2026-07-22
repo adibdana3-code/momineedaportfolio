@@ -82,24 +82,30 @@ export default function ProjectChapters({
 
         return (
           <section key={i} className="border-t-2 border-ink/10 pt-10 md:pt-12">
-            {/* Numéro + titre */}
-            <span
-              className="font-sans text-[11px] uppercase tracking-editorial"
-              style={{ color: accent }}
-            >
-              {String(i + 1).padStart(2, '0')}
-            </span>
-            <h2 className="mt-3 font-serif text-[clamp(26px,3.4vw,46px)] italic leading-[1.05] tracking-tight text-ink">
-              {title}
-            </h2>
+            {/* Bloc texte : titre + corps dans une belle colonne de lecture
+                CENTRÉE (mêmes marges à gauche et à droite), corps généreux façon
+                article de magazine — plus de colonne étroite tassée à gauche. */}
+            <div className="mx-auto max-w-3xl">
+              <span
+                className="font-sans text-[11px] uppercase tracking-editorial"
+                style={{ color: accent }}
+              >
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <h2 className="mt-3 font-serif text-[clamp(28px,3.6vw,48px)] italic leading-[1.05] tracking-tight text-ink">
+                {title}
+              </h2>
 
-            {/* Colonne de texte lisible, bien margée. */}
-            <div className="mt-6 max-w-[65ch] space-y-4 font-sans text-[15px] leading-relaxed text-ink/80">
-              {ch.body.map((para, j) => (
-                <p key={j} className="m-0">
-                  {para[lang] || para.FR}
-                </p>
-              ))}
+              {/* `text-lg/8` & `md:text-xl/9` : taille ET interligne liés dans la
+                  même utilitaire, sinon l'interligne par défaut de md:text-xl
+                  écrasait `leading`. Lecture ample, façon article imprimé. */}
+              <div className="mt-7 space-y-5 font-sans text-lg/8 text-ink/80 md:text-xl/9">
+                {ch.body.map((para, j) => (
+                  <p key={j} className="m-0">
+                    {para[lang] || para.FR}
+                  </p>
+                ))}
+              </div>
             </div>
 
             {/* Images du chapitre, à la suite, centrées et à taille bornée. */}

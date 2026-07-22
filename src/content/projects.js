@@ -319,7 +319,7 @@ export const projects = [
   },
   {
     slug: 'photographie-mode-manuel',
-    num: '05',
+    num: '03',
     category: 'art',
     title: tri('Photographie en mode manuel', 'Manual-mode photography', 'Fotografie im manuellen Modus', 'تصوير بالوضع اليدوي'),
     place: tri('Séries personnelles', 'Personal series', 'Persönliche Serien', 'سلاسل شخصية'),
@@ -344,22 +344,22 @@ export const projects = [
   },
   {
     slug: 'bague-blender',
-    num: '02',
+    num: '05',
     category: 'art',
-    title: tri('Bague — design 3D', 'Ring — 3D design', 'Ring — 3D-Design', 'خاتم — تصميم ثلاثي الأبعاد'),
-    place: tri('Modélisation Blender', 'Blender modelling', 'Blender-Modellierung', 'نمذجة بـ Blender'),
+    title: tri('Bague — modélisation 3D', 'Ring — 3D modelling', 'Ring — 3D-Modellierung', 'خاتم — نمذجة ثلاثية الأبعاد'),
+    place: tri("D'après Charles Jacqueau", 'After Charles Jacqueau', 'Nach Charles Jacqueau', 'عن تشارلز جاكو'),
     year: '2026',
     typology: tri(
-      "Design d'objet · Bijou 3D",
-      'Object design · 3D jewellery',
-      'Objektdesign · 3D-Schmuck',
-      'تصميم منتج · مجوهرات ثلاثية الأبعاد'
+      'Exercice · Modélisation de bijou',
+      'Exercise · Jewellery modelling',
+      'Übung · Schmuckmodellierung',
+      'تمرين · نمذجة مجوهرات'
     ),
     summary: tri(
-      "Une bague modélisée sous Blender — passage de l'échelle du bâtiment à celle du bijou, explorée en 3D interactive.",
-      'A ring modelled in Blender — a shift from the scale of the building to that of jewellery, explored in interactive 3D.',
-      'Ein in Blender modellierter Ring — vom Maßstab des Gebäudes zu dem des Schmucks, interaktiv in 3D erkundet.',
-      'خاتم مُنمذج بـ Blender — انتقال من مقياس المبنى إلى مقياس المجوهرات، بتجربة ثلاثية الأبعاد تفاعلية.'
+      "Un exercice de modélisation sur Blender : reproduire la « Bague boule » de Charles Jacqueau (vers 1935) pour apprendre à construire un bijou en volume.",
+      "A Blender modelling exercise: reproducing Charles Jacqueau's « Bague boule » (c. 1935) to learn how to build a jewel in volume.",
+      'Eine Modellierübung in Blender: die « Bague boule » von Charles Jacqueau (um 1935) nachbilden, um zu lernen, ein Schmuckstück im Volumen aufzubauen.',
+      'تمرين نمذجة على Blender: إعادة تشكيل «خاتم الكرة» لتشارلز جاكو (نحو ١٩٣٥) لتعلّم بناء مجوهرة في الحجم.'
     ),
     color: 'bubblegum',
     // Couverture = capture PDV 3/4 générée depuis le modèle 3D lui-même.
@@ -371,22 +371,22 @@ export const projects = [
   },
   {
     slug: 'tabouret',
-    num: '03',
+    num: '02',
     category: 'art',
     title: tri('Tabouret', 'Stool', 'Hocker', 'مقعد'),
-    place: tri("Design d'objet", 'Object design', 'Objektdesign', 'تصميم منتج'),
+    place: tri('TD de design', 'Design tutorial', 'Design-Seminar', 'ورشة تصميم'),
     year: '2025',
     typology: tri(
-      'Design de mobilier · Assise',
-      'Furniture design · Seat',
-      'Möbeldesign · Sitzmöbel',
-      'تصميم أثاث · مقعد'
+      'Design de mobilier · Matériaux de récupération',
+      'Furniture design · Salvaged materials',
+      'Möbeldesign · Wiederverwertete Materialien',
+      'تصميم أثاث · مواد مُستردّة'
     ),
     summary: tri(
-      "Un tabouret dessiné comme un petit manifeste d'assise — structure, matière et équilibre à l'échelle du corps.",
-      'A stool designed as a small manifesto of seating — structure, material and balance at the scale of the body.',
-      'Ein Hocker, entworfen als kleines Manifest des Sitzens — Struktur, Material und Gleichgewicht im Maßstab des Körpers.',
-      'مقعد مُصمَّم كبيانٍ صغير للجلوس — بنية ومادة وتوازن على مقياس الجسد.'
+      "Conçu, modélisé puis fabriqué à la main lors d'un TD de design — entièrement en matériaux de récupération issus d'autres projets.",
+      'Designed, modelled and then built by hand during a design tutorial — entirely from salvaged materials left over from other projects.',
+      'Entworfen, modelliert und dann von Hand gebaut in einem Design-Seminar — vollständig aus wiederverwerteten Materialien anderer Projekte.',
+      'صُمِّم ونُمذج ثم صُنِع يدوياً ضمن ورشة تصميم — بالكامل من مواد مُستردّة من مشاريع أخرى.'
     ),
     color: 'butter',
     cover: asset('tabouret-couv.webp'),
@@ -406,10 +406,10 @@ export const projects = [
     category: 'art',
     title: tri('Logo AJFL', 'AJFL Logo', 'AJFL-Logo', 'شعار AJFL'),
     place: tri(
-      'Association des Juristes Franco-Libanais',
-      'French-Lebanese Lawyers Association',
-      'Vereinigung franko-libanesischer Juristen',
-      'جمعية الحقوقيين الفرنسيين اللبنانيين'
+      'AJFL — Université Paris Cité',
+      'AJFL — Université Paris Cité',
+      'AJFL — Université Paris Cité',
+      'AJFL — جامعة باريس سيتيه'
     ),
     year: '2025',
     typology: tri(
@@ -760,70 +760,70 @@ const ARTICLES = {
   },
   tabouret: {
     FR: {
-      lead: "Descendre encore d'une échelle : le tabouret. Objet du quotidien réduit à l'essentiel, il condense en quelques appuis toute une réflexion sur la structure et le corps.",
+      lead: "Réalisé lors d'un TD de design, ce tabouret a été mené de bout en bout : conception, modélisation 3D, puis fabrication à la main. Sa contrainte fondatrice était écologique — n'employer que des matériaux de récupération, chutes et éléments d'autres projets voués au rebut.",
       body: [
-        "Le dessin cherche le juste équilibre entre légèreté et stabilité : assez de matière pour tenir, assez de vide pour ne pas peser.",
-        "Assise modeste, le tabouret est aussi un terrain d'expérimentation : proportions, assemblages et matières s'y testent à taille réelle, prêts à passer à l'atelier.",
+        "Partir de la matière disponible inverse la démarche habituelle : ce n'est plus le matériau qui suit le dessin, mais le dessin qui compose avec ce qu'on a sous la main. Chaque chute impose ses dimensions, ses défauts et ses possibilités.",
+        "La modélisation 3D a servi à valider la structure avant la découpe — vérifier les appuis, les sections et l'équilibre pour ne rien gaspiller d'une matière déjà limitée. L'atelier a ensuite confronté le dessin au geste : ajuster, assembler, poncer à la main.",
       ],
-      quote: "Un tabouret, c'est le plus court chemin entre le corps et le sol.",
+      quote: "Concevoir avec des rebuts, c'est laisser la matière écrire une part du projet.",
     },
     EN: {
-      lead: "One scale further down: the stool. An everyday object pared to the essential, it condenses into a few supports a whole reflection on structure and the body.",
+      lead: "Made during a design tutorial, this stool was carried through from end to end: conception, 3D modelling, then hand fabrication. Its founding constraint was ecological — to use only salvaged materials, offcuts and elements from other projects headed for the bin.",
       body: [
-        "The design seeks the right balance between lightness and stability: enough material to hold, enough void not to weigh.",
-        "A modest seat, the stool is also a testing ground: proportions, joints and materials are tried at full scale, ready for the workshop.",
+        "Starting from the available material reverses the usual process: the material no longer follows the drawing, the drawing composes with what is at hand. Each offcut imposes its dimensions, its flaws and its possibilities.",
+        "3D modelling served to validate the structure before cutting — checking supports, sections and balance so as to waste none of an already limited material. The workshop then confronted the drawing with the gesture: adjusting, assembling, sanding by hand.",
       ],
-      quote: "A stool is the shortest path between the body and the ground.",
+      quote: "To design with scraps is to let the material write part of the project.",
     },
     DE: {
-      lead: "Eine Stufe kleiner: der Hocker. Ein auf das Wesentliche reduziertes Alltagsobjekt, das in wenigen Stützen eine ganze Überlegung zu Struktur und Körper verdichtet.",
+      lead: "In einem Design-Seminar entstanden, wurde dieser Hocker von Anfang bis Ende durchgeführt: Entwurf, 3D-Modellierung, dann Fertigung von Hand. Seine grundlegende Vorgabe war ökologisch — nur wiederverwertete Materialien zu verwenden, Verschnitt und Elemente anderer Projekte, die im Müll gelandet wären.",
       body: [
-        "Der Entwurf sucht die richtige Balance zwischen Leichtigkeit und Stabilität: genug Material, um zu tragen, genug Leere, um nicht zu lasten.",
-        "Als bescheidener Sitz ist der Hocker auch ein Versuchsfeld: Proportionen, Verbindungen und Materialien werden im Maßstab 1:1 erprobt, bereit für die Werkstatt.",
+        "Vom verfügbaren Material auszugehen kehrt den üblichen Ablauf um: Nicht das Material folgt der Zeichnung, sondern die Zeichnung fügt sich in das, was vorhanden ist. Jeder Verschnitt gibt seine Maße, seine Fehler und seine Möglichkeiten vor.",
+        "Die 3D-Modellierung diente dazu, die Struktur vor dem Zuschnitt zu prüfen — Auflager, Querschnitte und Gleichgewicht kontrollieren, um von einem ohnehin knappen Material nichts zu vergeuden. Die Werkstatt stellte die Zeichnung dann der Geste gegenüber: anpassen, fügen, von Hand schleifen.",
       ],
-      quote: "Ein Hocker ist der kürzeste Weg zwischen Körper und Boden.",
+      quote: "Mit Resten zu entwerfen heißt, die Materie einen Teil des Projekts schreiben zu lassen.",
     },
     AR: {
-      lead: "درجة أصغر في المقياس: المقعد. غرضٌ يومي مُختزَل إلى جوهره، يكثّف في بضع ركائز تفكيراً كاملاً في البنية والجسد.",
+      lead: "أُنجز هذا المقعد ضمن ورشة تصميم، وقد قُيد من أوله إلى آخره: تصوّر، ونمذجة ثلاثية الأبعاد، ثم تصنيع باليد. وكان قيده التأسيسي بيئياً — ألا تُستعمل إلا مواد مُستردّة، وبقايا وعناصر من مشاريع أخرى كانت ستُرمى.",
       body: [
-        "يبحث التصميم عن التوازن الصحيح بين الخفّة والثبات: مادة تكفي للحمل، وفراغ يكفي كي لا يثقل.",
-        "المقعد المتواضع أرضُ تجريب أيضاً: تُختبر النسب والوصلات والمواد بالحجم الطبيعي، جاهزةً للورشة.",
+        "الانطلاق من المادة المتوفّرة يقلب المسار المعتاد: لم تعد المادة تتبع الرسم، بل الرسم يؤلّف مع ما هو في المتناول. تفرض كل بقية أبعادها وعيوبها وإمكاناتها.",
+        "خدمت النمذجة الثلاثية الأبعاد في التحقّق من البنية قبل القطع — فحص المساند والمقاطع والتوازن كي لا يُهدر شيء من مادة محدودة أصلاً. ثم واجهت الورشةُ الرسمَ بالحركة: الضبط، والتجميع، والصقل باليد.",
       ],
-      quote: "المقعد أقصر طريق بين الجسد والأرض.",
+      quote: "أن تصمّم من البقايا يعني أن تترك المادة تكتب جزءاً من المشروع.",
     },
   },
   'bague-blender': {
     FR: {
-      lead: "Changer d'échelle : après le bâtiment, la bague. L'objet explore la même attention à la matière et au volume, mais tient dans le creux de la main.",
+      lead: "Ce projet n'est pas une création personnelle mais un exercice d'apprentissage : reproduire sous Blender la « Bague boule » de Charles Jacqueau (vers 1935), pièce emblématique du bijou Art déco, pour se familiariser avec la modélisation d'objets précieux.",
       body: [
-        "Modélisée sous Blender, la pièce joue des courbures continues et d'un rapport de pleins et de vides qui accroche la lumière comme le ferait une façade.",
-        "Le passage vers l'impression ou la fonte impose la précision du dessin 3D : chaque congé, chaque épaisseur y est déjà une décision de fabrication.",
+        "Le choix du modèle n'a rien d'anodin : dans sa sphère facettée, la Bague boule condense tout le vocabulaire géométrique de l'Art déco — rythme, symétrie, tension des pleins et des vides. L'observer puis la reconstruire oblige à comprendre comment ces volumes s'articulent.",
+        "La modélisation progresse par étapes : établir la sphère de base, sculpter les facettes, ajuster les proportions de l'anneau, puis travailler matières et lumière pour restituer l'éclat du métal et des pierres. Chaque courbe devient une décision de dessin autant que de fabrication virtuelle.",
       ],
-      quote: "Un bijou, c'est de l'architecture portée sur soi.",
+      quote: "Reproduire un bijou, c'est apprendre à en relire chaque courbe.",
     },
     EN: {
-      lead: "A change of scale: after the building, the ring. The object explores the same attention to material and volume, yet fits in the palm of a hand.",
+      lead: "This project is not a personal creation but a learning exercise: reproducing in Blender Charles Jacqueau's « Bague boule » (c. 1935), an emblematic piece of Art Deco jewellery, in order to become familiar with modelling precious objects.",
       body: [
-        "Modelled in Blender, the piece plays on continuous curvatures and on a balance of solids and voids that catches the light as a façade would.",
-        "Moving towards printing or casting demands the precision of the 3D drawing: every fillet, every thickness is already a manufacturing decision.",
+        "The choice of model is no accident: within its faceted sphere, the Bague boule condenses the whole geometric vocabulary of Art Deco — rhythm, symmetry, the tension of solids and voids. Observing and then rebuilding it forces one to understand how these volumes fit together.",
+        "Modelling proceeds in stages: establishing the base sphere, sculpting the facets, adjusting the proportions of the band, then working material and light to render the gleam of metal and stones. Every curve becomes a decision of drawing as much as of virtual making.",
       ],
-      quote: "A jewel is architecture worn on the body.",
+      quote: "To reproduce a jewel is to learn to read each of its curves.",
     },
     DE: {
-      lead: "Ein Maßstabswechsel: nach dem Gebäude der Ring. Das Objekt erkundet dieselbe Aufmerksamkeit für Material und Volumen — und passt doch in eine Handfläche.",
+      lead: "Dieses Projekt ist keine eigene Schöpfung, sondern eine Lernübung: die « Bague boule » von Charles Jacqueau (um 1935), ein Schlüsselstück des Art-déco-Schmucks, in Blender nachzubilden, um sich mit der Modellierung kostbarer Objekte vertraut zu machen.",
       body: [
-        "In Blender modelliert, spielt das Stück mit fließenden Krümmungen und einem Verhältnis von Massen und Leerräumen, das das Licht fängt wie eine Fassade.",
-        "Der Weg zum Druck oder Guss verlangt die Präzision der 3D-Zeichnung: jede Rundung, jede Stärke ist bereits eine Fertigungsentscheidung.",
+        "Die Wahl des Vorbilds ist kein Zufall: In ihrer facettierten Kugel verdichtet die Bague boule das gesamte geometrische Vokabular des Art déco — Rhythmus, Symmetrie, die Spannung von Masse und Leere. Sie zu betrachten und dann nachzubauen zwingt dazu, zu verstehen, wie diese Volumen zusammenspielen.",
+        "Die Modellierung schreitet in Etappen voran: die Grundkugel anlegen, die Facetten formen, die Proportionen des Rings anpassen, dann Material und Licht bearbeiten, um den Glanz von Metall und Steinen wiederzugeben. Jede Kurve wird ebenso zur Entscheidung der Zeichnung wie der virtuellen Fertigung.",
       ],
-      quote: "Ein Schmuckstück ist am Körper getragene Architektur.",
+      quote: "Ein Schmuckstück nachzubilden heißt, jede seiner Kurven neu lesen zu lernen.",
     },
     AR: {
-      lead: "تغيير في المقياس: بعد المبنى، الخاتم. يستكشف الغرض العناية نفسها بالمادة والكتلة، لكنه يسع راحة اليد.",
+      lead: "ليس هذا المشروع إبداعاً شخصياً بل تمرين تعلّم: إعادة تشكيل «خاتم الكرة» لتشارلز جاكو (نحو ١٩٣٥)، وهي قطعة أيقونية من مجوهرات الآرت ديكو، على Blender، للتآلف مع نمذجة الأغراض الثمينة.",
       body: [
-        "مُنمذجة في Blender، تلعب القطعة على انحناءات متّصلة وعلى علاقة بين المصمت والمفرّغ تلتقط الضوء كما تفعل الواجهة.",
-        "الانتقال إلى الطباعة أو السبك يفرض دقّة الرسم الثلاثي الأبعاد: كل تدوير وكل سماكة هي أصلاً قرار تصنيع.",
+        "اختيار النموذج ليس اعتباطياً: تختزل «خاتم الكرة» في كرتها المفصّصة كامل المفردات الهندسية للآرت ديكو — إيقاع، وتناظر، وتوتر بين المصمت والمفرّغ. ومراقبتها ثم إعادة بنائها تُلزم بفهم كيف تتمفصل هذه الكتل.",
+        "تتقدّم النمذجة على مراحل: إرساء الكرة الأساس، نحت الأوجه، ضبط نسب الحلقة، ثم معالجة المواد والضوء لاستعادة بريق المعدن والأحجار. تغدو كل انحناءة قراراً في الرسم بقدر ما هي في التصنيع الافتراضي.",
       ],
-      quote: "المجوهرة عمارةٌ تُلبَس.",
+      quote: "إعادة تشكيل مجوهرة هي أن تتعلّم قراءة كل انحناءة فيها.",
     },
   },
   'photographie-mode-manuel': {
@@ -896,7 +896,7 @@ const ARTICLES = {
   },
   'logo-ajfl': {
     FR: {
-      lead: "Comment faire tenir deux pays et une profession dans un seul dessin ? Le logotype de l'AJFL répond par la superposition plutôt que par l'addition.",
+      lead: "Logotype de l'AJFL, l'association des juristes franco-libanais de l'Université Paris Cité. Comment faire tenir deux pays et une profession dans un seul dessin ? La réponse passe par la superposition plutôt que par l'addition.",
       body: [
         "La Tour Eiffel fournit l'ossature verticale ; le Cèdre du Liban vient l'habiter en s'étageant à l'horizontale ; la Balance s'accroche à la première plateforme et met l'ensemble en équilibre.",
         "Le trait reste volontairement dessiné à la main, presque hésitant : il évite l'effet d'emblème officiel et rappelle que l'association est d'abord une communauté de personnes.",
@@ -904,7 +904,7 @@ const ARTICLES = {
       quote: "Trois symboles, une seule silhouette.",
     },
     EN: {
-      lead: "How do you fit two countries and a profession into a single drawing? The AJFL logotype answers by superimposition rather than addition.",
+      lead: "Logotype for the AJFL, the French-Lebanese law students' association of Université Paris Cité. How do you fit two countries and a profession into a single drawing? The answer lies in superimposition rather than addition.",
       body: [
         "The Eiffel Tower provides the vertical backbone; the Cedar of Lebanon inhabits it, tiering horizontally; the Scales hook onto the first platform and bring the whole into balance.",
         "The line remains deliberately hand-drawn, almost hesitant: it avoids the official-emblem effect and recalls that the association is first of all a community of people.",
@@ -912,7 +912,7 @@ const ARTICLES = {
       quote: "Three symbols, a single silhouette.",
     },
     DE: {
-      lead: "Wie bringt man zwei Länder und einen Berufsstand in eine einzige Zeichnung? Das AJFL-Logo antwortet mit Überlagerung statt Addition.",
+      lead: "Logo der AJFL, der Vereinigung franko-libanesischer Juristen der Université Paris Cité. Wie bringt man zwei Länder und einen Berufsstand in eine einzige Zeichnung? Die Antwort liegt in der Überlagerung statt in der Addition.",
       body: [
         "Der Eiffelturm liefert das vertikale Rückgrat; die Libanon-Zeder bewohnt es und staffelt sich horizontal; die Waage hängt sich an die erste Plattform und bringt das Ganze ins Gleichgewicht.",
         "Die Linie bleibt bewusst handgezeichnet, fast zögernd: Sie vermeidet den Effekt eines offiziellen Emblems und erinnert daran, dass der Verein zuallererst eine Gemeinschaft von Menschen ist.",
@@ -920,7 +920,7 @@ const ARTICLES = {
       quote: "Drei Symbole, eine einzige Silhouette.",
     },
     AR: {
-      lead: "كيف نُدخل بلدين ومهنةً في رسم واحد؟ يجيب شعار AJFL بالتراكب لا بالجمع.",
+      lead: "شعار AJFL، جمعية الحقوقيين الفرنسيين اللبنانيين في جامعة باريس سيتيه. كيف نُدخل بلدين ومهنةً في رسم واحد؟ يكون الجواب بالتراكب لا بالجمع.",
       body: [
         "يمنح برج إيفل الهيكل العمودي؛ وتسكنه أرزة لبنان متدرّجةً أفقياً؛ ويتعلّق الميزان بالمنصّة الأولى فيضع الكل في توازن.",
         "يبقى الخط مرسوماً باليد عن قصد، شبه متردّد: يتفادى أثر الشعار الرسمي ويذكّر بأن الجمعية هي أولاً جماعة من الأشخاص.",
@@ -982,16 +982,16 @@ const ARTICLE_EXTRA = {
     'بتصريف الموتيف الواحد وفق ثلاثة بروتوكولات، تتساءل السلسلة عن الحدّ بين الفوتوغرافيا والرسم، بين الرصد والتأويل. فما يُعرَض على العين لم يعد الساحل نفسه، بل الطريقة التي بها يقصّه نظرٌ — وأداةٌ — ويقيسانه ويعيدان تركيبه.'
   ),
   tabouret: tri(
-    "Du dessin à l'atelier, chaque assemblage est éprouvé : sections de bois, angles de piètement et surfaces d'appui sont ajustés jusqu'à ce que la stabilité découle de la géométrie plutôt que de la masse. Le tabouret devient alors un exercice de sincérité constructive, où rien n'est ajouté qui ne serve à tenir.",
-    'From drawing to workshop, each joint is tested: timber sections, leg angles and bearing surfaces are adjusted until stability arises from geometry rather than mass. The stool thus becomes an exercise in constructive honesty, where nothing is added that does not serve to hold.',
-    'Von der Zeichnung zur Werkstatt wird jede Verbindung erprobt: Holzquerschnitte, Beinwinkel und Auflageflächen werden angepasst, bis die Stabilität aus der Geometrie und nicht aus der Masse entsteht. Der Hocker wird so zu einer Übung in konstruktiver Ehrlichkeit, in der nichts hinzugefügt wird, was nicht dem Halt dient.',
-    'من الرسم إلى الورشة، تُختبر كل وصلة: تُضبط مقاطع الخشب وزوايا الأرجل وأسطح الارتكاز حتى ينبع الثبات من الهندسة لا من الكتلة. فيغدو المقعد تمريناً في الصدق الإنشائي، حيث لا يُضاف شيء لا يخدم الإمساك.'
+    "Le résultat assume son origine : une assise simple et solide où l'économie de moyens devient un parti pris. Réemployer plutôt que produire du neuf, c'est déjà une manière de dessiner responsable.",
+    'The result owns its origin: a simple, solid seat where economy of means becomes a stance. Reusing rather than producing anew is already a responsible way to design.',
+    'Das Ergebnis bekennt sich zu seinem Ursprung: ein einfacher, robuster Sitz, in dem die Ökonomie der Mittel zur Haltung wird. Wiederverwenden statt neu zu produzieren ist bereits eine verantwortungsvolle Art zu entwerfen.',
+    'يتبنّى الناتج أصله: مقعد بسيط ومتين يصير فيه اقتصاد الوسائل موقفاً. وإعادة الاستعمال بدل إنتاج الجديد هي أصلاً طريقة مسؤولة في التصميم.'
   ),
   'bague-blender': tri(
-    "Travaillée comme une micro-architecture, la bague se pense en termes de surfaces, de reflets et de continuités : la modélisation numérique devient un artisanat, où l'on sculpte la lumière autant que la matière. Le passage au réel — impression, fonte, polissage — rappelle que le fichier 3D n'est qu'une promesse, que seule la fabrication tient.",
-    'Worked as a micro-architecture, the ring is thought in terms of surfaces, reflections and continuities: digital modelling becomes a craft, where one sculpts light as much as matter. The move to the real — printing, casting, polishing — recalls that the 3D file is only a promise, kept solely by fabrication.',
-    'Als Mikroarchitektur bearbeitet, wird der Ring in Flächen, Reflexen und Kontinuitäten gedacht: Die digitale Modellierung wird zum Handwerk, in dem man das Licht ebenso formt wie die Materie. Der Schritt ins Reale — Druck, Guss, Politur — erinnert daran, dass die 3D-Datei nur ein Versprechen ist, das allein die Fertigung einlöst.',
-    'مُعالَجاً كعمارة مصغّرة، يُفكَّر في الخاتم بلغة الأسطح والانعكاسات والاستمراريات: تصير النمذجة الرقمية حرفةً، يُنحَت فيها الضوء بقدر ما تُنحَت المادة. والانتقال إلى الواقع — طباعة، سبك، صقل — يذكّر بأن الملف الثلاثي الأبعاد مجرّد وعد، لا يوفيه سوى التصنيع.'
+    "L'objectif est moins l'objet que la méthode : passer de l'échelle du bâtiment à celle du bijou, où la moindre imprécision se voit. Copier un maître reste ici la meilleure école du regard et de la main.",
+    'The aim is less the object than the method: moving from the scale of the building to that of the jewel, where the slightest inaccuracy shows. Copying a master remains the best school for the eye and the hand.',
+    'Es geht weniger um das Objekt als um die Methode: vom Maßstab des Gebäudes zu dem des Schmucks zu wechseln, wo die kleinste Ungenauigkeit sichtbar wird. Einen Meister zu kopieren bleibt hier die beste Schule für Auge und Hand.',
+    'الهدف ليس الغرض بل المنهج: الانتقال من مقياس المبنى إلى مقياس المجوهرة، حيث يظهر أدنى خطأ. ونسخُ معلّمٍ يبقى هنا أفضل مدرسة للعين واليد.'
   ),
   'photographie-mode-manuel': tri(
     "Au-delà de la technique, l'exercice affine le regard : choisir une ouverture, c'est déjà décider de ce qui compte dans le cadre et de ce qui s'efface. Chaque image devient une petite étude de composition, où la contrainte du tout-manuel oblige à voir avant de déclencher.",

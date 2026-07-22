@@ -179,17 +179,15 @@ export const projects = [
     year: '2026',
     typology: tri('Design intérieur · Cuisine', 'Interior design · Kitchen', 'Innenarchitektur · Küche', 'تصميم داخلي · مطبخ'),
     summary: tri(
-      "Étude d'une cuisine — visite 3D immersive à 360° depuis l'intérieur de la pièce.",
-      'A kitchen study — immersive 360° walkthrough from inside the room.',
-      'Studie einer Küche — immersiver 360°-Rundgang aus dem Rauminneren.',
-      'دراسة مطبخ — جولة غامرة بزاوية 360° من داخل الغرفة.'
+      "Étude d'une cuisine — continuité des plans de travail, des rangements et des circulations, à l'échelle du geste quotidien.",
+      'A kitchen study — continuity of worktops, storage and circulation, at the scale of the everyday gesture.',
+      'Studie einer Küche — Kontinuität von Arbeitsflächen, Stauraum und Wegen, im Maßstab der alltäglichen Geste.',
+      'دراسة مطبخ — استمرارية أسطح العمل والتخزين والممرات، على مقياس الحركة اليومية.'
     ),
     color: 'acid',
     cover: asset('cuisine-3.webp'), // vignette imposée : cuisine-3
     hover: asset('cuisine-1.webp'),
-    hasModel: true,
-    // `scene.interior` : caméra placée DANS la géométrie → visite panoramique (voir ModelViewer)
-    model3d: { type: 'fbx', url: model('kitchen.fbx'), scene: { interior: true } },
+    hasModel: false,
     gallery: [
       g('cuisine-1.webp', 'rendu'),
       g('cuisine-3.webp', 'rendu'),
@@ -556,34 +554,34 @@ const ARTICLES = {
   },
   cuisine: {
     FR: {
-      lead: "Pièce de la vie quotidienne portée au rang de scène, cette cuisine se visite de l'intérieur, à 360°, comme on tournerait sur soi-même au centre d'un espace.",
+      lead: "Pièce de la vie quotidienne portée au rang de scène, cette cuisine est pensée depuis l'intérieur, comme un espace qui enveloppe celui qui l'habite.",
       body: [
         "Le dessin cherche la continuité : plans de travail, rangements et circulations forment une seule ligne qui enveloppe l'usager sans jamais l'enfermer.",
-        "La maquette immersive permet d'éprouver les proportions réelles — hauteur des meubles, largeur des passages — avant même la première découpe.",
+        "Le dessin en plan et en coupe permet d'éprouver les proportions réelles — hauteur des meubles, largeur des passages — avant même la première découpe.",
       ],
       quote: "Habiter la cuisine, c'est habiter le geste.",
     },
     EN: {
-      lead: "An everyday room raised to the status of a stage, this kitchen is visited from the inside, at 360°, as if turning on oneself at the centre of a space.",
+      lead: "An everyday room raised to the status of a stage, this kitchen is conceived from the inside, as a space that wraps around the one who inhabits it.",
       body: [
         "The design seeks continuity: worktops, storage and circulation form a single line that wraps around the user without ever confining them.",
-        "The immersive model makes it possible to test real proportions — cabinet heights, passage widths — before the very first cut.",
+        "Plans and sections make it possible to test real proportions — cabinet heights, passage widths — before the very first cut.",
       ],
       quote: "To inhabit the kitchen is to inhabit the gesture.",
     },
     DE: {
-      lead: "Ein Alltagsraum, der zur Bühne erhoben wird: Diese Küche wird von innen erlebt, in 360°, als drehte man sich in der Mitte eines Raums um sich selbst.",
+      lead: "Ein Alltagsraum, der zur Bühne erhoben wird: Diese Küche ist von innen heraus gedacht, als ein Raum, der denjenigen umschließt, der ihn bewohnt.",
       body: [
         "Der Entwurf sucht Kontinuität: Arbeitsflächen, Stauraum und Wege bilden eine einzige Linie, die den Nutzer umschließt, ohne ihn je einzuengen.",
-        "Das immersive Modell erlaubt es, reale Proportionen zu prüfen — Möbelhöhen, Durchgangsbreiten — noch vor dem ersten Schnitt.",
+        "Grund- und Schnittzeichnungen erlauben es, reale Proportionen zu prüfen — Möbelhöhen, Durchgangsbreiten — noch vor dem ersten Schnitt.",
       ],
       quote: "Die Küche bewohnen heißt, die Geste bewohnen.",
     },
     AR: {
-      lead: "غرفةٌ من الحياة اليومية تُرفَع إلى مرتبة المشهد: يُزار هذا المطبخ من الداخل، بزاوية ٣٦٠°، كمن يدور حول نفسه في وسط الفضاء.",
+      lead: "غرفةٌ من الحياة اليومية تُرفَع إلى مرتبة المشهد: يُفكَّر في هذا المطبخ من الداخل، كفضاءٍ يحيط بمن يسكنه.",
       body: [
         "يبحث التصميم عن الاستمرارية: تشكّل أسطح العمل والخزائن والممرات خطاً واحداً يحيط بالمستخدم دون أن يحبسه.",
-        "يتيح المجسّم الغامر اختبار النسب الحقيقية — ارتفاع الأثاث، عرض الممرات — قبل أول قطعٍ للمواد.",
+        "يتيح الرسم بالمخطط والمقطع اختبار النسب الحقيقية — ارتفاع الأثاث، عرض الممرات — قبل أول قطعٍ للمواد.",
       ],
       quote: "أن تسكن المطبخ يعني أن تسكن الحركة.",
     },

@@ -236,7 +236,9 @@ export const projects = [
     slug: 'dat',
     num: '06',
     category: 'architecture',
-    title: tri('D.A.T.', 'D.A.T.', 'D.A.T.', 'D.A.T.'),
+    // AR : « D.A.T. » avec ses points est mal rendu en contexte RTL (les points
+    // sautent du mauvais côté) → on écrit « DAT » sans points en arabe.
+    title: tri('D.A.T.', 'D.A.T.', 'D.A.T.', 'DAT'),
     place: tri('Arabie Saoudite', 'Saudi Arabia', 'Saudi-Arabien', 'السعودية'),
     year: '2026',
     typology: tri('Architecture intérieure · Tertiaire', 'Interior architecture · Office', 'Innenarchitektur · Büro', 'عمارة داخلية · مكاتب'),
@@ -665,7 +667,7 @@ const ARTICLES = {
       quote: "Das Muster als Bindeglied zwischen Tradition und Gegenwart.",
     },
     AR: {
-      lead: "مشروع عمارة داخلية لمبنى مكاتب في السعودية، يعامل D.A.T. البهوات والممرات كأماكن قائمة بذاتها، يحدّد فيها الضوءُ والزخرفةُ النبرةَ العامة.",
+      lead: "مشروع عمارة داخلية لمبنى مكاتب في السعودية، يعامل DAT البهوات والممرات كأماكن قائمة بذاتها، يحدّد فيها الضوءُ والزخرفةُ النبرةَ العامة.",
       body: [
         "تدمج فضاءات الاستقبال زخارف إسلامية واسعة الحضور في المنطقة: تُنقل على الجدران والأرضيات والمشبّكات، فتنسج صلةً مباشرة بين التقليد والحداثة.",
         "تتراكم بهوات الاستقبال والمحلات وطوابق المكاتب ويجيب بعضها بعضاً؛ يبحث المشروع عن حضريّة عمودية لا عن مجرّد تكديس.",

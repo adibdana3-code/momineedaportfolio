@@ -7,13 +7,13 @@ const EMAIL = 'dana.adib@cesmo.org';
 const INSTAGRAM = 'https://www.instagram.com/momineedaportfolio/';
 const CV_URL = `${import.meta.env.BASE_URL}cv-dana-adib.pdf`;
 
-// `instagram` : le nom de la plateforme est translittéré en arabe (إنستغرام),
-// usage courant en RTL — le lien, lui, reste évidemment identique.
+// `instagram` : le nom de la marque n'est PAS traduit, y compris en arabe
+// (« Instagram » reste en latin — demande de Dana).
 const t = {
   FR: { tag: '(Prenons contact)', title: 'Travaillons\nensemble', cv: 'CV (pdf)', instagram: 'Instagram', cities: 'Paris · Berlin · Beyrouth' },
   EN: { tag: "(Let's talk)", title: "Let's work\ntogether", cv: 'CV (pdf)', instagram: 'Instagram', cities: 'Paris · Berlin · Beirut' },
   DE: { tag: '(Kontakt)', title: 'Arbeiten wir\nzusammen', cv: 'CV (pdf)', instagram: 'Instagram', cities: 'Paris · Berlin · Beirut' },
-  AR: { tag: '(لنتواصل)', title: 'لنعمل\nمعًا', cv: 'السيرة الذاتية (PDF)', instagram: 'إنستغرام', cities: 'باريس · برلين · بيروت' },
+  AR: { tag: '(لنتواصل)', title: 'لنعمل\nمعًا', cv: 'السيرة الذاتية (PDF)', instagram: 'Instagram', cities: 'باريس · برلين · بيروت' },
 };
 
 /** Contact — bloc plein Amaranth (#933B5B), texte Chalk pour le contraste. */

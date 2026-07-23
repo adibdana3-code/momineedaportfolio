@@ -31,7 +31,9 @@ export const ui = {
       model: 'Maquette 3D',
       scene: 'Scène 3D',
       docs: 'Documents & images',
+      realized: 'Projet réalisé',
       next: 'Projet suivant',
+      prev: 'Projet précédent',
       // Titres de chapitre génériques, répartis sur les paragraphes de l'article
       // (voir `buildChapters` dans projects.js).
       quoteMarks: ['« ', ' »'],
@@ -58,6 +60,7 @@ export const ui = {
       open: 'Ouvrir',
       look: 'Regarder',
       turn: 'Tourner',
+      prev: 'Précédent',
     },
     viewer: {
       unavailable: 'Modèle indisponible',
@@ -92,7 +95,9 @@ export const ui = {
       model: '3D model',
       scene: '3D scene',
       docs: 'Documents & images',
+      realized: 'Built project',
       next: 'Next project',
+      prev: 'Previous project',
       quoteMarks: ['“', '”'],
       chIntention: 'Intention',
       chProjet: 'The project',
@@ -115,6 +120,7 @@ export const ui = {
       open: 'Open',
       look: 'Look',
       turn: 'Turn',
+      prev: 'Previous',
     },
     viewer: {
       unavailable: 'Model unavailable',
@@ -149,7 +155,9 @@ export const ui = {
       model: '3D-Modell',
       scene: '3D-Szene',
       docs: 'Dokumente & Bilder',
+      realized: 'Realisiertes Projekt',
       next: 'Nächstes Projekt',
+      prev: 'Vorheriges Projekt',
       quoteMarks: ['„', '“'],
       chIntention: 'Intention',
       chProjet: 'Das Projekt',
@@ -172,6 +180,7 @@ export const ui = {
       open: 'Öffnen',
       look: 'Umsehen',
       turn: 'Drehen',
+      prev: 'Zurück',
     },
     viewer: {
       unavailable: 'Modell nicht verfügbar',
@@ -206,7 +215,9 @@ export const ui = {
       model: 'مجسّم ثلاثي الأبعاد',
       scene: 'مشهد ثلاثي الأبعاد',
       docs: 'مستندات وصور',
+      realized: 'مشروع مُنجَز',
       next: 'المشروع التالي',
+      prev: 'المشروع السابق',
       quoteMarks: ['«', '»'],
       chIntention: 'النيّة',
       chProjet: 'المشروع',
@@ -229,6 +240,7 @@ export const ui = {
       open: 'افتح',
       look: 'انظر حولك',
       turn: 'أدر',
+      prev: 'السابق',
     },
     viewer: {
       unavailable: 'المجسّم غير متاح',

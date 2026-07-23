@@ -294,13 +294,28 @@ export default function ModelViewer({ type, url, color = '#0A0A0A', scene, label
   // demandée au scroll → le modèle se figerait. On garde donc « always » tant
   // qu'il est visible, et l'on bascule en « demand » sitôt qu'il ne l'est plus.
   const [inView, setInView] = useState(true);
+  // Montage DIFFÉRÉ de la scène 3D (lazy loading « au scroll »). Le <Canvas>,
+  // et donc le fetch du modèle FBX/GLB + tout le coût Three.js, n'est créé
+  // qu'une fois le viewer proche du viewport. Sur une page projet, le viewer est
+  // placé sous un hero plein écran : le modèle ne se télécharge donc plus au
+  // chargement de la page, mais seulement quand on descend vers lui → temps
+  // d'attente initial fortement réduit.
+  const [mounted, setMounted] = useState(false);
   useEffect(() => {
     const el = wrapRef.current;
-    if (!el || typeof IntersectionObserver === 'undefined') return undefined;
-    const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting), {
-      // marge : la scène est déjà à plein régime juste avant d'entrer dans le champ.
-      rootMargin: '200px 0px',
-    });
+    if (!el || typeof IntersectionObserver === 'undefined') {
+      setMounted(true); // pas d'IntersectionObserver → on monte tout de suite
+      return undefined;
+    }
+    const io = new IntersectionObserver(
+      ([e]) => {
+        setInView(e.isIntersecting);
+        if (e.isIntersecting) setMounted(true); // latch : reste monté ensuite
+      },
+      // marge large : on précharge un peu AVANT l'entrée dans le champ, pour que
+      // la scène soit prête quand elle apparaît.
+      { rootMargin: '400px 0px' }
+    );
     io.observe(el);
     return () => io.disconnect();
   }, []);
@@ -342,6 +357,9 @@ export default function ModelViewer({ type, url, color = '#0A0A0A', scene, label
       <span className="pointer-events-none absolute bottom-4 right-4 z-10 font-sans text-[10px] uppercase tracking-editorial text-ink/40">
         {hint}
       </span>
+      {/* Tant que le viewer n'est pas approché, on n'affiche que le cadre beige
+          (avec cartel + indice) : aucune ressource 3D n'est chargée. */}
+      {mounted && (
       <SceneBoundary fallback={fallback}>
         <Canvas
           shadows
@@ -405,6 +423,7 @@ export default function ModelViewer({ type, url, color = '#0A0A0A', scene, label
           />
         </Canvas>
       </SceneBoundary>
+      )}
     </div>
   );
 }

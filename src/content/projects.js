@@ -74,7 +74,8 @@ export const projects = [
     slug: 'wellness-rochefoucauld',
     num: '01',
     category: 'architecture',
-    title: tri('Le Wellness Rochefoucauld', 'Le Wellness Rochefoucauld', 'Le Wellness Rochefoucauld', 'ويلنس روشفوكو'),
+    // AR : le titre du projet reste volontairement en anglais (demande de Dana).
+    title: tri('Le Wellness Rochefoucauld', 'Le Wellness Rochefoucauld', 'Le Wellness Rochefoucauld', 'Rochefoucauld Wellness'),
     place: tri('Paris', 'Paris', 'Paris', 'باريس'),
     year: '2026',
     typology: tri(
@@ -111,22 +112,28 @@ export const projects = [
     num: '02',
     category: 'architecture',
     title: tri('Maison résidentielle', 'Residential House', 'Wohnhaus', 'منزل سكني'),
-    place: tri("Travail d'étude", 'Academic project', 'Studienarbeit', 'عمل أكاديمي'),
+    place: tri('Projet personnel', 'Personal project', 'Persönliches Projekt', 'مشروع شخصي'),
     year: '2025',
     typology: tri('Résidentiel · Revit', 'Residential · Revit', 'Wohnbau · Revit', 'سكني · Revit'),
     summary: tri(
-      'Projet de studio — rendus intérieurs/extérieurs, plans et maquette 3D.',
-      'Studio project — interior/exterior renders, plans and 3D model.',
-      'Studioprojekt — Innen-/Außenrenderings, Pläne und 3D-Modell.',
-      'مشروع استوديو — مناظر داخلية وخارجية، ومخططات، ومجسّم ثلاثي الأبعاد.'
+      "Projet personnel d'approfondissement sur Revit : rendus intérieurs et extérieurs, plans et maquette 3D.",
+      'A personal deep-dive into Revit: interior and exterior renders, plans and a 3D model.',
+      'Ein persönliches Vertiefungsprojekt in Revit: Innen- und Außenrenderings, Pläne und ein 3D-Modell.',
+      'مشروع شخصي لتعميق إتقان Revit: مناظر داخلية وخارجية، ومخططات، ومجسّم ثلاثي الأبعاد.'
     ),
     color: 'orange',
     cover: asset('maison-ind-rend-5.webp'),
     hover: asset('maison-ind-rend-2.webp'),
     hasModel: true,
-    // `scene.hideMeshes` : retire du rendu le cercle/terrain (« Toposolid ») et la
-    // barrière (« Railing », 209 meshes) qui polluaient la lecture du volume.
-    model3d: { type: 'fbx', url: model('maison.fbx'), scene: { hideMeshes: ['Toposolid', 'Railing'] } },
+    // `scene.hideMeshes` : retire du rendu le cercle/terrain au sol (« Toposolid »
+    // + disque « ground soil ») et la barrière (« Railing ») qui entourent la
+    // maison et polluaient la lecture du volume. Les planchers intérieurs
+    // (« Ground floor », « Floor ») ne matchent aucun de ces motifs → conservés.
+    model3d: {
+      type: 'fbx',
+      url: model('maison.fbx'),
+      scene: { hideMeshes: ['Toposolid', 'Railing', 'ground soil'] },
+    },
     gallery: [
       // Plans juste sous la 3D (côte à côte) pour une meilleure lecture
       g('maison-ind-plan-rdc.webp', 'planRdc', 'md:col-span-6'),
@@ -154,10 +161,10 @@ export const projects = [
       'إعادة تأهيل حضري · ١٩٥ مسكناً'
     ),
     summary: tri(
-      "Réhabilitation d'un îlot à Tourcoing — 195 logements, cœurs d'îlot désimperméabilisés et maquette physique comme outil de projet.",
-      'Rehabilitation of an urban block in Tourcoing — 195 dwellings, de-paved block cores and a physical model as a design tool.',
-      'Sanierung eines Blocks in Tourcoing — 195 Wohnungen, entsiegelte Blockinnenbereiche und ein physisches Modell als Entwurfswerkzeug.',
-      'إعادة تأهيل جزيرة عمرانية في توركوان — ١٩٥ مسكناً، وقلوب جزر مُزالة الإسمنت، ومجسّم مادي كأداة تصميم.'
+      "Réhabilitation d'un îlot à Tourcoing : 195 logements, cœurs d'îlot désimperméabilisés et maquette physique comme outil de projet.",
+      'Rehabilitation of an urban block in Tourcoing: 195 dwellings, de-paved block cores and a physical model as a design tool.',
+      'Sanierung eines Blocks in Tourcoing: 195 Wohnungen, entsiegelte Blockinnenbereiche und ein physisches Modell als Entwurfswerkzeug.',
+      'إعادة تأهيل جزيرة عمرانية في توركوان: ١٩٥ مسكناً، وقلوب جزر مُزالة الإسمنت، ومجسّم مادي كأداة تصميم.'
     ),
     color: 'acid',
     cover: asset('tourcoing-1.webp'), // 1re photo de la maquette physique (imposée)
@@ -177,21 +184,26 @@ export const projects = [
     title: tri('Cuisine', 'Kitchen', 'Küche', 'مطبخ'),
     place: tri('Beyrouth', 'Beirut', 'Beirut', 'بيروت'),
     year: '2026',
-    typology: tri('Design intérieur · Cuisine', 'Interior design · Kitchen', 'Innenarchitektur · Küche', 'تصميم داخلي · مطبخ'),
+    typology: tri('Architecture intérieure · Cuisine', 'Interior architecture · Kitchen', 'Innenarchitektur · Küche', 'عمارة داخلية · مطبخ'),
+    // Projet réellement construit → badge « Projet réalisé » sur la page.
+    realized: true,
     summary: tri(
-      "Étude d'une cuisine — continuité des plans de travail, des rangements et des circulations, à l'échelle du geste quotidien.",
-      'A kitchen study — continuity of worktops, storage and circulation, at the scale of the everyday gesture.',
-      'Studie einer Küche — Kontinuität von Arbeitsflächen, Stauraum und Wegen, im Maßstab der alltäglichen Geste.',
-      'دراسة مطبخ — استمرارية أسطح العمل والتخزين والممرات، على مقياس الحركة اليومية.'
+      "Projet d'architecture intérieure et d'optimisation de l'espace, réalisé à Beyrouth et dessiné en collaboration constante avec le client.",
+      'An interior-architecture and space-optimisation project, built in Beirut and drawn in constant collaboration with the client.',
+      'Ein Projekt für Innenarchitektur und Raumoptimierung, in Beirut realisiert und in ständiger Zusammenarbeit mit dem Kunden entworfen.',
+      'مشروع عمارة داخلية وتحسين للمساحة، أُنجز في بيروت وصُمِّم بتعاون دائم مع العميل.'
     ),
     color: 'acid',
     cover: asset('cuisine-3.webp'), // vignette imposée : cuisine-3
     hover: asset('cuisine-1.webp'),
     hasModel: false,
+    // Ordre imposé par Dana : la 2e image passe en 1re, la 3e en 2e, la 1re en
+    // dernier → l'ordre d'affichage [cuisine-1, cuisine-3, cuisine-2] devient
+    // [cuisine-3, cuisine-2, cuisine-1].
     gallery: [
-      g('cuisine-1.webp', 'rendu'),
       g('cuisine-3.webp', 'rendu'),
       g('cuisine-2.webp', 'rendu'),
+      g('cuisine-1.webp', 'rendu'),
     ],
   },
   {
@@ -199,14 +211,19 @@ export const projects = [
     num: '05',
     category: 'architecture',
     title: tri('Villa dans les montagnes', 'Villa in the Mountains', 'Villa in den Bergen', 'فيلا في الجبال'),
-    place: tri('Liban', 'Lebanon', 'Libanon', 'لبنان'),
+    place: tri('Stage · Beyrouth', 'Internship · Beirut', 'Praktikum · Beirut', 'تدريب · بيروت'),
     year: '2025',
-    typology: tri('Résidentiel · Villa', 'Residential · Villa', 'Wohnbau · Villa', 'سكني · فيلا'),
+    typology: tri(
+      'Relevé & modélisation 3D · Réhabilitation',
+      'Survey & 3D modelling · Rehabilitation',
+      'Aufmaß & 3D-Modellierung · Sanierung',
+      'رفع مساحي ونمذجة ثلاثية الأبعاد · إعادة تأهيل'
+    ),
     summary: tri(
-      'Une villa posée dans le relief libanais — le volume se parcourt en 3D interactive, terrasse après terrasse.',
-      'A villa set into the Lebanese relief — the volume is explored in interactive 3D, terrace after terrace.',
-      'Eine Villa im libanesischen Relief — das Volumen wird interaktiv in 3D erkundet, Terrasse für Terrasse.',
-      'فيلا تستقر في التضاريس اللبنانية — يُستكشف الحجم بتقنية ثلاثية الأبعاد تفاعلية، شرفةً بعد شرفة.'
+      "Projet de stage à Beyrouth : le relevé et la modélisation 3D d'une ancienne maison de montagne, pour préparer sa réhabilitation.",
+      'An internship project in Beirut: the survey and 3D modelling of an old mountain house, to prepare its rehabilitation.',
+      'Ein Praktikumsprojekt in Beirut: das Aufmaß und die 3D-Modellierung eines alten Berghauses zur Vorbereitung seiner Sanierung.',
+      'مشروع تدريب في بيروت: رفعُ ونمذجةُ منزل جبلي قديم ثلاثيّ الأبعاد، تمهيداً لإعادة تأهيله.'
     ),
     color: 'acid',
     cover: asset('villa-fond.webp'),
@@ -222,12 +239,12 @@ export const projects = [
     title: tri('D.A.T.', 'D.A.T.', 'D.A.T.', 'D.A.T.'),
     place: tri('Arabie Saoudite', 'Saudi Arabia', 'Saudi-Arabien', 'السعودية'),
     year: '2026',
-    typology: tri('Tertiaire · Immeuble mixte', 'Mixed-use · Office building', 'Mischnutzung · Bürogebäude', 'مكاتب · مبنى متعدد الاستخدامات'),
+    typology: tri('Architecture intérieure · Tertiaire', 'Interior architecture · Office', 'Innenarchitektur · Büro', 'عمارة داخلية · مكاتب'),
     summary: tri(
-      "Immeuble tertiaire en Arabie Saoudite — halls d'accueil, commerces et espaces de bureaux, autour d'un vocabulaire de moucharabiehs.",
-      'A mixed-use office building in Saudi Arabia — reception lobbies, retail and workspaces built around a mashrabiya language.',
-      'Ein Bürogebäude in Saudi-Arabien — Empfangshallen, Handel und Büroflächen rund um eine Maschrabiyya-Sprache.',
-      'مبنى مكاتب في السعودية — بهوات استقبال ومحلات ومساحات عمل حول مفردات المشربية.'
+      "Architecture intérieure d'un immeuble tertiaire en Arabie Saoudite : lobbies et couloirs animés de motifs islamiques, entre tradition et modernité.",
+      'Interior architecture for an office building in Saudi Arabia: lobbies and corridors enlivened by Islamic motifs, between tradition and modernity.',
+      'Innenarchitektur eines Bürogebäudes in Saudi-Arabien: Lobbys und Flure, belebt von islamischen Mustern, zwischen Tradition und Moderne.',
+      'عمارة داخلية لمبنى مكاتب في السعودية: بهوات وممرات تُحييها زخارف إسلامية، بين التقليد والحداثة.'
     ),
     color: 'orange',
     cover: asset('dat-1.webp'),
@@ -243,12 +260,14 @@ export const projects = [
     title: tri('Entrée de bureaux', 'Office entrance', 'Bürolobby', 'مدخل مكاتب'),
     place: tri('Beyrouth', 'Beirut', 'Beirut', 'بيروت'),
     year: '2026',
-    typology: tri('Tertiaire · Hall d’entrée', 'Office · Entrance lobby', 'Büro · Eingangshalle', 'مكاتب · بهو مدخل'),
+    typology: tri('Architecture intérieure · Hall d’entrée', 'Interior architecture · Entrance lobby', 'Innenarchitektur · Eingangshalle', 'عمارة داخلية · بهو مدخل'),
+    // Projet réellement construit → badge « Projet réalisé » sur la page.
+    realized: true,
     summary: tri(
-      "Aménagement d'une entrée de bureaux — hall d'accueil, signalétique et matières, autour de l'identité de l'enseigne.",
-      'Design of an office entrance — reception lobby, signage and materials, built around the brand identity.',
-      'Gestaltung eines Büroeingangs — Empfangshalle, Beschilderung und Materialien rund um die Markenidentität.',
-      'تهيئة مدخل مكاتب — بهو استقبال ولوحات إرشادية ومواد، حول هوية العلامة.'
+      "Redessin d'une entrée de bureaux à Beyrouth : recherche de matériaux, travail avec les artisans, plantes et installation lumineuse.",
+      'Redesign of an office entrance in Beirut: material research, work with craftsmen, planting and a lighting installation.',
+      'Neugestaltung eines Büroeingangs in Beirut: Materialrecherche, Arbeit mit Handwerkern, Bepflanzung und Lichtinstallation.',
+      'إعادة تصميم مدخل مكاتب في بيروت: بحث في المواد، وعمل مع الحرفيين، ونباتات وتركيب إضاءة.'
     ),
     color: 'bubblegum',
     cover: asset('hamra-3.webp'), // vignette imposée : hamra-3
@@ -300,10 +319,10 @@ export const projects = [
     year: '2024',
     typology: tri('Photographie · Traitements', 'Photography · Treatments', 'Fotografie · Bearbeitungen', 'تصوير · معالجات'),
     summary: tri(
-      "Un même littoral relu trois fois — détection, géométrie, trame. La côte comme matière à expérimentation.",
-      'One shoreline read three times — detection, geometry, halftone. The coast as material for experiment.',
-      'Eine Küste dreifach gelesen — Erkennung, Geometrie, Raster. Die Küste als Versuchsmaterial.',
-      'ساحل واحد يُقرأ ثلاث مرات — كشف، هندسة، تنقيط. الساحل مادةً للتجريب.'
+      "Un même littoral relu trois fois : détection, géométrie, trame. La côte comme matière à expérimentation.",
+      'One shoreline read three times: detection, geometry, halftone. The coast as material for experiment.',
+      'Eine Küste dreifach gelesen: Erkennung, Geometrie, Raster. Die Küste als Versuchsmaterial.',
+      'ساحل واحد يُقرأ ثلاث مرات: كشف، هندسة، تنقيط. الساحل مادةً للتجريب.'
     ),
     color: 'acid',
     cover: asset('dp-1.webp'),
@@ -404,10 +423,10 @@ export const projects = [
     category: 'art',
     title: tri('Logo AJFL', 'AJFL Logo', 'AJFL-Logo', 'شعار AJFL'),
     place: tri(
-      'AJFL — Université Paris Cité',
-      'AJFL — Université Paris Cité',
-      'AJFL — Université Paris Cité',
-      'AJFL — جامعة باريس سيتيه'
+      'AJFL · Université Paris Cité',
+      'AJFL · Université Paris Cité',
+      'AJFL · Université Paris Cité',
+      'AJFL · جامعة باريس سيتيه'
     ),
     year: '2025',
     typology: tri(
@@ -442,30 +461,30 @@ export const projects = [
           key: 'eiffel',
           label: tri('La Tour Eiffel', 'The Eiffel Tower', 'Der Eiffelturm', 'برج إيفل'),
           note: tri(
-            'La France — structure et verticalité, ossature du logotype.',
-            'France — structure and verticality, the backbone of the logotype.',
-            'Frankreich — Struktur und Vertikalität, das Rückgrat des Logos.',
-            'فرنسا — البنية والارتفاع، هيكل الشعار.'
+            'La France : structure et verticalité, ossature du logotype.',
+            'France: structure and verticality, the backbone of the logotype.',
+            'Frankreich: Struktur und Vertikalität, das Rückgrat des Logos.',
+            'فرنسا: البنية والارتفاع، هيكل الشعار.'
           ),
         },
         {
           key: 'cedar',
           label: tri('Le Cèdre du Liban', 'The Cedar of Lebanon', 'Die Libanon-Zeder', 'أرزة لبنان'),
           note: tri(
-            'Le Liban — étagement horizontal, qui vient coiffer la structure.',
-            'Lebanon — horizontal tiers, crowning the structure.',
-            'Libanon — horizontale Staffelung, die die Struktur krönt.',
-            'لبنان — تدرّج أفقي يتوّج البنية.'
+            'Le Liban : étagement horizontal, qui vient coiffer la structure.',
+            'Lebanon: horizontal tiers, crowning the structure.',
+            'Libanon: horizontale Staffelung, die die Struktur krönt.',
+            'لبنان: تدرّج أفقي يتوّج البنية.'
           ),
         },
         {
           key: 'scales',
           label: tri('La Balance de la Justice', 'The Scales of Justice', 'Die Waage der Justitia', 'ميزان العدالة'),
           note: tri(
-            "Le droit — le fléau s'accroche à la première plateforme, plateaux en suspens.",
-            'The law — the beam hooks onto the first platform, pans in suspension.',
-            'Das Recht — der Waagebalken hängt sich an die erste Plattform, die Schalen schweben.',
-            'القانون — تتعلّق الذراع بالمنصّة الأولى، والكفّتان معلّقتان.'
+            "Le droit : le fléau s'accroche à la première plateforme, plateaux en suspens.",
+            'The law: the beam hooks onto the first platform, pans in suspension.',
+            'Das Recht: der Waagebalken hängt sich an die erste Plattform, die Schalen schweben.',
+            'القانون: تتعلّق الذراع بالمنصّة الأولى، والكفّتان معلّقتان.'
           ),
         },
       ],
@@ -477,10 +496,10 @@ export const projects = [
         'رمز مرجعي، أُعيد رسمه من أجل الشعار.'
       ),
       resultLabel: tri(
-        'Fusion — le logotype AJFL',
-        'Fusion — the AJFL logotype',
-        'Fusion — das AJFL-Logo',
-        'الدمج — شعار AJFL'
+        'Fusion : le logotype AJFL',
+        'Fusion: the AJFL logotype',
+        'Fusion: das AJFL-Logo',
+        'الدمج: شعار AJFL'
       ),
     },
   },
@@ -520,206 +539,198 @@ const ARTICLES = {
   },
   'maison-residentielle-etude': {
     FR: {
-      lead: "Exercice d'école devenu manifeste domestique, la Maison résidentielle explore la manière dont une famille habite la lumière autant que les murs.",
+      lead: "Projet d'approfondissement personnel plutôt qu'exercice d'école, la Maison résidentielle explore la manière dont une famille habite la lumière autant que les murs.",
       body: [
         "Le plan distingue clairement le jour et la nuit : un socle ouvert et traversant accueille la vie commune, tandis que l'étage se replie autour de l'intimité des chambres.",
-        "Les rendus, produits sous Revit, servent moins à séduire qu'à vérifier : matières, ombres portées et cadrages sont testés jusqu'à ce que le projet tienne debout dans le détail.",
+        "Le projet a surtout été développé pour apprendre à maîtriser Revit de A à Z, de la manipulation la plus basique jusqu'aux opérations les plus complexes. Chaque plan, chaque rendu est devenu un prétexte à pousser l'outil un peu plus loin.",
       ],
       quote: "Dessiner une maison, c'est écrire une journée entière.",
     },
     EN: {
-      lead: "A school exercise turned domestic manifesto, the Residential House explores how a family inhabits light as much as walls.",
+      lead: "A personal deep-dive rather than a school exercise, the Residential House explores how a family inhabits light as much as walls.",
       body: [
         "The plan clearly separates day from night: an open, through-flowing base holds the shared life, while the upper floor folds around the privacy of the bedrooms.",
-        "Produced in Revit, the renders are less about seduction than verification: materials, cast shadows and framings are tested until the project holds together in detail.",
+        "The project was above all developed to learn to master Revit from A to Z, from the most basic manipulation to the most complex operations. Each plan, each render became a pretext to push the software a little further.",
       ],
       quote: "To draw a house is to write a whole day.",
     },
     DE: {
-      lead: "Eine Schulübung, die zum häuslichen Manifest wird: Das Wohnhaus erkundet, wie eine Familie ebenso das Licht wie die Wände bewohnt.",
+      lead: "Eher ein persönliches Vertiefungsprojekt als eine Schulübung: Das Wohnhaus erkundet, wie eine Familie ebenso das Licht wie die Wände bewohnt.",
       body: [
         "Der Grundriss trennt Tag und Nacht klar: Ein offener, durchlässiger Sockel nimmt das gemeinsame Leben auf, während sich das Obergeschoss um die Privatheit der Schlafräume legt.",
-        "Die in Revit erstellten Renderings dienen weniger der Verführung als der Prüfung: Materialien, Schlagschatten und Bildausschnitte werden getestet, bis das Projekt im Detail trägt.",
+        "Das Projekt entstand vor allem, um Revit von A bis Z zu beherrschen, von der einfachsten Handhabung bis zu den komplexesten Operationen. Jeder Plan, jedes Rendering wurde zum Anlass, das Werkzeug ein Stück weiterzutreiben.",
       ],
       quote: "Ein Haus zeichnen heißt, einen ganzen Tag schreiben.",
     },
     AR: {
-      lead: "تمرين دراسي صار بياناً منزلياً: يستكشف «المنزل السكني» كيف تسكن عائلةٌ الضوءَ بقدر ما تسكن الجدران.",
+      lead: "مشروع تعميق شخصي أكثر منه تمرين دراسي: يستكشف «المنزل السكني» كيف تسكن عائلةٌ الضوءَ بقدر ما تسكن الجدران.",
       body: [
         "يفصل المخطط بوضوح بين النهار والليل: قاعدة مفتوحة ونافذة تستقبل الحياة المشتركة، بينما ينطوي الطابق العلوي حول خصوصية الغرف.",
-        "الصور المُنتَجة عبر Revit لا تسعى إلى الإغراء بل إلى التحقّق: تُختبر المواد والظلال والتأطيرات حتى يصمد المشروع في تفاصيله.",
+        "طُوِّر المشروع قبل كل شيء لتعلّم إتقان Revit من الألف إلى الياء، من أبسط التعاملات إلى أعقد العمليات. صار كل مخطط وكل صورة تصييرية ذريعةً لدفع الأداة أبعد قليلاً.",
       ],
       quote: "أن ترسم منزلاً يعني أن تكتب يوماً بأكمله.",
     },
   },
   cuisine: {
     FR: {
-      lead: "Pièce de la vie quotidienne portée au rang de scène, cette cuisine est pensée depuis l'intérieur, comme un espace qui enveloppe celui qui l'habite.",
+      lead: "Projet d'architecture intérieure réalisé à Beyrouth, cette cuisine a été dessinée en collaboration constante avec le client, pour tirer le meilleur parti de chaque centimètre.",
       body: [
-        "Le dessin cherche la continuité : plans de travail, rangements et circulations forment une seule ligne qui enveloppe l'usager sans jamais l'enfermer.",
-        "Le dessin en plan et en coupe permet d'éprouver les proportions réelles — hauteur des meubles, largeur des passages — avant même la première découpe.",
+        "L'optimisation de l'espace guide tout le dessin : plans de travail, rangements et circulations forment une seule ligne continue, pensée pour le geste quotidien sans jamais enfermer l'usager.",
+        "Le dialogue avec le client a rythmé le projet, esquisse après esquisse. Chaque proportion, hauteur des meubles ou largeur des passages, a été éprouvée en plan et en coupe, puis validée ensemble avant la fabrication.",
       ],
       quote: "Habiter la cuisine, c'est habiter le geste.",
     },
     EN: {
-      lead: "An everyday room raised to the status of a stage, this kitchen is conceived from the inside, as a space that wraps around the one who inhabits it.",
+      lead: "An interior-architecture project built in Beirut, this kitchen was drawn in constant collaboration with the client, to make the most of every centimetre.",
       body: [
-        "The design seeks continuity: worktops, storage and circulation form a single line that wraps around the user without ever confining them.",
-        "Plans and sections make it possible to test real proportions — cabinet heights, passage widths — before the very first cut.",
+        "Optimising the space drives the whole design: worktops, storage and circulation form a single continuous line, shaped around the everyday gesture without ever confining the user.",
+        "The dialogue with the client set the pace, sketch after sketch. Every proportion, cabinet heights or passage widths, was tested in plan and section, then validated together before fabrication.",
       ],
       quote: "To inhabit the kitchen is to inhabit the gesture.",
     },
     DE: {
-      lead: "Ein Alltagsraum, der zur Bühne erhoben wird: Diese Küche ist von innen heraus gedacht, als ein Raum, der denjenigen umschließt, der ihn bewohnt.",
+      lead: "Ein in Beirut realisiertes Innenarchitekturprojekt: Diese Küche wurde in ständiger Zusammenarbeit mit dem Kunden entworfen, um jeden Zentimeter bestmöglich zu nutzen.",
       body: [
-        "Der Entwurf sucht Kontinuität: Arbeitsflächen, Stauraum und Wege bilden eine einzige Linie, die den Nutzer umschließt, ohne ihn je einzuengen.",
-        "Grund- und Schnittzeichnungen erlauben es, reale Proportionen zu prüfen — Möbelhöhen, Durchgangsbreiten — noch vor dem ersten Schnitt.",
+        "Die Optimierung des Raums bestimmt den gesamten Entwurf: Arbeitsflächen, Stauraum und Wege bilden eine einzige durchgehende Linie, gedacht für die alltägliche Geste, ohne den Nutzer je einzuengen.",
+        "Der Dialog mit dem Kunden gab den Takt vor, Skizze um Skizze. Jede Proportion, Möbelhöhen wie Durchgangsbreiten, wurde in Grund- und Schnittzeichnung geprüft und dann gemeinsam bestätigt, bevor gebaut wurde.",
       ],
       quote: "Die Küche bewohnen heißt, die Geste bewohnen.",
     },
     AR: {
-      lead: "غرفةٌ من الحياة اليومية تُرفَع إلى مرتبة المشهد: يُفكَّر في هذا المطبخ من الداخل، كفضاءٍ يحيط بمن يسكنه.",
+      lead: "مشروع عمارة داخلية أُنجز في بيروت، صُمِّم هذا المطبخ بتعاون دائم مع العميل للاستفادة القصوى من كل سنتيمتر.",
       body: [
-        "يبحث التصميم عن الاستمرارية: تشكّل أسطح العمل والخزائن والممرات خطاً واحداً يحيط بالمستخدم دون أن يحبسه.",
-        "يتيح الرسم بالمخطط والمقطع اختبار النسب الحقيقية — ارتفاع الأثاث، عرض الممرات — قبل أول قطعٍ للمواد.",
+        "يقود تحسينُ المساحة التصميمَ بأكمله: تشكّل أسطح العمل والخزائن والممرات خطاً واحداً متصلاً، مصوغاً حول الحركة اليومية دون أن يحبس المستخدم.",
+        "أعطى الحوارُ مع العميل إيقاعَ المشروع، اسكتشاً بعد اسكتش. اختُبرت كل نسبة، من ارتفاع الأثاث إلى عرض الممرات، بالمخطط والمقطع، ثم أُقرّت معاً قبل التصنيع.",
       ],
       quote: "أن تسكن المطبخ يعني أن تسكن الحركة.",
     },
   },
   'villa-montagnes-liban': {
     FR: {
-      lead: "Posée dans le relief libanais, la villa négocie sa présence avec la pente : elle s'ancre, s'étire et cadre le paysage plutôt que de le dominer.",
+      lead: "Réalisée lors d'un stage à Beyrouth, cette modélisation ne dessine pas une maison neuve : elle relève une ancienne bâtisse de montagne pour en préparer la réhabilitation.",
       body: [
-        "Les terrasses successives prolongent les pièces vers l'extérieur et transforment la topographie en séquence d'usages : on descend d'un salon à un jardin comme on descendrait la montagne.",
-        "La maquette 3D interactive donne à lire les volumes dans leur épaisseur, et révèle comment la lumière rasante du soir sculpte les façades.",
+        "Faute de documents historiques, la modélisation s'appuie entièrement sur mes propres relevés sur place : mesures, photographies et observation patiente de ce qui tenait encore debout.",
+        "La 3D a été poussée jusqu'aux détails de fabrique, appareillage, menuiseries et altérations, pour comprendre l'état réel du bâtiment. Le but n'était pas d'inventer, mais de produire une base ultra-complète sur laquelle un futur projet pourra s'appuyer.",
       ],
-      quote: "Construire en pente, c'est composer avec plus grand que soi.",
+      quote: "Modéliser l'existant, c'est déjà commencer à le réparer.",
     },
     EN: {
-      lead: "Set into the Lebanese relief, the villa negotiates its presence with the slope: it anchors, stretches and frames the landscape rather than dominating it.",
+      lead: "Made during an internship in Beirut, this modelling does not draw a new house: it surveys an old mountain dwelling in order to prepare its rehabilitation.",
       body: [
-        "Successive terraces extend the rooms outward and turn the topography into a sequence of uses: one descends from a living room to a garden as one would descend the mountain.",
-        "The interactive 3D model reveals the volumes in their depth, and shows how the low evening light sculpts the façades.",
+        "With no historical documents available, the model rests entirely on my own on-site surveys: measurements, photographs and patient observation of whatever was still standing.",
+        "The 3D was pushed as far as the building's fabric details, bonding, joinery and decay, in order to understand its real condition. The aim was not to invent, but to produce an exhaustive base on which a future project can build.",
       ],
-      quote: "To build on a slope is to compose with something greater than oneself.",
+      quote: "To model what already exists is to begin repairing it.",
     },
     DE: {
-      lead: "In das libanesische Relief gesetzt, verhandelt die Villa ihre Präsenz mit dem Hang: Sie verankert sich, streckt sich und rahmt die Landschaft, statt sie zu beherrschen.",
+      lead: "Während eines Praktikums in Beirut entstanden, zeichnet diese Modellierung kein neues Haus: Sie nimmt ein altes Berghaus auf, um seine Sanierung vorzubereiten.",
       body: [
-        "Aufeinanderfolgende Terrassen führen die Räume nach außen und verwandeln die Topografie in eine Abfolge von Nutzungen: Man steigt von einem Wohnraum zu einem Garten hinab wie den Berg hinunter.",
-        "Das interaktive 3D-Modell macht die Volumen in ihrer Tiefe lesbar und zeigt, wie das flache Abendlicht die Fassaden formt.",
+        "Da keine historischen Unterlagen vorlagen, beruht das Modell vollständig auf meinen eigenen Aufmaßen vor Ort: Messungen, Fotografien und geduldiges Beobachten dessen, was noch stand.",
+        "Die 3D wurde bis zu den Baudetails vorangetrieben, Mauerwerksverband, Tischlerarbeiten und Schäden, um den tatsächlichen Zustand des Gebäudes zu verstehen. Ziel war nicht das Erfinden, sondern eine lückenlose Grundlage zu schaffen, auf der ein künftiges Projekt aufbauen kann.",
       ],
-      quote: "Am Hang bauen heißt, mit etwas Größerem als man selbst komponieren.",
+      quote: "Das Bestehende modellieren heißt, es schon zu reparieren.",
     },
     AR: {
-      lead: "مستقرّة في التضاريس اللبنانية، تفاوض الفيلا حضورها مع المنحدر: ترتكز، وتتمدّد، وتؤطّر المشهد بدل أن تهيمن عليه.",
+      lead: "أُنجزت هذه النمذجة خلال تدريب في بيروت، وهي لا ترسم منزلاً جديداً: بل ترفع بيتاً جبلياً قديماً تمهيداً لإعادة تأهيله.",
       body: [
-        "تمدّد الشرفات المتتابعة الغرفَ نحو الخارج وتحوّل الطوبوغرافيا إلى تتابع استعمالات: ننزل من صالة إلى حديقة كما ننزل الجبل.",
-        "يكشف المجسّم الثلاثي الأبعاد التفاعلي الكتلَ في سماكتها، ويُظهر كيف ينحت ضوء المساء المائل الواجهات.",
+        "في غياب أي وثائق تاريخية، يستند النموذج بالكامل إلى رفوعي الميدانية الخاصة: قياسات، وصور، وملاحظة صبورة لِما بقي قائماً.",
+        "دُفعت النمذجة الثلاثية الأبعاد حتى تفاصيل البناء، من رصف الحجارة إلى النجارة والتلف، لفهم الحالة الفعلية للمبنى. لم يكن الهدف الابتكار، بل إنتاج قاعدة شاملة يستند إليها مشروع مستقبلي.",
       ],
-      quote: "البناء على منحدر قبولٌ بالتأليف مع ما هو أكبر منّا.",
+      quote: "أن تُنمذج القائمَ هو أن تبدأ إصلاحه.",
     },
   },
   dat: {
     FR: {
-      lead: "Immeuble à usages multiples, D.A.T. met en scène la rencontre entre l'échelle du bureau et celle de la rue, autour d'un vocabulaire contemporain de moucharabiehs.",
+      lead: "Projet d'architecture intérieure pour un immeuble tertiaire en Arabie Saoudite, D.A.T. traite les lobbies et les couloirs comme des lieux à part entière, où la lumière et le motif donnent le ton.",
       body: [
-        "La façade filtre la lumière du désert : la trame ajourée protège de la chaleur tout en dessinant, à l'intérieur, une géométrie mouvante d'ombres.",
+        "Les espaces d'accueil intègrent des motifs islamiques très présents dans la région : repris sur les parois, les sols et les claustras, ils tissent un lien direct entre tradition et modernité.",
         "Halls d'accueil, commerces et plateaux de bureaux s'empilent et se répondent ; le projet cherche l'urbanité verticale plutôt que la simple superposition.",
       ],
-      quote: "Le moucharabieh, ou comment habiter la lumière sans la subir.",
+      quote: "Le motif comme trait d'union entre la tradition et le présent.",
     },
     EN: {
-      lead: "A mixed-use building, D.A.T. stages the meeting between the scale of the office and that of the street, around a contemporary vocabulary of mashrabiyas.",
+      lead: "An interior-architecture project for an office building in Saudi Arabia, D.A.T. treats the lobbies and corridors as places in their own right, where light and pattern set the tone.",
       body: [
-        "The façade filters the desert light: the perforated screen shields from the heat while drawing, inside, a shifting geometry of shadows.",
+        "The reception spaces incorporate Islamic motifs widely present in the region: carried across walls, floors and screens, they weave a direct link between tradition and modernity.",
         "Reception lobbies, retail and office floors stack and answer one another; the project seeks vertical urbanity rather than mere superposition.",
       ],
-      quote: "The mashrabiya, or how to inhabit light without enduring it.",
+      quote: "The motif as a link between tradition and the present.",
     },
     DE: {
-      lead: "Ein Gebäude mit gemischter Nutzung: D.A.T. inszeniert die Begegnung zwischen dem Maßstab des Büros und dem der Straße, um ein zeitgenössisches Vokabular der Maschrabiyya.",
+      lead: "Ein Innenarchitekturprojekt für ein Bürogebäude in Saudi-Arabien: D.A.T. behandelt Lobbys und Flure als eigenständige Orte, in denen Licht und Muster den Ton angeben.",
       body: [
-        "Die Fassade filtert das Wüstenlicht: Der durchbrochene Schirm schützt vor der Hitze und zeichnet im Inneren eine bewegte Geometrie von Schatten.",
+        "Die Empfangsbereiche greifen in der Region weit verbreitete islamische Muster auf: über Wände, Böden und Gitter geführt, knüpfen sie ein unmittelbares Band zwischen Tradition und Moderne.",
         "Empfangshallen, Handel und Büroetagen stapeln sich und antworten einander; das Projekt sucht vertikale Urbanität statt bloßer Überlagerung.",
       ],
-      quote: "Die Maschrabiyya — oder wie man Licht bewohnt, ohne es zu erleiden.",
+      quote: "Das Muster als Bindeglied zwischen Tradition und Gegenwart.",
     },
     AR: {
-      lead: "مبنى متعدّد الاستخدامات، يُخرج D.A.T. لقاءَ مقياس المكتب بمقياس الشارع، حول مفردات معاصرة للمشربية.",
+      lead: "مشروع عمارة داخلية لمبنى مكاتب في السعودية، يعامل D.A.T. البهوات والممرات كأماكن قائمة بذاتها، يحدّد فيها الضوءُ والزخرفةُ النبرةَ العامة.",
       body: [
-        "ترشّح الواجهة ضوء الصحراء: تحمي الشبكة المخرّمة من الحرارة، وترسم في الداخل هندسةً متحرّكة من الظلال.",
+        "تدمج فضاءات الاستقبال زخارف إسلامية واسعة الحضور في المنطقة: تُنقل على الجدران والأرضيات والمشبّكات، فتنسج صلةً مباشرة بين التقليد والحداثة.",
         "تتراكم بهوات الاستقبال والمحلات وطوابق المكاتب ويجيب بعضها بعضاً؛ يبحث المشروع عن حضريّة عمودية لا عن مجرّد تكديس.",
       ],
-      quote: "المشربية، أو كيف نسكن الضوء دون أن نحتمله.",
+      quote: "الزخرفة جسرٌ بين التقليد والحاضر.",
     },
   },
   'entree-de-bureaux': {
     FR: {
-      lead: "Première image d'une entreprise, l'entrée de bureaux condense en quelques mètres carrés une identité : accueillir, orienter, impressionner sans intimider.",
+      lead: "Ce projet est le redessin d'une entrée de bureaux à Beyrouth. Plusieurs versions ont été explorées ; les deux retenues correspondent aux modélisations 3D présentées ici.",
       body: [
-        "Le hall joue de la matière et de la signalétique pour installer une ambiance ; un mur végétal introduit le vivant au seuil du travail.",
-        "Le parcours du visiteur est chorégraphié : de la porte à l'accueil, chaque plan et chaque lumière préparent la rencontre.",
+        "Le travail s'est concentré sur les matériaux, avec une recherche poussée autour de l'acier, menée en lien direct avec les artisans qui allaient le mettre en œuvre.",
+        "Les plantes et une installation lumineuse complètent l'aménagement : elles réchauffent le seuil et guident le regard dès l'entrée.",
       ],
       quote: "Une entrée, c'est une poignée de main construite.",
     },
     EN: {
-      lead: "The first image of a company, the office entrance condenses an identity into a few square metres: to welcome, to orient, to impress without intimidating.",
+      lead: "This project is the redesign of an office entrance in Beirut. Several versions were explored; the two selected correspond to the 3D models shown here.",
       body: [
-        "The lobby plays on material and signage to set a mood; a green wall brings the living world to the threshold of work.",
-        "The visitor's path is choreographed: from door to reception, every surface and every light prepares the encounter.",
+        "The work focused on materials, with in-depth research around steel, carried out in direct contact with the craftsmen who would build it.",
+        "Plants and a lighting installation complete the scheme: they warm the threshold and guide the eye from the moment you step in.",
       ],
       quote: "An entrance is a handshake made of architecture.",
     },
     DE: {
-      lead: "Das erste Bild eines Unternehmens: Der Büroeingang verdichtet auf wenigen Quadratmetern eine Identität — empfangen, orientieren, beeindrucken, ohne einzuschüchtern.",
+      lead: "Dieses Projekt ist die Neugestaltung eines Büroeingangs in Beirut. Mehrere Varianten wurden erkundet; die beiden ausgewählten entsprechen den hier gezeigten 3D-Modellen.",
       body: [
-        "Die Halle spielt mit Material und Beschilderung, um eine Stimmung zu schaffen; eine begrünte Wand bringt das Lebendige an die Schwelle der Arbeit.",
-        "Der Weg des Besuchers ist choreografiert: von der Tür bis zum Empfang bereiten jede Fläche und jedes Licht die Begegnung vor.",
+        "Die Arbeit konzentrierte sich auf die Materialien, mit einer eingehenden Recherche rund um Stahl, in direktem Austausch mit den Handwerkern, die ihn umsetzen sollten.",
+        "Pflanzen und eine Lichtinstallation vervollständigen die Gestaltung: Sie wärmen die Schwelle und lenken den Blick schon beim Eintreten.",
       ],
       quote: "Ein Eingang ist ein gebauter Händedruck.",
     },
     AR: {
-      lead: "الصورة الأولى لشركة: يكثّف مدخل المكاتب هويةً كاملة في أمتار قليلة — أن يستقبل، وأن يوجّه، وأن يُبهر دون أن يُرهب.",
+      lead: "هذا المشروع هو إعادة تصميم مدخل مكاتب في بيروت. استُكشفت عدة نسخ؛ والنسختان المعتمدتان تقابلان النمذجتين الثلاثيتي الأبعاد المعروضتين هنا.",
       body: [
-        "يلعب البهو على المادة واللوحات الإرشادية لتثبيت أجواء؛ ويُدخل جدارٌ نباتي الحياةَ إلى عتبة العمل.",
-        "مسار الزائر مُصمَّم كرقصة: من الباب إلى الاستقبال، يهيّئ كل سطح وكل ضوء للقاء.",
+        "تركّز العمل على المواد، مع بحث معمّق حول الفولاذ، جرى بتواصل مباشر مع الحرفيين الذين سينفّذونه.",
+        "تُكمل النباتات وتركيبٌ ضوئي التهيئةَ: تُدفئان العتبة وتوجّهان النظر منذ لحظة الدخول.",
       ],
       quote: "المدخل مصافحةٌ مبنيّة.",
     },
   },
   'details-berlin': {
     FR: {
-      lead: "Loin des grandes perspectives, le projet se joue ici à l'échelle du millimètre : celle des détails d'enveloppe et de menuiserie qui font tenir — et durer — l'architecture.",
+      lead: "Lors d'un stage en agence à Berlin, j'ai été confrontée au développement de détails architecturaux, notamment pour des portes réalisées sur mesure.",
       body: [
-        "Chaque nœud constructif est un petit projet en soi : jonction, étanchéité, rejet d'eau et geste de l'artisan y sont négociés ensemble.",
-        "Réalisés lors d'un stage en agence à Berlin, ces détails rappellent que la qualité d'un bâtiment se lit d'abord dans ce qu'on ne voit presque pas.",
+        "Ce travail m'a fait entrer dans l'échelle du détail : ajuster une jonction, une épaisseur, un assemblage, pour qu'une idée simple tienne réellement une fois construite.",
       ],
-      quote: "Le détail n'est pas un ornement : c'est la promesse tenue du dessin.",
     },
     EN: {
-      lead: "Far from grand perspectives, the project plays out here at the scale of the millimetre: that of the envelope and joinery details that make architecture hold — and last.",
+      lead: "During an office internship in Berlin, I was confronted with developing architectural details, in particular for custom-made doors.",
       body: [
-        "Each constructive junction is a small project in itself: connection, waterproofing, water shedding and the craftsman's gesture are negotiated together.",
-        "Produced during an office internship in Berlin, these details recall that a building's quality is first read in what one barely sees.",
+        "The work brought me into the scale of the detail: adjusting a junction, a thickness, an assembly, so that a simple idea would actually hold once built.",
       ],
-      quote: "The detail is no ornament: it is the drawing's promise, kept.",
     },
     DE: {
-      lead: "Fern der großen Perspektiven spielt sich das Projekt hier im Maßstab des Millimeters ab: bei den Fassaden- und Tischlerdetails, die Architektur halten — und dauern — lassen.",
+      lead: "Während eines Praktikums in einem Berliner Büro wurde ich mit der Entwicklung architektonischer Details betraut, insbesondere für maßgefertigte Türen.",
       body: [
-        "Jeder konstruktive Knoten ist ein kleines Projekt für sich: Anschluss, Abdichtung, Wasserabweisung und die Geste des Handwerkers werden zusammen verhandelt.",
-        "Während eines Praktikums in einem Berliner Büro entstanden, erinnern diese Details daran, dass sich die Qualität eines Gebäudes zuerst in dem liest, was man kaum sieht.",
+        "Diese Arbeit führte mich in den Maßstab des Details: einen Anschluss, eine Stärke, eine Fügung anzupassen, damit eine einfache Idee gebaut auch wirklich trägt.",
       ],
-      quote: "Das Detail ist kein Ornament: Es ist das eingelöste Versprechen der Zeichnung.",
     },
     AR: {
-      lead: "بعيداً عن المنظورات الكبرى، يُلعب المشروع هنا على مقياس الميليمتر: تفاصيل الغلاف والنجارة التي تجعل العمارة تصمد — وتدوم.",
+      lead: "خلال تدريب في مكتب عمارة ببرلين، واجهتُ تطويرَ تفاصيل معمارية، خصوصاً لأبواب مصنوعة حسب الطلب.",
       body: [
-        "كل عقدة إنشائية مشروع صغير بذاته: يُتفاوض فيها على الوصل والعزل وتصريف المياه وحركة الحرفي معاً.",
-        "أُنجزت خلال تدريب في مكتب معماري ببرلين، وتذكّر هذه التفاصيل بأن جودة المبنى تُقرأ أولاً فيما لا نكاد نراه.",
+        "أدخلني هذا العمل إلى مقياس التفصيل: ضبط وصلة، أو سماكة، أو تجميعة، كي تصمد فكرة بسيطة فعلاً بعد أن تُبنى.",
       ],
-      quote: "التفصيل ليس زخرفاً: إنه وعد الرسم وقد تحقّق.",
     },
   },
   'littoral-variations': {
@@ -792,7 +803,7 @@ const ARTICLES = {
   },
   'bague-blender': {
     FR: {
-      lead: "Ce projet n'est pas une création personnelle mais un exercice d'apprentissage : reproduire sous Blender la « Bague boule » de Charles Jacqueau (vers 1935), pièce emblématique du bijou Art déco, pour se familiariser avec la modélisation d'objets précieux.",
+      lead: "C'est en voulant apprendre la modélisation 3D que je me suis lancée dans Blender, avec un défi précis : recréer la « Bague boule » de Charles Jacqueau (vers 1935), pièce emblématique du bijou Art déco.",
       body: [
         "Le choix du modèle n'a rien d'anodin : dans sa sphère facettée, la Bague boule condense tout le vocabulaire géométrique de l'Art déco — rythme, symétrie, tension des pleins et des vides. L'observer puis la reconstruire oblige à comprendre comment ces volumes s'articulent.",
         "La modélisation progresse par étapes : établir la sphère de base, sculpter les facettes, ajuster les proportions de l'anneau, puis travailler matières et lumière pour restituer l'éclat du métal et des pierres. Chaque courbe devient une décision de dessin autant que de fabrication virtuelle.",
@@ -800,7 +811,7 @@ const ARTICLES = {
       quote: "Reproduire un bijou, c'est apprendre à en relire chaque courbe.",
     },
     EN: {
-      lead: "This project is not a personal creation but a learning exercise: reproducing in Blender Charles Jacqueau's « Bague boule » (c. 1935), an emblematic piece of Art Deco jewellery, in order to become familiar with modelling precious objects.",
+      lead: "Wanting to learn 3D modelling is exactly what led me to Blender, with a precise challenge: to recreate Charles Jacqueau's « Bague boule » (c. 1935), an emblematic piece of Art Deco jewellery.",
       body: [
         "The choice of model is no accident: within its faceted sphere, the Bague boule condenses the whole geometric vocabulary of Art Deco — rhythm, symmetry, the tension of solids and voids. Observing and then rebuilding it forces one to understand how these volumes fit together.",
         "Modelling proceeds in stages: establishing the base sphere, sculpting the facets, adjusting the proportions of the band, then working material and light to render the gleam of metal and stones. Every curve becomes a decision of drawing as much as of virtual making.",
@@ -808,7 +819,7 @@ const ARTICLES = {
       quote: "To reproduce a jewel is to learn to read each of its curves.",
     },
     DE: {
-      lead: "Dieses Projekt ist keine eigene Schöpfung, sondern eine Lernübung: die « Bague boule » von Charles Jacqueau (um 1935), ein Schlüsselstück des Art-déco-Schmucks, in Blender nachzubilden, um sich mit der Modellierung kostbarer Objekte vertraut zu machen.",
+      lead: "Der Wunsch, 3D-Modellierung zu lernen, führte mich zu Blender, mit einer klaren Herausforderung: die « Bague boule » von Charles Jacqueau (um 1935), ein Schlüsselstück des Art-déco-Schmucks, nachzubauen.",
       body: [
         "Die Wahl des Vorbilds ist kein Zufall: In ihrer facettierten Kugel verdichtet die Bague boule das gesamte geometrische Vokabular des Art déco — Rhythmus, Symmetrie, die Spannung von Masse und Leere. Sie zu betrachten und dann nachzubauen zwingt dazu, zu verstehen, wie diese Volumen zusammenspielen.",
         "Die Modellierung schreitet in Etappen voran: die Grundkugel anlegen, die Facetten formen, die Proportionen des Rings anpassen, dann Material und Licht bearbeiten, um den Glanz von Metall und Steinen wiederzugeben. Jede Kurve wird ebenso zur Entscheidung der Zeichnung wie der virtuellen Fertigung.",
@@ -816,7 +827,7 @@ const ARTICLES = {
       quote: "Ein Schmuckstück nachzubilden heißt, jede seiner Kurven neu lesen zu lernen.",
     },
     AR: {
-      lead: "ليس هذا المشروع إبداعاً شخصياً بل تمرين تعلّم: إعادة تشكيل «خاتم الكرة» لتشارلز جاكو (نحو ١٩٣٥)، وهي قطعة أيقونية من مجوهرات الآرت ديكو، على Blender، للتآلف مع نمذجة الأغراض الثمينة.",
+      lead: "رغبتي في تعلّم النمذجة الثلاثية الأبعاد هي ما قادني إلى Blender، مع تحدٍّ محدّد: إعادة تشكيل «خاتم الكرة» لتشارلز جاكو (نحو ١٩٣٥)، القطعة الأيقونية من مجوهرات الآرت ديكو.",
       body: [
         "اختيار النموذج ليس اعتباطياً: تختزل «خاتم الكرة» في كرتها المفصّصة كامل المفردات الهندسية للآرت ديكو — إيقاع، وتناظر، وتوتر بين المصمت والمفرّغ. ومراقبتها ثم إعادة بنائها تُلزم بفهم كيف تتمفصل هذه الكتل.",
         "تتقدّم النمذجة على مراحل: إرساء الكرة الأساس، نحت الأوجه، ضبط نسب الحلقة، ثم معالجة المواد والضوء لاستعادة بريق المعدن والأحجار. تغدو كل انحناءة قراراً في الرسم بقدر ما هي في التصنيع الافتراضي.",
@@ -863,7 +874,7 @@ const ARTICLES = {
       lead: "Réhabiliter plutôt que démolir : à Tourcoing, le projet ouvre les cœurs d'îlot, désimperméabilise les sols et réinvente 195 logements dans un tissu déjà là.",
       body: [
         "La maquette physique a servi d'outil de projet autant que de représentation : c'est en manipulant les volumes de carton que se sont décidés les percements, les retraits et les continuités piétonnes.",
-        "L'axonométrie programmatique répartit une typologie très variée — du T1 au T5 — pour éviter l'uniformité sociale, tandis que le plan-masse organise les flux entre les deux cœurs d'îlot végétalisés.",
+        "L'axonométrie programmatique répartit une typologie très variée, du T1 au T5, pour éviter l'uniformité sociale, tandis que le plan-masse organise les flux entre les deux cœurs d'îlot végétalisés.",
       ],
       quote: "Réhabiliter, c'est écrire dans les marges d'un texte déjà écrit.",
     },
@@ -871,7 +882,7 @@ const ARTICLES = {
       lead: "Rehabilitating rather than demolishing: in Tourcoing, the project opens the block cores, de-paves the ground and reinvents 195 dwellings within a fabric already there.",
       body: [
         "The physical model served as a design tool as much as a representation: it was by handling the card volumes that the openings, setbacks and pedestrian continuities were decided.",
-        "The programmatic axonometry distributes a highly varied typology — from studios to five-room flats — to avoid social uniformity, while the site plan organises the flows between the two planted block cores.",
+        "The programmatic axonometry distributes a highly varied typology, from studios to five-room flats, to avoid social uniformity, while the site plan organises the flows between the two planted block cores.",
       ],
       quote: "To rehabilitate is to write in the margins of an already written text.",
     },
@@ -879,7 +890,7 @@ const ARTICLES = {
       lead: "Sanieren statt abreißen: In Tourcoing öffnet das Projekt die Blockinnenbereiche, entsiegelt den Boden und erfindet 195 Wohnungen im Bestand neu.",
       body: [
         "Das physische Modell diente ebenso als Entwurfswerkzeug wie als Darstellung: Beim Bewegen der Kartonvolumen wurden Öffnungen, Rücksprünge und fußläufige Verbindungen entschieden.",
-        "Die programmatische Axonometrie verteilt eine sehr vielfältige Typologie — vom Ein- bis zum Fünfzimmer — um soziale Gleichförmigkeit zu vermeiden, während der Lageplan die Wege zwischen den beiden begrünten Blockinnenbereichen ordnet.",
+        "Die programmatische Axonometrie verteilt eine sehr vielfältige Typologie, vom Ein- bis zum Fünfzimmer, um soziale Gleichförmigkeit zu vermeiden, während der Lageplan die Wege zwischen den beiden begrünten Blockinnenbereichen ordnet.",
       ],
       quote: "Sanieren heißt, an den Rändern eines bereits geschriebenen Textes zu schreiben.",
     },
@@ -950,34 +961,30 @@ const ARTICLE_EXTRA = {
     'يولي المشروع عنايةً خاصة للمواد والضوء: أسطح فاتحة، وواجهات أثاث مطفأة اللمعان، وانعكاسات محسوبة، تؤلّف أجواءً وظيفية وهادئة في آن. وبعيداً عن مجرّد تجهيز، يُعامَل المطبخ كشذرة من العمارة الداخلية، حيث يستجيب كل خزان وكل ارتفاع لمنطق استعمال.'
   ),
   'villa-montagnes-liban': tri(
-    "La matérialité prolonge cette négociation avec le site : pierre locale en soubassement, enduits clairs et larges baies inscrivent la villa dans la palette de la montagne libanaise. Le projet cherche moins à s'imposer qu'à cadrer des vues, transformant chaque ouverture en tableau du paysage.",
-    'The materiality extends this negotiation with the site: local stone at the base, pale renders and wide bays set the villa within the palette of the Lebanese mountains. The project seeks less to impose itself than to frame views, turning each opening into a picture of the landscape.',
-    'Die Materialität setzt diese Verhandlung mit dem Ort fort: lokaler Stein im Sockel, helle Putze und breite Fensterbänder fügen die Villa in die Palette der libanesischen Berge ein. Das Projekt will sich weniger aufdrängen, als Ausblicke rahmen, und verwandelt jede Öffnung in ein Bild der Landschaft.',
-    'تمدّد المادية هذا التفاوض مع الموقع: حجر محلي في القاعدة، وطلاء فاتح، وفتحات واسعة، تُدرج الفيلا في لوحة ألوان الجبل اللبناني. يسعى المشروع إلى تأطير المشاهد أكثر من فرض نفسه، محوّلاً كل فتحة إلى لوحةٍ للمنظر.'
+    "Ce travail minutieux transforme le modèle en véritable outil de diagnostic : chaque pièce, chaque niveau et chaque désordre y sont consignés. Avant même de proposer quoi que ce soit, la villa est ainsi entièrement comprise, prête à accueillir un projet de réhabilitation.",
+    'This meticulous work turns the model into a genuine diagnostic tool: every room, every level and every defect is recorded. Before proposing anything at all, the villa is thus fully understood, ready to receive a rehabilitation project.',
+    'Diese akribische Arbeit macht das Modell zu einem echten Diagnosewerkzeug: Jeder Raum, jede Ebene und jeder Schaden ist festgehalten. Noch bevor überhaupt etwas vorgeschlagen wird, ist die Villa so vollständig verstanden und bereit, ein Sanierungsprojekt aufzunehmen.',
+    'يحوّل هذا العمل الدقيق النموذجَ إلى أداة تشخيص حقيقية: يُدوَّن فيه كل غرفة وكل مستوى وكل خلل. وقبل اقتراح أي شيء، تُفهم الفيلا فهماً كاملاً، جاهزةً لاستقبال مشروع إعادة تأهيل.'
   ),
   dat: tri(
-    "Au sol, le projet ouvre l'immeuble sur la ville : commerces et halls forment un socle actif qui met la vie publique au contact de la rue, tandis que les plateaux de bureaux gagnent en calme à mesure qu'ils s'élèvent. Le moucharabieh contemporain n'est pas qu'un motif : c'est un dispositif climatique, qui gère l'ensoleillement intense sans renoncer aux vues.",
-    'At ground level, the project opens the building onto the city: retail and lobbies form an active base that brings public life into contact with the street, while the office floors grow calmer as they rise. The contemporary mashrabiya is not merely a motif: it is a climatic device, managing intense sunlight without giving up the views.',
-    'Im Erdgeschoss öffnet das Projekt das Gebäude zur Stadt: Handel und Hallen bilden einen aktiven Sockel, der das öffentliche Leben mit der Straße in Kontakt bringt, während die Büroetagen mit zunehmender Höhe ruhiger werden. Die zeitgenössische Maschrabiyya ist nicht nur ein Motiv: Sie ist eine klimatische Vorrichtung, die die intensive Sonneneinstrahlung steuert, ohne auf die Ausblicke zu verzichten.',
-    'عند الأرض، يفتح المشروع المبنى على المدينة: تشكّل المحلات والبهوات قاعدةً نشطة تضع الحياة العامة على تماسّ مع الشارع، بينما تزداد طوابق المكاتب هدوءاً كلما ارتفعت. والمشربية المعاصرة ليست زخرفاً فحسب: إنها أداة مناخية تُدير الإشعاع الشمسي الشديد دون التخلّي عن المناظر.'
+    "Au sol, le projet ouvre l'immeuble sur la ville : commerces et halls forment un socle actif qui met la vie publique au contact de la rue, tandis que les plateaux de bureaux gagnent en calme à mesure qu'ils s'élèvent. Décliné du lobby jusqu'aux couloirs, le motif islamique devient le fil conducteur qui unifie tout le parcours intérieur.",
+    'At ground level, the project opens the building onto the city: retail and lobbies form an active base that brings public life into contact with the street, while the office floors grow calmer as they rise. Carried from the lobby through the corridors, the Islamic motif becomes the thread that unifies the entire interior journey.',
+    'Im Erdgeschoss öffnet das Projekt das Gebäude zur Stadt: Handel und Hallen bilden einen aktiven Sockel, der das öffentliche Leben mit der Straße in Kontakt bringt, während die Büroetagen mit zunehmender Höhe ruhiger werden. Von der Lobby bis in die Flure geführt, wird das islamische Muster zum roten Faden, der den gesamten Innenparcours vereint.',
+    'عند الأرض، يفتح المشروع المبنى على المدينة: تشكّل المحلات والبهوات قاعدةً نشطة تضع الحياة العامة على تماسّ مع الشارع، بينما تزداد طوابق المكاتب هدوءاً كلما ارتفعت. ومن البهو إلى الممرات، تغدو الزخرفة الإسلامية الخيطَ الناظم الذي يوحّد المسار الداخلي بأكمله.'
   ),
   'entree-de-bureaux': tri(
-    "La palette matérielle — pierre, bois clair et métal patiné — installe une élégance sobre, pensée pour durer au-delà des effets de mode. L'éclairage, enfin, sculpte l'espace autant qu'il guide : lumière rasante sur les matières, points chauds à l'accueil, pour que le seuil dise d'emblée le soin porté à ceux qu'il reçoit.",
-    'The material palette — stone, pale wood and patinated metal — sets a sober elegance, meant to last beyond passing fashions. Lighting, finally, sculpts the space as much as it guides: grazing light on the materials, warm focal points at the reception, so that the threshold announces at once the care given to those it welcomes.',
-    'Die Materialpalette — Stein, helles Holz und patiniertes Metall — schafft eine nüchterne Eleganz, die über Modeerscheinungen hinaus Bestand haben soll. Das Licht schließlich formt den Raum ebenso, wie es leitet: streifendes Licht auf den Materialien, warme Lichtpunkte am Empfang, damit die Schwelle sogleich die Sorgfalt für die Empfangenen ausspricht.',
-    'تُرسي لوحة المواد — الحجر والخشب الفاتح والمعدن المتعتّق — أناقةً رصينة، مقصودةً لتدوم أبعد من الموضات العابرة. أما الإضاءة فتنحت الفضاء بقدر ما توجّه: ضوء مائل على المواد، وبؤر دافئة عند الاستقبال، كي تُعلن العتبة منذ الوهلة الأولى العنايةَ بمن تستقبلهم.'
+    "Les deux versions retenues déclinent la même intention avec des matériaux et des ambiances légèrement différents. C'est la confrontation de ces variantes, en 3D, qui a permis de trancher et d'arrêter le parti final.",
+    'The two selected versions develop the same intention with slightly different materials and moods. Comparing these variants in 3D is what made it possible to decide and settle on the final design.',
+    'Die beiden ausgewählten Varianten entwickeln dieselbe Absicht mit leicht unterschiedlichen Materialien und Stimmungen. Erst der Vergleich dieser Varianten in 3D erlaubte die Entscheidung für den endgültigen Entwurf.',
+    'تطوّر النسختان المعتمدتان النيّةَ نفسها بمواد وأجواء مختلفة قليلاً. ومقارنةُ هاتين النسختين في النمذجة الثلاثية الأبعاد هي ما أتاح الحسمَ واعتمادَ التصميم النهائي.'
   ),
-  'details-berlin': tri(
-    "Travailler le détail, c'est accepter que l'architecture se joue autant sur la planche à dessin que sur le chantier : chaque coupe verticale négocie l'isolation, l'acoustique et la mise en œuvre réelle de l'artisan. Cette expérience berlinoise a nourri une conviction — la cohérence d'un bâtiment se construit du grand au petit, sans jamais relâcher l'attention.",
-    "To work on the detail is to accept that architecture is decided as much on the drawing board as on site: every vertical section negotiates insulation, acoustics and the craftsman's actual execution. This Berlin experience fed a conviction — a building's coherence is built from the large to the small, never letting attention slacken.",
-    'Am Detail zu arbeiten heißt zu akzeptieren, dass Architektur ebenso am Reißbrett wie auf der Baustelle entschieden wird: Jeder Vertikalschnitt verhandelt Dämmung, Akustik und die tatsächliche Ausführung des Handwerkers. Diese Berliner Erfahrung nährte eine Überzeugung — die Kohärenz eines Gebäudes entsteht vom Großen zum Kleinen, ohne die Aufmerksamkeit je nachlassen zu lassen.',
-    'أن تشتغل على التفصيل يعني أن تقبل بأن العمارة تُحسم على لوح الرسم بقدر ما تُحسم في الورشة: يفاوض كل مقطع عمودي العزلَ والصوتيات والتنفيذ الفعلي للحرفي. غذّت هذه التجربة البرلينية قناعة — تماسك المبنى يُبنى من الكبير إلى الصغير، دون أن يفتر الانتباه قط.'
-  ),
+  // details-berlin : texte volontairement court (chapô + un seul paragraphe) →
+  // pas de 3e paragraphe ici (demande de Dana : « reste sobre »).
   'littoral-variations': tri(
-    "En déclinant un même motif selon trois protocoles, la série interroge la frontière entre photographie et dessin, entre relevé et interprétation. Ce qui se donne à voir n'est plus la côte elle-même, mais la manière dont un regard — et un outil — la découpent, la mesurent et la recomposent.",
-    'By declining a single motif through three protocols, the series questions the border between photography and drawing, between survey and interpretation. What is offered to the eye is no longer the coast itself, but the way in which a gaze — and a tool — cut it, measure it and recompose it.',
-    'Indem sie ein einziges Motiv nach drei Protokollen durchspielt, befragt die Serie die Grenze zwischen Fotografie und Zeichnung, zwischen Aufnahme und Deutung. Was sich dem Auge zeigt, ist nicht mehr die Küste selbst, sondern die Art, wie ein Blick — und ein Werkzeug — sie zerschneiden, vermessen und neu zusammensetzen.',
-    'بتصريف الموتيف الواحد وفق ثلاثة بروتوكولات، تتساءل السلسلة عن الحدّ بين الفوتوغرافيا والرسم، بين الرصد والتأويل. فما يُعرَض على العين لم يعد الساحل نفسه، بل الطريقة التي بها يقصّه نظرٌ — وأداةٌ — ويقيسانه ويعيدان تركيبه.'
+    "En déclinant un même motif selon trois protocoles, la série interroge la frontière entre photographie et dessin, entre relevé et interprétation. Ce qui se donne à voir n'est plus la côte elle-même, mais la manière dont un regard et un outil la découpent, la mesurent et la recomposent.",
+    'By declining a single motif through three protocols, the series questions the border between photography and drawing, between survey and interpretation. What is offered to the eye is no longer the coast itself, but the way in which a gaze and a tool cut it, measure it and recompose it.',
+    'Indem sie ein einziges Motiv nach drei Protokollen durchspielt, befragt die Serie die Grenze zwischen Fotografie und Zeichnung, zwischen Aufnahme und Deutung. Was sich dem Auge zeigt, ist nicht mehr die Küste selbst, sondern die Art, wie ein Blick und ein Werkzeug sie zerschneiden, vermessen und neu zusammensetzen.',
+    'بتصريف الموتيف الواحد وفق ثلاثة بروتوكولات، تتساءل السلسلة عن الحدّ بين الفوتوغرافيا والرسم، بين الرصد والتأويل. فما يُعرَض على العين لم يعد الساحل نفسه، بل الطريقة التي بها يقصّه نظرٌ وأداةٌ ويقيسانه ويعيدان تركيبه.'
   ),
   tabouret: tri(
     "Le résultat assume son origine : une assise simple et solide où l'économie de moyens devient un parti pris. Réemployer plutôt que produire du neuf, c'est déjà une manière de dessiner responsable.",
@@ -998,16 +1005,16 @@ const ARTICLE_EXTRA = {
     'أبعد من التقنية، يشحذ التمرين النظر: اختيار الفتحة قرارٌ سلفاً بما يهمّ في الكادر وما ينمحي. تغدو كل صورة دراسةً صغيرة في التأليف، حيث يُلزم قيدُ الوضع اليدوي الكامل بالرؤية قبل الضغط على الزر.'
   ),
   'rehabilitation-tourcoing': tri(
-    "Au-delà de la forme, le projet porte une stratégie écologique et sociale : désimperméabiliser pour laisser respirer les sols, planter pour rafraîchir les cœurs d'îlot, et mêler les typologies pour éviter la ségrégation. Réhabiliter devient ici un acte politique autant qu'architectural — préférer le soin du déjà-là à la table rase.",
-    'Beyond form, the project carries an ecological and social strategy: de-paving to let the soil breathe, planting to cool the block cores, and mixing typologies to avoid segregation. To rehabilitate here becomes a political act as much as an architectural one — preferring care for what is already there to the clean slate.',
-    'Über die Form hinaus trägt das Projekt eine ökologische und soziale Strategie: entsiegeln, damit der Boden atmet, bepflanzen, um die Blockinneren zu kühlen, und Typologien mischen, um Segregation zu vermeiden. Sanieren wird hier zu einem ebenso politischen wie architektonischen Akt — die Sorge um das Bestehende der Tabula rasa vorzuziehen.',
-    'أبعد من الشكل، يحمل المشروع استراتيجيةً بيئية واجتماعية: إزالة الإسمنت كي تتنفّس الأرض، والتشجير لتلطيف قلوب الجزر، ومزج الأنماط السكنية لتفادي الفصل. تغدو إعادة التأهيل هنا فعلاً سياسياً بقدر ما هي معمارية — تفضيل العناية بما هو قائم على الأرض البيضاء.'
+    "Au-delà de la forme, le projet porte une stratégie écologique et sociale : désimperméabiliser pour laisser respirer les sols, planter pour rafraîchir les cœurs d'îlot, et mêler les typologies pour éviter la ségrégation. Réhabiliter devient ici un acte politique autant qu'architectural : préférer le soin du déjà-là à la table rase.",
+    'Beyond form, the project carries an ecological and social strategy: de-paving to let the soil breathe, planting to cool the block cores, and mixing typologies to avoid segregation. To rehabilitate here becomes a political act as much as an architectural one: preferring care for what is already there to the clean slate.',
+    'Über die Form hinaus trägt das Projekt eine ökologische und soziale Strategie: entsiegeln, damit der Boden atmet, bepflanzen, um die Blockinneren zu kühlen, und Typologien mischen, um Segregation zu vermeiden. Sanieren wird hier zu einem ebenso politischen wie architektonischen Akt: die Sorge um das Bestehende der Tabula rasa vorzuziehen.',
+    'أبعد من الشكل، يحمل المشروع استراتيجيةً بيئية واجتماعية: إزالة الإسمنت كي تتنفّس الأرض، والتشجير لتلطيف قلوب الجزر، ومزج الأنماط السكنية لتفادي الفصل. تغدو إعادة التأهيل هنا فعلاً سياسياً بقدر ما هي معمارية: تفضيل العناية بما هو قائم على الأرض البيضاء.'
   ),
   'logo-ajfl': tri(
-    "La mise au point a suivi une longue série d'esquisses, cherchant le point exact où trois symboles deviennent une seule forme, lisible à petite comme à grande échelle. Réduit à un seul trait, le logotype reste reconnaissable en filigrane, en tampon ou en en-tête — preuve qu'une identité tient d'abord dans la justesse de son signe.",
-    'The refinement followed a long series of sketches, seeking the exact point where three symbols become a single form, legible at small and large scale alike. Reduced to a single line, the logotype stays recognisable as a watermark, a stamp or a letterhead — proof that an identity holds first in the rightness of its sign.',
-    'Die Ausarbeitung folgte einer langen Reihe von Skizzen, auf der Suche nach dem genauen Punkt, an dem drei Symbole zu einer einzigen Form werden, die im Kleinen wie im Großen lesbar bleibt. Auf eine einzige Linie reduziert, bleibt das Logo als Wasserzeichen, Stempel oder Briefkopf erkennbar — Beweis, dass eine Identität zuerst in der Richtigkeit ihres Zeichens liegt.',
-    'تبع الإنجازُ سلسلةً طويلة من الاسكتشات، بحثاً عن النقطة الدقيقة التي تصير عندها ثلاثة رموز شكلاً واحداً مقروءاً في المقياس الصغير كما الكبير. ومختزَلاً إلى خطٍّ واحد، يبقى الشعار قابلاً للتمييز كعلامة مائية أو ختم أو ترويسة — دليلٌ على أن الهوية تكمن أولاً في صواب علامتها.'
+    "La mise au point a suivi une longue série d'esquisses, cherchant le point exact où trois symboles deviennent une seule forme, lisible à petite comme à grande échelle. Réduit à un seul trait, le logotype reste reconnaissable en filigrane, en tampon ou en en-tête : preuve qu'une identité tient d'abord dans la justesse de son signe.",
+    'The refinement followed a long series of sketches, seeking the exact point where three symbols become a single form, legible at small and large scale alike. Reduced to a single line, the logotype stays recognisable as a watermark, a stamp or a letterhead: proof that an identity holds first in the rightness of its sign.',
+    'Die Ausarbeitung folgte einer langen Reihe von Skizzen, auf der Suche nach dem genauen Punkt, an dem drei Symbole zu einer einzigen Form werden, die im Kleinen wie im Großen lesbar bleibt. Auf eine einzige Linie reduziert, bleibt das Logo als Wasserzeichen, Stempel oder Briefkopf erkennbar: Beweis, dass eine Identität zuerst in der Richtigkeit ihres Zeichens liegt.',
+    'تبع الإنجازُ سلسلةً طويلة من الاسكتشات، بحثاً عن النقطة الدقيقة التي تصير عندها ثلاثة رموز شكلاً واحداً مقروءاً في المقياس الصغير كما الكبير. ومختزَلاً إلى خطٍّ واحد، يبقى الشعار قابلاً للتمييز كعلامة مائية أو ختم أو ترويسة: دليلٌ على أن الهوية تكمن أولاً في صواب علامتها.'
   ),
 };
 
@@ -1139,6 +1146,74 @@ const CHAPTERS = {
   ],
 };
 
+/**
+ * Titres de chapitre SUR MESURE par projet (au lieu de la trame générique
+ * « Intention / Le projet / Matière & détail » appliquée partout). Un tableau
+ * par slug : un titre i18n par chapitre, dans l'ordre des paragraphes de
+ * l'article. `buildChapters` s'en sert en priorité, et retombe sur les titres
+ * génériques (uiTitle) pour tout projet non listé ici.
+ */
+const CHAPTER_TITLES = {
+  'maison-residentielle-etude': [
+    tri('Jour et nuit', 'Day and night', 'Tag und Nacht', 'نهار وليل'),
+    tri('Apprendre Revit de A à Z', 'Learning Revit from A to Z', 'Revit von A bis Z lernen', 'تعلّم Revit من الألف إلى الياء'),
+    tri('La lumière comme matériau', 'Light as a material', 'Licht als Material', 'الضوء بوصفه مادة'),
+  ],
+  cuisine: [
+    tri("Optimiser l'espace", 'Optimising the space', 'Den Raum optimieren', 'تحسين المساحة'),
+    tri('Dessiner avec le client', 'Designing with the client', 'Mit dem Kunden entwerfen', 'التصميم مع العميل'),
+    tri('Matières et lumière', 'Materials and light', 'Material und Licht', 'المواد والضوء'),
+  ],
+  'villa-montagnes-liban': [
+    tri("Relever l'existant", 'Surveying what exists', 'Das Bestehende aufmessen', 'رفع القائم'),
+    tri('Modéliser sans archives', 'Modelling without archives', 'Modellieren ohne Archive', 'النمذجة دون أرشيف'),
+    tri('Un modèle pour diagnostiquer', 'A model for diagnosis', 'Ein Modell zur Diagnose', 'نموذج للتشخيص'),
+  ],
+  dat: [
+    tri('Motifs et seuils', 'Motifs and thresholds', 'Muster und Schwellen', 'زخارف وعتبات'),
+    tri('Empiler les usages', 'Stacking uses', 'Nutzungen stapeln', 'تكديس الاستعمالات'),
+    tri('Ouvrir sur la ville', 'Opening onto the city', 'Zur Stadt öffnen', 'الانفتاح على المدينة'),
+  ],
+  'entree-de-bureaux': [
+    tri('Redessiner le seuil', 'Redrawing the threshold', 'Die Schwelle neu zeichnen', 'إعادة رسم العتبة'),
+    tri('Acier et artisans', 'Steel and craftsmen', 'Stahl und Handwerker', 'الفولاذ والحرفيون'),
+    tri('Deux versions en 3D', 'Two versions in 3D', 'Zwei Varianten in 3D', 'نسختان في النمذجة ثلاثية الأبعاد'),
+  ],
+  'details-berlin': [
+    tri('Le détail sur mesure', 'The custom detail', 'Das maßgefertigte Detail', 'التفصيل حسب الطلب'),
+  ],
+  'littoral-variations': [
+    tri('Trois protocoles', 'Three protocols', 'Drei Protokolle', 'ثلاثة بروتوكولات'),
+    tri('Ni photo ni dessin', 'Neither photo nor drawing', 'Weder Foto noch Zeichnung', 'لا صورة ولا رسم'),
+    tri("Regarder, c'est transformer", 'To look is to transform', 'Sehen heißt verwandeln', 'أن ننظر هو أن نحوّل'),
+  ],
+  'photographie-mode-manuel': [
+    tri('Tout régler à la main', 'Setting everything by hand', 'Alles von Hand einstellen', 'ضبط كل شيء يدوياً'),
+    tri('La lenteur du manuel', 'The slowness of manual', 'Die Langsamkeit des Manuellen', 'بطء الوضع اليدوي'),
+    tri('Voir avant de déclencher', 'Seeing before the shutter', 'Sehen vor dem Auslösen', 'الرؤية قبل الالتقاط'),
+  ],
+  'bague-blender': [
+    tri('Pourquoi cette bague', 'Why this ring', 'Warum dieser Ring', 'لماذا هذا الخاتم'),
+    tri('Construire le volume', 'Building the volume', 'Das Volumen aufbauen', 'بناء الحجم'),
+    tri('Du bâtiment au bijou', 'From building to jewel', 'Vom Gebäude zum Schmuck', 'من المبنى إلى المجوهرة'),
+  ],
+  tabouret: [
+    tri('La contrainte du réemploi', 'The constraint of reuse', 'Der Zwang der Wiederverwendung', 'قيد إعادة الاستعمال'),
+    tri('Valider avant de couper', 'Validating before cutting', 'Prüfen vor dem Schnitt', 'التحقّق قبل القطع'),
+    tri("Assumer l'origine", 'Owning the origin', 'Zum Ursprung stehen', 'تبنّي الأصل'),
+  ],
+  'rehabilitation-tourcoing': [
+    tri('La maquette comme outil', 'The model as a tool', 'Das Modell als Werkzeug', 'المجسّم كأداة'),
+    tri('Varier les typologies', 'Varying the typologies', 'Typologien variieren', 'تنويع الأنماط'),
+    tri('Réhabiliter, un choix', 'Rehabilitating, a choice', 'Sanieren, eine Entscheidung', 'إعادة التأهيل، خيار'),
+  ],
+  'logo-ajfl': [
+    tri('Superposer, pas additionner', 'Superimpose, not add', 'Überlagern, nicht addieren', 'التراكب لا الجمع'),
+    tri('Un trait dessiné à la main', 'A hand-drawn line', 'Eine handgezeichnete Linie', 'خطّ مرسوم باليد'),
+    tri('Un signe à toute échelle', 'A sign at every scale', 'Ein Zeichen in jedem Maßstab', 'علامة في كل مقياس'),
+  ],
+};
+
 // Titre de chapitre générique, repris des libellés d'interface (4 langues).
 const uiTitle = (key) => ({
   FR: ui.FR.project[key],
@@ -1187,10 +1262,12 @@ function buildChapters(p) {
   };
 
   const titleKeys = ['chIntention', 'chProjet', 'chMatiere'];
+  const custom = CHAPTER_TITLES[p.slug];
   const imgChunks = chunk(p.gallery || [], nChapters);
 
   return Array.from({ length: nChapters }, (_, i) => ({
-    title: uiTitle(titleKeys[Math.min(i, titleKeys.length - 1)]),
+    // Titre sur mesure du projet si défini, sinon trame générique traduite.
+    title: custom?.[i] || uiTitle(titleKeys[Math.min(i, titleKeys.length - 1)]),
     images: imgChunks[i] || [],
     body: [fromArticle(i)],
   }));

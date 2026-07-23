@@ -79,11 +79,12 @@ export default function ProjectDetail() {
   const C = L.cursor;
   const place = project.place[lang] ?? project.place;
 
-  // Projet suivant (navigation cyclique DANS la même famille : archi ou art),
-  // en suivant l'ordre trié par `num` — le même que l'accueil.
+  // Navigation cyclique DANS la même famille (archi ou art), en suivant l'ordre
+  // trié par `num` — le même que l'accueil. Projet précédent ET suivant.
   const siblings = project.category === 'art' ? artProjects : architectureProjects;
   const sidx = siblings.findIndex((p) => p.slug === slug);
   const next = siblings[(sidx + 1) % siblings.length];
+  const prev = siblings[(sidx - 1 + siblings.length) % siblings.length];
 
   const lead = (project.article?.[lang] || project.article?.FR)?.lead;
 
@@ -120,6 +121,24 @@ export default function ProjectDetail() {
           >
             {T.label} — {project.num}
           </motion.span>
+
+          {/* Badge « Projet réalisé » — projets réellement construits (Cuisine,
+              Entrée de bureaux). Pastille colorée = couleur d'accent du projet. */}
+          {project.realized && (
+            <motion.span
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
+              className="mb-7 inline-flex items-center gap-2 rounded-full border border-paper/40 bg-paper/10 px-4 py-1.5 font-sans text-[11px] uppercase tracking-editorial text-paper backdrop-blur-sm"
+            >
+              <span
+                aria-hidden
+                className="inline-block h-1.5 w-1.5 rounded-full"
+                style={{ background: COLOR_HEX[project.color] }}
+              />
+              {T.realized}
+            </motion.span>
+          )}
 
           <motion.div
             initial={{ opacity: 0, y: 26 }}
@@ -310,21 +329,38 @@ export default function ProjectDetail() {
           </section>
         )}
 
-        {/* Projet suivant */}
-        <Link
-          to={`/projet/${next.slug}`}
-          data-cursor={C.next}
-          className="group mt-24 flex items-center justify-between border-t-2 border-ink pt-8"
-        >
-          <span className="font-sans text-[11px] uppercase tracking-editorial text-ink/50">
-            {T.next}
-          </span>
-          <Magnetic strength={0.35}>
-            <span className="font-serif text-[clamp(24px,4vw,56px)] italic leading-none text-ink">
-              {next.title[lang]} →
+        {/* Navigation projet — précédent (gauche) & suivant (droite), même
+            design. Cyclique dans la même famille (archi ou art). */}
+        <nav className="mt-24 grid grid-cols-1 border-t-2 border-ink sm:grid-cols-2">
+          <Link
+            to={`/projet/${prev.slug}`}
+            data-cursor={C.prev}
+            className="group flex flex-col items-start gap-2 pt-8 sm:pr-6"
+          >
+            <span className="font-sans text-[11px] uppercase tracking-editorial text-ink/50">
+              {T.prev}
             </span>
-          </Magnetic>
-        </Link>
+            <Magnetic strength={0.35}>
+              <span className="font-serif text-[clamp(24px,4vw,56px)] italic leading-none text-ink">
+                ← {prev.title[lang]}
+              </span>
+            </Magnetic>
+          </Link>
+          <Link
+            to={`/projet/${next.slug}`}
+            data-cursor={C.next}
+            className="group mt-10 flex flex-col items-end gap-2 border-t-2 border-ink/10 pt-8 text-right sm:mt-0 sm:border-l-2 sm:border-t-0 sm:border-ink/10 sm:pl-6"
+          >
+            <span className="font-sans text-[11px] uppercase tracking-editorial text-ink/50">
+              {T.next}
+            </span>
+            <Magnetic strength={0.35}>
+              <span className="font-serif text-[clamp(24px,4vw,56px)] italic leading-none text-ink">
+                {next.title[lang]} →
+              </span>
+            </Magnetic>
+          </Link>
+        </nav>
       </div>
 
       {/* Visionneuse plein écran — parcourt toutes les images de la page. */}

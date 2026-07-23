@@ -13,9 +13,13 @@ import { COLOR_BG } from '../../content/projects.js';
  * fondu couverture→survol du reste du site.
  *
  * Scroll : overflow-x:auto / overflow-y:hidden (classe .h-scroll) → l'axe
- * vertical est verrouillé. Glisser-déposer (pointer events) pour les souris ;
- * `data-lenis-prevent` empêche Lenis d'interférer. On distingue clic et drag
- * (seuil de déplacement) pour ne pas déclencher la navigation en glissant.
+ * vertical est verrouillé. `data-lenis-prevent` empêche Lenis d'interférer.
+ *
+ * TACTILE : on laisse le NAVIGATEUR gérer le défilement horizontal nativement
+ * (fluide, avec inertie) — d'où `touch-action: pan-x pan-y`. Le glisser-déposer JS
+ * n'est donc branché que sur la SOURIS (pointerType === 'mouse') : sur mobile,
+ * poser le doigt sur une image ne bloque plus le scroll. On distingue clic et
+ * drag (seuil de déplacement) pour ne pas naviguer en glissant à la souris.
  */
 
 const t = {
@@ -33,10 +37,11 @@ export default function ArtStrip() {
   const drag = useRef({ active: false, startX: 0, startLeft: 0, moved: 0 });
 
   const onDown = (e) => {
+    if (e.pointerType !== 'mouse') return; // tactile → défilement natif fluide
     drag.current = { active: true, startX: e.clientX, startLeft: ref.current.scrollLeft, moved: 0 };
   };
   const onMove = (e) => {
-    if (!drag.current.active) return;
+    if (!drag.current.active || e.pointerType !== 'mouse') return;
     const dx = e.clientX - drag.current.startX;
     drag.current.moved = Math.max(drag.current.moved, Math.abs(dx));
     ref.current.scrollLeft = drag.current.startLeft - dx;
@@ -69,7 +74,9 @@ export default function ArtStrip() {
         onPointerUp={stop}
         onPointerLeave={stop}
         className="h-scroll mt-10 flex select-none gap-6 px-6 md:px-10"
-        style={{ cursor: 'grab' }}
+        // pan-x : scroll horizontal natif de la bande ; pan-y : le geste vertical
+        // reste rendu à la page (on ne piège pas le défilement vertical).
+        style={{ cursor: 'grab', touchAction: 'pan-x pan-y' }}
       >
         {artProjects.map((p) => (
           <Link

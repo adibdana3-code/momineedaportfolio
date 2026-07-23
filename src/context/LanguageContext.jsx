@@ -1,17 +1,23 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
 /**
- * Gestion d'état multilingue simple (FR / EN / DE / AR).
+ * Gestion d'état multilingue simple (FR / EN / AR — voir note sur l'allemand).
  * Volontairement léger (pas d'i18next) : le contenu est fourni via un
  * dictionnaire `t[lang]` défini au niveau des composants ou dans /src/content.
  *
  * L'arabe (AR) déclenche le mode RTL : on pose `dir="rtl"` + `lang="ar"` sur
  * <html>, ce qui inverse tout le layout et active les règles CSS spécifiques
  * (voir index.css). Les polices arabes (Reem Kufi + IBM Plex Sans Arabic) sont
- * chargées à la demande pour ne pas alourdir le chargement initial FR/EN/DE.
+ * chargées à la demande pour ne pas alourdir le chargement initial.
  */
 
-export const LANGS = ['FR', 'EN', 'DE', 'AR'];
+// ⚠️ ALLEMAND (« DE ») RETIRÉ DU SÉLECTEUR (demande de Dana), mais GARDÉ EN
+// RÉSERVE : toutes les traductions allemandes restent dans le code (ui.DE, le
+// 3e argument de tri() dans content/projects.js, et les blocs `DE` des
+// dictionnaires `t` des composants). Pour REMETTRE l'allemand plus tard, il
+// suffit de rajouter 'DE' dans ce tableau (idéalement en 3e position) :
+//   export const LANGS = ['FR', 'EN', 'DE', 'AR'];
+export const LANGS = ['FR', 'EN', 'AR'];
 
 // Langues à lecture droite→gauche.
 export const RTL_LANGS = ['AR'];
